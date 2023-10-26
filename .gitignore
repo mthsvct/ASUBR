@@ -1,0 +1,4 @@
+.env
+__pycache__/
+src/backend/main.ipynb
+src/backend/curso.json

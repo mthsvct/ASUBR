@@ -1,0 +1,200 @@
+datasource db {
+    provider = "postgresql"
+    url = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-py"
+    interface = "asyncio"
+    recursive_type_depth = 5
+}
+
+model Aluno {
+
+    id Int @id @default(autoincrement())
+    email String @unique
+    password String 
+
+    name String
+    matricula String
+    nivel Int @default(1)
+    ira Float @default(-1.0)
+
+    // ------------ RELAÇÕES ------------ //
+    curso Curso @relation(fields: [cursoId], references: [id])
+    cursoId Int
+
+    // ------------ FILHOS ------------ //
+    matriculas Matricula[]
+    combinacoes Combinacao[]
+    interesses Interesse[]
+
+    @@map("alunos") // nome da tabela no banco de dados
+}
+
+model Curso {
+    id Int @id @default(autoincrement())
+
+    name String
+    qntPeriodos Int @default(1)
+
+    // ------------ FILHOS ------------ //
+    disciplinas Disciplina[]
+    alunos Aluno[]
+    periodos Periodo[]
+
+    @@map("cursos")
+}
+
+model Disciplina {
+    id Int @id @default(autoincrement())
+
+    name String
+    codigo String
+    horas Int
+    tipo String // Atividades Complementares ou Disciplina
+    nivel Int
+    opcional Boolean @default(false)
+    pre Json
+    prox Json
+    iraMin Float @default(0.0)
+    descricao String @default("")
+
+    // ------------ RELAÇÕES ------------ //
+    curso Curso @relation(fields: [cursoId], references: [id])
+    cursoId Int
+    
+    // ------------ FILHOS ------------ //
+    ofertas Oferta[]
+    matriculas Matricula[]
+    interesses Interesse[]
+
+    @@map("disciplinas")
+}
+
+model Matricula {
+    id Int @id @default(autoincrement())
+
+    ano Int @default(-1)
+    semestre Int @default(-1)
+
+    // ------------ RELAÇÕES ------------ //
+    aluno Aluno @relation(fields: [alunoId], references: [id])
+    alunoId Int
+
+    disciplina Disciplina @relation(fields: [disciplinaId], references: [id])
+    disciplinaId Int
+
+    @@map("matriculas")
+}
+
+model Periodo {
+
+    id Int @id @default(autoincrement())
+
+    ano Int
+    semestre Int
+
+    inicioMatriculas DateTime
+    fimMatriculas DateTime
+    processamento DateTime
+
+    atual Boolean @default(false)
+
+
+    // ------------ RELAÇÕES ------------ //
+    curso Curso @relation(fields: [cursoId], references: [id])
+    cursoId Int
+
+    // ------------ RELAÇÕES ------------ //
+    ofertas Oferta[]
+    interesses Interesse[]
+    
+    @@map("periodos")
+}
+
+model Oferta {
+
+    id Int @id @default(autoincrement())
+
+    codHorario String
+    turma Int @default(1)
+    professor String @default("")
+    vagas Int
+
+
+    // ------------ RELAÇÕES ------------ //
+    disciplina Disciplina @relation(fields: [disciplinaId], references: [id])
+    disciplinaId Int
+
+    periodo Periodo @relation(fields: [periodoId], references: [id])
+    periodoId Int
+
+    // ------------ FILHOS ------------ //
+    horarios Horario[]
+    selecoes Selecao[]
+
+
+    @@map("ofertas")
+}
+
+model Horario {
+    
+    id Int @id @default(autoincrement())
+
+    dia Int
+    hora Int
+
+    // ------------ RELAÇÕES ------------ //
+    oferta Oferta @relation(fields: [ofertaId], references: [id])
+    ofertaId Int
+
+    @@map("horarios")
+}
+
+model Combinacao {
+    id Int @id @default(autoincrement())
+    
+    aptidao Float @default(0.0)
+
+    // ------------ RELAÇÕES ------------ //
+    aluno Aluno @relation(fields: [alunoId], references: [id])
+    alunoId Int
+
+    // ------------ FILHOS ------------ //
+    selecoes Selecao[]
+
+    @@map("combinacoes")
+}
+
+model Selecao {
+    id Int @id @default(autoincrement())
+
+    aptidao Float @default(0.0)
+
+    // ------------ RELAÇÕES ------------ //
+    combinacao Combinacao @relation(fields: [combinacaoId], references: [id])
+    combinacaoId Int
+
+    oferta Oferta @relation(fields: [ofertaId], references: [id])
+    ofertaId Int
+
+
+    @@map("selecoes")
+}
+
+model Interesse {
+    id Int @id @default(autoincrement())
+
+    // ------------ RELAÇÕES ------------ //
+    aluno Aluno @relation(fields: [alunoId], references: [id])
+    alunoId Int
+
+    disciplina Disciplina @relation(fields: [disciplinaId], references: [id])
+    disciplinaId Int
+
+    periodo Periodo @relation(fields: [periodoId], references: [id])
+    periodoId Int
+
+    @@map("interesses")
+}

@@ -22,3 +22,22 @@ class Dias:
 
 
 DIAS = Dias()
+
+
+class Uteis:
+
+    def info(self, *args):
+        novo = '('
+        for arg in args:
+            novo += f'{arg} - '
+        return novo[:-3] + ')'
+    
+
+    def ehOpcional(self, disciplina):
+        # if isinstance(disciplina, dict):
+            # return disciplina['natureza'] == 'OPTATIVA'
+        return disciplina['natureza'] == 'OPTATIVA'
+        
+
+
+

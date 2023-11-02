@@ -1,0 +1,1509 @@
+[
+    {
+        "id": 0,
+        "nivel": 1,
+        "cod": "UFP0738",
+        "name": "Monitoria",
+        "horas": 45,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 3,
+            "aula": 45,
+            "lab": 0
+        }
+    },
+    {
+        "id": 1,
+        "nivel": 1,
+        "cod": "UFP0805",
+        "name": "Outras atividades de gestão, técnica ou cientifica que agregam conhecimentos na formação do perfil do egresso (atip).",
+        "horas": 30,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 2,
+            "aula": 30,
+            "lab": 0
+        }
+    },
+    {
+        "id": 2,
+        "nivel": 1,
+        "cod": "UFP0806",
+        "name": "Participação na produção ou elaboração de software (aaetc)",
+        "horas": 45,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 3,
+            "aula": 45,
+            "lab": 0
+        }
+    },
+    {
+        "id": 3,
+        "nivel": 1,
+        "cod": "UFP0807",
+        "name": "Participação em pesquisa e projetos institucionais (atidp)",
+        "horas": 30,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 2,
+            "aula": 30,
+            "lab": 0
+        }
+    },
+    {
+        "id": 4,
+        "nivel": 1,
+        "cod": "UFP0810",
+        "name": "Participação em grupos de estudo/pesquisa, supervisionados por professores e/ou alunos de mestrado e/ou doutorado da ufpi (atidp)",
+        "horas": 30,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 2,
+            "aula": 30,
+            "lab": 0
+        }
+    },
+    {
+        "id": 5,
+        "nivel": 1,
+        "cod": "UFP0811",
+        "name": "Participação em congressos, conferências, simpósios e fóruns (ataoe)",
+        "horas": 20,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 1,
+            "aula": 20,
+            "lab": 0
+        }
+    },
+    {
+        "id": 6,
+        "nivel": 1,
+        "cod": "UFP0812",
+        "name": "Participação em seminários (ataoe)",
+        "horas": 15,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 1,
+            "aula": 15,
+            "lab": 0
+        }
+    },
+    {
+        "id": 7,
+        "nivel": 1,
+        "cod": "UFP0813",
+        "name": "Participação no pet/pibic",
+        "horas": 45,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 3,
+            "aula": 45,
+            "lab": 0
+        }
+    },
+    {
+        "id": 8,
+        "nivel": 1,
+        "cod": "UFP0814",
+        "name": "Participação em palestras (ataoe)",
+        "horas": 4,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 0,
+            "aula": 4,
+            "lab": 0
+        }
+    },
+    {
+        "id": 9,
+        "nivel": 1,
+        "cod": "UFP0815",
+        "name": "Organização de semanas acadêmicas, congressos, seminários, conferências, simpósios e fóruns (ataoe)",
+        "horas": 30,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 2,
+            "aula": 30,
+            "lab": 0
+        }
+    },
+    {
+        "id": 10,
+        "nivel": 1,
+        "cod": "UFP0816",
+        "name": "Participação em semanas acadêmicas (ataoe)",
+        "horas": 15,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 1,
+            "aula": 15,
+            "lab": 0
+        }
+    },
+    {
+        "id": 11,
+        "nivel": 1,
+        "cod": "UFP0817",
+        "name": "Organização de palestras (ataoe)",
+        "horas": 5,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 0,
+            "aula": 5,
+            "lab": 0
+        }
+    },
+    {
+        "id": 12,
+        "nivel": 1,
+        "cod": "UFP0818",
+        "name": "Gestão tecnológica em empresas (expco)",
+        "horas": 45,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 3,
+            "aula": 45,
+            "lab": 0
+        }
+    },
+    {
+        "id": 13,
+        "nivel": 1,
+        "cod": "UFP0819",
+        "name": "Participação de projetos na área de sistemas de informação junto a organizações (expco)",
+        "horas": 45,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 3,
+            "aula": 45,
+            "lab": 0
+        }
+    },
+    {
+        "id": 14,
+        "nivel": 1,
+        "cod": "UFP0820",
+        "name": "Realização de estágios não obrigatórios cadastros na prex (expco)",
+        "horas": 45,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 3,
+            "aula": 45,
+            "lab": 0
+        }
+    },
+    {
+        "id": 15,
+        "nivel": 1,
+        "cod": "UFP0821",
+        "name": "Estágio em empresa júnior/incubadora de empresa (expco)",
+        "horas": 45,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 3,
+            "aula": 45,
+            "lab": 0
+        }
+    },
+    {
+        "id": 16,
+        "nivel": 1,
+        "cod": "UFP0822",
+        "name": "Participação em projetos sociais governamentais e não governamentais (expco)",
+        "horas": 45,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 3,
+            "aula": 45,
+            "lab": 0
+        }
+    },
+    {
+        "id": 17,
+        "nivel": 1,
+        "cod": "UFP0823",
+        "name": "Participação em programas de bolsa da ufpi (expco)",
+        "horas": 45,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 3,
+            "aula": 45,
+            "lab": 0
+        }
+    },
+    {
+        "id": 18,
+        "nivel": 1,
+        "cod": "UFP0824",
+        "name": "Publicações em revistas indexadas, jornais e anais (trpul)",
+        "horas": 45,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 3,
+            "aula": 45,
+            "lab": 0
+        }
+    },
+    {
+        "id": 19,
+        "nivel": 1,
+        "cod": "UFP0825",
+        "name": "Apresentação de trabalhos em eventos científicos (trpul)",
+        "horas": 45,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 3,
+            "aula": 45,
+            "lab": 0
+        }
+    },
+    {
+        "id": 20,
+        "nivel": 1,
+        "cod": "UFP0826",
+        "name": "Aprovação ou premiação em concursos (trpul)",
+        "horas": 45,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 3,
+            "aula": 45,
+            "lab": 0
+        }
+    },
+    {
+        "id": 21,
+        "nivel": 1,
+        "cod": "UFP0827",
+        "name": "Cursos à distância (atext)",
+        "horas": 15,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 1,
+            "aula": 15,
+            "lab": 0
+        }
+    },
+    {
+        "id": 22,
+        "nivel": 1,
+        "cod": "UFP0828",
+        "name": "Estudos realizados em programas de extensão (atext)",
+        "horas": 15,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 1,
+            "aula": 15,
+            "lab": 0
+        }
+    },
+    {
+        "id": 23,
+        "nivel": 1,
+        "cod": "UFP0829",
+        "name": "Participação em projetos de extensão (atext)",
+        "horas": 30,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 2,
+            "aula": 30,
+            "lab": 0
+        }
+    },
+    {
+        "id": 24,
+        "nivel": 1,
+        "cod": "UFP0830",
+        "name": "Participação em órgãos colegiados da ufpi (vgest)",
+        "horas": 40,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 3,
+            "aula": 40,
+            "lab": 0
+        }
+    },
+    {
+        "id": 25,
+        "nivel": 1,
+        "cod": "UFP0831",
+        "name": "Participação em comitês ou comissões de trabalhos na ufpi, não relacionados a eventos (vgest)",
+        "horas": 40,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 3,
+            "aula": 40,
+            "lab": 0
+        }
+    },
+    {
+        "id": 26,
+        "nivel": 1,
+        "cod": "UFP0832",
+        "name": "Participação em entidades estudantis da ufpi como membro de diretoria (vgest)",
+        "horas": 40,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 3,
+            "aula": 40,
+            "lab": 0
+        }
+    },
+    {
+        "id": 27,
+        "nivel": 1,
+        "cod": "UFP0833",
+        "name": "Participação em grupos de arte, tais como: teatro, dança, coral, poesia e música (aaetc)",
+        "horas": 5,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 0,
+            "aula": 5,
+            "lab": 0
+        }
+    },
+    {
+        "id": 28,
+        "nivel": 1,
+        "cod": "UFP0834",
+        "name": "Outras atividades de gestão, técnica ou cientifica que agregam conhecimentos na formação do perfil do egresso (diele)",
+        "horas": 45,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 3,
+            "aula": 45,
+            "lab": 0
+        }
+    },
+    {
+        "id": 29,
+        "nivel": 1,
+        "cod": "UFP0835",
+        "name": "Outras atividades de gestão, técnica ou cientifica que agregam conhecimentos na formação do perfil do egresso (viste)",
+        "horas": 10,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 1,
+            "aula": 10,
+            "lab": 0
+        }
+    },
+    {
+        "id": 30,
+        "nivel": 1,
+        "cod": "UFP0836",
+        "name": "Outras atividades de gestão, técnica ou cientifica que agregam conhecimentos na formação do perfil do egresso (esnob)",
+        "horas": 45,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 3,
+            "aula": 45,
+            "lab": 0
+        }
+    },
+    {
+        "id": 31,
+        "nivel": 1,
+        "cod": "UFP1965",
+        "name": "Participação em mini-curso(ataoe).",
+        "horas": 4,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 0,
+            "aula": 4,
+            "lab": 0
+        }
+    },
+    {
+        "id": 32,
+        "nivel": 1,
+        "cod": "UFP2009",
+        "name": "Participação em semanas acadêmicas(ataoe)",
+        "horas": 20,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 1,
+            "aula": 20,
+            "lab": 0
+        }
+    },
+    {
+        "id": 33,
+        "nivel": 1,
+        "cod": "UFP2010",
+        "name": "Participação em palestras(ataoe)",
+        "horas": 8,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 1,
+            "aula": 8,
+            "lab": 0
+        }
+    },
+    {
+        "id": 34,
+        "nivel": 1,
+        "cod": "UFP2011",
+        "name": "Participação em palestras (ataoe).",
+        "horas": 12,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 1,
+            "aula": 12,
+            "lab": 0
+        }
+    },
+    {
+        "id": 35,
+        "nivel": 1,
+        "cod": "UFP2012",
+        "name": "Participação em palestras.(ataoe)",
+        "horas": 16,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 1,
+            "aula": 16,
+            "lab": 0
+        }
+    },
+    {
+        "id": 36,
+        "nivel": 1,
+        "cod": "UFP2013",
+        "name": "Participação em palestras.(ataoe).",
+        "horas": 20,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 1,
+            "aula": 20,
+            "lab": 0
+        }
+    },
+    {
+        "id": 37,
+        "nivel": 1,
+        "cod": "UFP2014",
+        "name": "Participação em mini-cursos(ataoe).",
+        "horas": 8,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 1,
+            "aula": 8,
+            "lab": 0
+        }
+    },
+    {
+        "id": 38,
+        "nivel": 1,
+        "cod": "UFP2015",
+        "name": "Participação em congressos, conferências, simpósios e fóruns (ataoe).",
+        "horas": 15,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 1,
+            "aula": 15,
+            "lab": 0
+        }
+    },
+    {
+        "id": 39,
+        "nivel": 1,
+        "cod": "UFP2016",
+        "name": "Participação em congressos, conferências, simpósios e fóruns.(ataoe)",
+        "horas": 10,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 1,
+            "aula": 10,
+            "lab": 0
+        }
+    },
+    {
+        "id": 40,
+        "nivel": 1,
+        "cod": "UFP2039",
+        "name": "Participação em programas de bolsa com instituições de ensino superior conveniadas (expco)",
+        "horas": 45,
+        "tipo": "ATIVIDADES COMPLEMENTARES",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 3,
+            "aula": 45,
+            "lab": 0
+        }
+    },
+    {
+        "id": 41,
+        "nivel": 1,
+        "cod": "CHN0722",
+        "name": "SEMINARIO DE INTRODUCAO AO CURSO",
+        "horas": 15,
+        "tipo": "DISCIPLINA",
+        "pre": "-",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 1,
+            "aula": 15,
+            "lab": 0
+        }
+    },
+    {
+        "id": 42,
+        "nivel": 1,
+        "cod": "SINF/CSHNB001",
+        "name": "ALGORITMOS E PROGRAMAÇÃO I",
+        "horas": 90,
+        "tipo": "DISCIPLINA",
+        "pre": "-",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 6,
+            "aula": 45,
+            "lab": 45
+        }
+    },
+    {
+        "id": 43,
+        "nivel": 1,
+        "cod": "SINF/CSHNB002",
+        "name": "GESTÃO EMPRESARIAL",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "-",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 30,
+            "lab": 30
+        }
+    },
+    {
+        "id": 44,
+        "nivel": 1,
+        "cod": "SINF/CSHNB003",
+        "name": "LÓGICA PARA COMPUTAÇÃO",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "-",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 60,
+            "lab": 0
+        }
+    },
+    {
+        "id": 45,
+        "nivel": 1,
+        "cod": "SINF/CSHNB004",
+        "name": "METODOLOGIA CIÊNTIFICA",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "-",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 45,
+            "lab": 15
+        }
+    },
+    {
+        "id": 46,
+        "nivel": 1,
+        "cod": "SINF/CSHNB006",
+        "name": "SISTEMAS DE INFORMAÇÃO I",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "-",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 60,
+            "lab": 0
+        }
+    },
+    {
+        "id": 47,
+        "nivel": 2,
+        "cod": "SINF/CSHNB007",
+        "name": "ALGORITMOS E PROGRAMAÇÃO II",
+        "horas": 90,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB001",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 6,
+            "aula": 30,
+            "lab": 60
+        }
+    },
+    {
+        "id": 48,
+        "nivel": 2,
+        "cod": "SINF/CSHNB008",
+        "name": "CIRCUITOS DIGITAIS",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB003",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 30,
+            "lab": 30
+        }
+    },
+    {
+        "id": 49,
+        "nivel": 2,
+        "cod": "SINF/CSHNB009",
+        "name": "CÁLCULO DIFERENCIAL E INTEGRAL I",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "-",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 60,
+            "lab": 0
+        }
+    },
+    {
+        "id": 50,
+        "nivel": 2,
+        "cod": "SINF/CSHNB010",
+        "name": "EMPREENDEDORISMO EM INFORMÁTICA",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "-",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 30,
+            "lab": 30
+        }
+    },
+    {
+        "id": 51,
+        "nivel": 2,
+        "cod": "SINF/CSHNB011",
+        "name": "MATEMÁTICA DISCRETA",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "-",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 60,
+            "lab": 0
+        }
+    },
+    {
+        "id": 52,
+        "nivel": 2,
+        "cod": "SINF/CSHNB012",
+        "name": "PROGRAMAÇÃO LÓGICA",
+        "horas": 30,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB003",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 2,
+            "aula": 15,
+            "lab": 15
+        }
+    },
+    {
+        "id": 53,
+        "nivel": 2,
+        "cod": "SINF/CSHNB013",
+        "name": "SISTEMAS DE INFORMAÇÃO II",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre":"SINF/CSHNB006",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 60,
+            "lab": 0
+        }
+    },
+    {
+        "id": 54,
+        "nivel": 3,
+        "cod": "SINF/CSHNB014",
+        "name": "ARQUITETURA E ORGANIZAÇÃO DE COMPUTADORES",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB008",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 60,
+            "lab": 0
+        }
+    },
+    {
+        "id": 55,
+        "nivel": 3,
+        "cod": "SINF/CSHNB015",
+        "name": "BANCO DE DADOS I",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "-",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 45,
+            "lab": 15
+        }
+    },
+    {
+        "id": 56,
+        "nivel": 3,
+        "cod": "SINF/CSHNB016",
+        "name": "ENGENHARIA DE SOFTWARE I",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "-",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 45,
+            "lab": 15
+        }
+    },
+    {
+        "id": 57,
+        "nivel": 3,
+        "cod": "SINF/CSHNB017",
+        "name": "ESTATÍSTICA",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "-",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 30,
+            "lab": 30
+        }
+    },
+    {
+        "id": 58,
+        "nivel": 3,
+        "cod": "SINF/CSHNB018",
+        "name": "ESTRUTURAS DE DADOS I",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB007",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 30,
+            "lab": 30
+        }
+    },
+    {
+        "id": 59,
+        "nivel": 3,
+        "cod": "SINF/CSHNB019",
+        "name": "PROGRAMAÇÃO ORIENTADA A OBJETOS I",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB007",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 30,
+            "lab": 30
+        }
+    },
+    {
+        "id": 60,
+        "nivel": 3,
+        "cod": "SINF/CSHNB020",
+        "name": "SISTEMAS OPERACIONAIS",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "-",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 60,
+            "lab": 0
+        }
+    },
+    {
+        "id": 61,
+        "nivel": 4,
+        "cod": "SINF/CSHNB021",
+        "name": "BANCO DE DADOS II",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB015",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 30,
+            "lab": 30
+        }
+    },
+    {
+        "id": 62,
+        "nivel": 4,
+        "cod": "SINF/CSHNB022",
+        "name": "ENGENHARIA DE SOFTWARE II",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB016",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 30,
+            "lab": 30
+        }
+    },
+    {
+        "id": 63,
+        "nivel": 4,
+        "cod": "SINF/CSHNB023",
+        "name": "ESTRUTURAS DE DADOS II",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB018",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 30,
+            "lab": 30
+        }
+    },
+    {
+        "id": 64,
+        "nivel": 4,
+        "cod": "SINF/CSHNB024",
+        "name": "INTERAÇÃO HUMANO COMPUTADOR",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "-",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 30,
+            "lab": 30
+        }
+    },
+    {
+        "id": 65,
+        "nivel": 4,
+        "cod": "SINF/CSHNB025",
+        "name": "PROGRAMAÇÃO ORIENTADA A OBJETOS II",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB019",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 15,
+            "lab": 45
+        }
+    },
+    {
+        "id": 66,
+        "nivel": 4,
+        "cod": "SINF/CSHNB026",
+        "name": "PROGRAMAÇÃO PARA WEB I",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB019",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 30,
+            "lab": 30
+        }
+    },
+    {
+        "id": 67,
+        "nivel": 4,
+        "cod": "SINF/CSHNB027",
+        "name": "REDES DE COMPUTADORES I",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB020",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 45,
+            "lab": 15
+        }
+    },
+    {
+        "id": 68,
+        "nivel": 5,
+        "cod": "SINF/CSHNB028",
+        "name": "ANÁLISE E PROJETO DE SISTEMAS",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB022",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 30,
+            "lab": 30
+        }
+    },
+    {
+        "id": 69,
+        "nivel": 5,
+        "cod": "SINF/CSHNB029",
+        "name": "AUDITORIA E SEGURANÇA DE SISTEMA DE INFORMAÇÃO",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "-",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 60,
+            "lab": 0
+        }
+    },
+    {
+        "id": 70,
+        "nivel": 5,
+        "cod": "SINF/CSHNB030",
+        "name": "CONTABILIDADE GERAL",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "-",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 60,
+            "lab": 0
+        }
+    },
+    {
+        "id": 71,
+        "nivel": 5,
+        "cod": "SINF/CSHNB031",
+        "name": "MATEMÁTICA FINANCEIRA E ANÁLISE DE INVESTIMENTO",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "-",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 60,
+            "lab": 0
+        }
+    },
+    {
+        "id": 72,
+        "nivel": 5,
+        "cod": "SINF/CSHNB032",
+        "name": "PROGRAMAÇÃO PARA WEB II",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB026",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 30,
+            "lab": 30
+        }
+    },
+    {
+        "id": 73,
+        "nivel": 5,
+        "cod": "SINF/CSHNB033",
+        "name": "PROJETO E ANALISE DE ALGORITMOS",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB023",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 45,
+            "lab": 15
+        }
+    },
+    {
+        "id": 74,
+        "nivel": 5,
+        "cod": "SINF/CSHNB052",
+        "name": "REDES DE COMPUTADORES II",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB027",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 45,
+            "lab": 15
+        }
+    },
+    {
+        "id": 75,
+        "nivel": 6,
+        "cod": "SINF/CSHNB048",
+        "name": "TÓPICOS ESPECIAIS EM COMPUTAÇÃO",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB023",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 30,
+            "lab": 30
+        }
+    },
+    {
+        "id": 76,
+        "nivel": 6,
+        "cod": "SINF/CSHNB049",
+        "name": "TÓPICOS ESPECIAIS EM ENGENHARIA DE SOFTWARE",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB022",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 30,
+            "lab": 30
+        }
+    },
+    {
+        "id": 77,
+        "nivel": 6,
+        "cod": "SINF/CSHNB053",
+        "name": "LIBRAS- LINGUAGEM BRASILEIRA DE SINAIS",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 30,
+            "lab": 30
+        }
+    },
+    {
+        "id": 78,
+        "nivel": 6,
+        "cod": "SINF/CSHNB057",
+        "name": "TÓPICOS ESPECIAIS EM VISÃO COMPUTACIONAL",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 30,
+            "lab": 30
+        }
+    },
+    {
+        "id": 79,
+        "nivel": 6,
+        "cod": "SINF/CSHNB035",
+        "name": "GERÊNCIA DE PROJETOS",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB028",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 60,
+            "lab": 0
+        }
+    },
+    {
+        "id": 80,
+        "nivel": 6,
+        "cod": "SINF/CSHNB036",
+        "name": "GERÊNCIA DE REDES DE COMPUTADORES",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB052",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 45,
+            "lab": 15
+        }
+    },
+    {
+        "id": 81,
+        "nivel": 6,
+        "cod": "SINF/CSHNB037",
+        "name": "PROJETO E DESENVOLVIMENTO DE SISTEMAS DE INFORMAÇÃO I",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB028",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 15,
+            "lab": 45
+        }
+    },
+    {
+        "id": 82,
+        "nivel": 6,
+        "cod": "SINF/CSHNB038",
+        "name": "SISTEMAS INTELIGENTES",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB023",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 30,
+            "lab": 30
+        }
+    },
+    {
+        "id": 83,
+        "nivel": 6,
+        "cod": "SINF/CSHNB039",
+        "name": "TRABALHO DE CONCLUSÃO DE CURSO I",
+        "horas": 30,
+        "tipo": "DISCIPLINA",
+        "pre": {
+            "op": "OU",
+            "ds": [
+                {
+                    "op": "E",
+                    "ds": [
+                        "SINF/CSHNB004",
+                        "SINF/CSHNB025"
+                    ]
+                },
+                "SINF/CSHNB011"
+            ]
+        },
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 2,
+            "aula": 15,
+            "lab": 15
+        }
+    },
+    {
+        "id": 84,
+        "nivel": 6,
+        "cod": "SINF/CSHNB041",
+        "name": "SISTEMAS DISTRIBUÍDOS",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB052",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 45,
+            "lab": 15
+        }
+    },
+    {
+        "id": 85,
+        "nivel": 7,
+        "cod": "SINF/CSHNB050",
+        "name": "TÓPICOS ESPECIAIS EM INTELIGÊNCIA ARTIFICIAL",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB039",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 30,
+            "lab": 30
+        }
+    },
+    {
+        "id": 86,
+        "nivel": 7,
+        "cod": "SINF/CSHNB051",
+        "name": "TÓPICOS ESPECIAIS EM REDES DE COMPUTADORES E SISTEMA DISTRIBÍDOS",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": {
+            "op": "E",
+            "ds": [
+                "SINF/CSHNB023",
+                "SINF/CSHNB027"
+            ]
+        },
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 30,
+            "lab": 30
+        }
+    },
+    {
+        "id": 87,
+        "nivel": 7,
+        "cod": "SINF/CSHNB054",
+        "name": "TOPICOS ESPECIAIS EM ARQUITETURA DE COMPUTADORES",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB014",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 30,
+            "lab": 30
+        }
+    },
+    {
+        "id": 88,
+        "nivel": 7,
+        "cod": "SINF/CSHNB055",
+        "name": "TOPICOS ESPECIAIS EM BANCO DE DADOS",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB021",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 30,
+            "lab": 30
+        }
+    },
+    {
+        "id": 89,
+        "nivel": 7,
+        "cod": "SINF/CSHNB058",
+        "name": "INGLÊS TÉCNICO",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "-",
+        "natureza": "OPTATIVA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 30,
+            "lab": 30
+        }
+    },
+    {
+        "id": 90,
+        "nivel": 7,
+        "cod": "SINF/CSHNB005",
+        "name": "PROGRAMAÇÃO FUNCIONAL",
+        "horas": 30,
+        "tipo": "DISCIPLINA",
+        "pre": "-",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 2,
+            "aula": 15,
+            "lab": 15
+        }
+    },
+    {
+        "id": 91,
+        "nivel": 7,
+        "cod": "SINF/CSHNB034",
+        "name": "ÉTICA E LEGISLAÇÃO",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "-",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 60,
+            "lab": 0
+        }
+    },
+    {
+        "id": 92,
+        "nivel": 7,
+        "cod": "SINF/CSHNB040",
+        "name": "PROJETO E DESENVOLVIMENTO DE SISTEMAS DE INFORMAÇÃO II",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB037",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 15,
+            "lab": 45
+        }
+    },
+    {
+        "id": 93,
+        "nivel": 7,
+        "cod": "SINF/CSHNB042",
+        "name": "TRABALHO DE CONCLUSÃO DE CURSO II",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB039",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 30,
+            "lab": 30
+        }
+    },
+    {
+        "id": 94,
+        "nivel": 8,
+        "cod": "SINF/CSHNB043",
+        "name": "TRABALHO DE CONCLUSÃO DE CURSO III",
+        "horas": 60,
+        "tipo": "DISCIPLINA",
+        "pre": "SINF/CSHNB042",
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 4,
+            "aula": 45,
+            "lab": 15
+        }
+    },
+    {
+        "id": 95,
+        "nivel": 8,
+        "cod": "SINF/CSHNB044",
+        "name": "ESTÁGIO SUPERVISIONADO CURRICULAR",
+        "horas": 300,
+        "tipo": "DISCIPLINA",
+        "pre": {
+            "op": "OU",
+            "ds": [
+                {
+                    "op": "E",
+                    "ds": [
+                        "SINF/CSHNB014",
+                        "SINF/CSHNB021",
+                        "SINF/CSHNB022",
+                        "SINF/CSHNB023",
+                        "SINF/CSHNB024",
+                        "SINF/CSHNB025",
+                        "SINF/CSHNB026",
+                        "SINF/CSHNB027"
+                    ]
+                },
+                {
+                    "op": "E",
+                    "ds": [
+                        "SINF/CSHNB001",
+                        "SINF/CSHNB002",
+                        "SINF/CSHNB003",
+                        "SINF/CSHNB004",
+                        "SINF/CSHNB005",
+                        "SINF/CSHNB006",
+                        "SINF/CSHNB007",
+                        "SINF/CSHNB008",
+                        "SINF/CSHNB009",
+                        "SINF/CSHNB010",
+                        "SINF/CSHNB011",
+                        "SINF/CSHNB012",
+                        "SINF/CSHNB013",
+                        "SINF/CSHNB014",
+                        "SINF/CSHNB015",
+                        "SINF/CSHNB016",
+                        "SINF/CSHNB017",
+                        "SINF/CSHNB018",
+                        "SINF/CSHNB019",
+                        "SINF/CSHNB020",
+                        "SINF/CSHNB021",
+                        "SINF/CSHNB022",
+                        "SINF/CSHNB023",
+                        "SINF/CSHNB024",
+                        "SINF/CSHNB025",
+                        "SINF/CSHNB026",
+                        "SINF/CSHNB027"
+                    ]
+                }
+            ]
+        },
+        "natureza": "OBRIGATÓRIA",
+        "creditos": {
+            "creditos": 20,
+            "aula": 0,
+            "lab": 300
+        }
+    }
+]

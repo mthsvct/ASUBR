@@ -52,7 +52,6 @@ model Disciplina {
     name String
     codigo String
     horas Int
-    tipo String // Atividades Complementares ou Disciplina
     nivel Int
     opcional Boolean @default(false)
     pre Json

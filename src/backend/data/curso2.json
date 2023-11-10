@@ -1,661 +1,5 @@
 [
     {
-        "id": 0,
-        "nivel": 1,
-        "cod": "UFP0738",
-        "name": "Monitoria",
-        "horas": 45,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 3,
-            "aula": 45,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 1,
-        "nivel": 1,
-        "cod": "UFP0805",
-        "name": "Outras atividades de gestão, técnica ou cientifica que agregam conhecimentos na formação do perfil do egresso (atip).",
-        "horas": 30,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 2,
-            "aula": 30,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 2,
-        "nivel": 1,
-        "cod": "UFP0806",
-        "name": "Participação na produção ou elaboração de software (aaetc)",
-        "horas": 45,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 3,
-            "aula": 45,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 3,
-        "nivel": 1,
-        "cod": "UFP0807",
-        "name": "Participação em pesquisa e projetos institucionais (atidp)",
-        "horas": 30,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 2,
-            "aula": 30,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 4,
-        "nivel": 1,
-        "cod": "UFP0810",
-        "name": "Participação em grupos de estudo/pesquisa, supervisionados por professores e/ou alunos de mestrado e/ou doutorado da ufpi (atidp)",
-        "horas": 30,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 2,
-            "aula": 30,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 5,
-        "nivel": 1,
-        "cod": "UFP0811",
-        "name": "Participação em congressos, conferências, simpósios e fóruns (ataoe)",
-        "horas": 20,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 1,
-            "aula": 20,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 6,
-        "nivel": 1,
-        "cod": "UFP0812",
-        "name": "Participação em seminários (ataoe)",
-        "horas": 15,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 1,
-            "aula": 15,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 7,
-        "nivel": 1,
-        "cod": "UFP0813",
-        "name": "Participação no pet/pibic",
-        "horas": 45,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 3,
-            "aula": 45,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 8,
-        "nivel": 1,
-        "cod": "UFP0814",
-        "name": "Participação em palestras (ataoe)",
-        "horas": 4,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 0,
-            "aula": 4,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 9,
-        "nivel": 1,
-        "cod": "UFP0815",
-        "name": "Organização de semanas acadêmicas, congressos, seminários, conferências, simpósios e fóruns (ataoe)",
-        "horas": 30,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 2,
-            "aula": 30,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 10,
-        "nivel": 1,
-        "cod": "UFP0816",
-        "name": "Participação em semanas acadêmicas (ataoe)",
-        "horas": 15,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 1,
-            "aula": 15,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 11,
-        "nivel": 1,
-        "cod": "UFP0817",
-        "name": "Organização de palestras (ataoe)",
-        "horas": 5,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 0,
-            "aula": 5,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 12,
-        "nivel": 1,
-        "cod": "UFP0818",
-        "name": "Gestão tecnológica em empresas (expco)",
-        "horas": 45,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 3,
-            "aula": 45,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 13,
-        "nivel": 1,
-        "cod": "UFP0819",
-        "name": "Participação de projetos na área de sistemas de informação junto a organizações (expco)",
-        "horas": 45,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 3,
-            "aula": 45,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 14,
-        "nivel": 1,
-        "cod": "UFP0820",
-        "name": "Realização de estágios não obrigatórios cadastros na prex (expco)",
-        "horas": 45,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 3,
-            "aula": 45,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 15,
-        "nivel": 1,
-        "cod": "UFP0821",
-        "name": "Estágio em empresa júnior/incubadora de empresa (expco)",
-        "horas": 45,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 3,
-            "aula": 45,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 16,
-        "nivel": 1,
-        "cod": "UFP0822",
-        "name": "Participação em projetos sociais governamentais e não governamentais (expco)",
-        "horas": 45,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 3,
-            "aula": 45,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 17,
-        "nivel": 1,
-        "cod": "UFP0823",
-        "name": "Participação em programas de bolsa da ufpi (expco)",
-        "horas": 45,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 3,
-            "aula": 45,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 18,
-        "nivel": 1,
-        "cod": "UFP0824",
-        "name": "Publicações em revistas indexadas, jornais e anais (trpul)",
-        "horas": 45,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 3,
-            "aula": 45,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 19,
-        "nivel": 1,
-        "cod": "UFP0825",
-        "name": "Apresentação de trabalhos em eventos científicos (trpul)",
-        "horas": 45,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 3,
-            "aula": 45,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 20,
-        "nivel": 1,
-        "cod": "UFP0826",
-        "name": "Aprovação ou premiação em concursos (trpul)",
-        "horas": 45,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 3,
-            "aula": 45,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 21,
-        "nivel": 1,
-        "cod": "UFP0827",
-        "name": "Cursos à distância (atext)",
-        "horas": 15,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 1,
-            "aula": 15,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 22,
-        "nivel": 1,
-        "cod": "UFP0828",
-        "name": "Estudos realizados em programas de extensão (atext)",
-        "horas": 15,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 1,
-            "aula": 15,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 23,
-        "nivel": 1,
-        "cod": "UFP0829",
-        "name": "Participação em projetos de extensão (atext)",
-        "horas": 30,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 2,
-            "aula": 30,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 24,
-        "nivel": 1,
-        "cod": "UFP0830",
-        "name": "Participação em órgãos colegiados da ufpi (vgest)",
-        "horas": 40,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 3,
-            "aula": 40,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 25,
-        "nivel": 1,
-        "cod": "UFP0831",
-        "name": "Participação em comitês ou comissões de trabalhos na ufpi, não relacionados a eventos (vgest)",
-        "horas": 40,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 3,
-            "aula": 40,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 26,
-        "nivel": 1,
-        "cod": "UFP0832",
-        "name": "Participação em entidades estudantis da ufpi como membro de diretoria (vgest)",
-        "horas": 40,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 3,
-            "aula": 40,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 27,
-        "nivel": 1,
-        "cod": "UFP0833",
-        "name": "Participação em grupos de arte, tais como: teatro, dança, coral, poesia e música (aaetc)",
-        "horas": 5,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 0,
-            "aula": 5,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 28,
-        "nivel": 1,
-        "cod": "UFP0834",
-        "name": "Outras atividades de gestão, técnica ou cientifica que agregam conhecimentos na formação do perfil do egresso (diele)",
-        "horas": 45,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 3,
-            "aula": 45,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 29,
-        "nivel": 1,
-        "cod": "UFP0835",
-        "name": "Outras atividades de gestão, técnica ou cientifica que agregam conhecimentos na formação do perfil do egresso (viste)",
-        "horas": 10,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 1,
-            "aula": 10,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 30,
-        "nivel": 1,
-        "cod": "UFP0836",
-        "name": "Outras atividades de gestão, técnica ou cientifica que agregam conhecimentos na formação do perfil do egresso (esnob)",
-        "horas": 45,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 3,
-            "aula": 45,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 31,
-        "nivel": 1,
-        "cod": "UFP1965",
-        "name": "Participação em mini-curso(ataoe).",
-        "horas": 4,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 0,
-            "aula": 4,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 32,
-        "nivel": 1,
-        "cod": "UFP2009",
-        "name": "Participação em semanas acadêmicas(ataoe)",
-        "horas": 20,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 1,
-            "aula": 20,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 33,
-        "nivel": 1,
-        "cod": "UFP2010",
-        "name": "Participação em palestras(ataoe)",
-        "horas": 8,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 1,
-            "aula": 8,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 34,
-        "nivel": 1,
-        "cod": "UFP2011",
-        "name": "Participação em palestras (ataoe).",
-        "horas": 12,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 1,
-            "aula": 12,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 35,
-        "nivel": 1,
-        "cod": "UFP2012",
-        "name": "Participação em palestras.(ataoe)",
-        "horas": 16,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 1,
-            "aula": 16,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 36,
-        "nivel": 1,
-        "cod": "UFP2013",
-        "name": "Participação em palestras.(ataoe).",
-        "horas": 20,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 1,
-            "aula": 20,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 37,
-        "nivel": 1,
-        "cod": "UFP2014",
-        "name": "Participação em mini-cursos(ataoe).",
-        "horas": 8,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 1,
-            "aula": 8,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 38,
-        "nivel": 1,
-        "cod": "UFP2015",
-        "name": "Participação em congressos, conferências, simpósios e fóruns (ataoe).",
-        "horas": 15,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 1,
-            "aula": 15,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 39,
-        "nivel": 1,
-        "cod": "UFP2016",
-        "name": "Participação em congressos, conferências, simpósios e fóruns.(ataoe)",
-        "horas": 10,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 1,
-            "aula": 10,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
-        "id": 40,
-        "nivel": 1,
-        "cod": "UFP2039",
-        "name": "Participação em programas de bolsa com instituições de ensino superior conveniadas (expco)",
-        "horas": 45,
-        "tipo": "ATIVIDADES COMPLEMENTARES",
-        "pre": "-",
-        "natureza": "OPTATIVA",
-        "creditos": {
-            "creditos": 3,
-            "aula": 45,
-            "lab": 0
-        },
-        "prox": []
-    },
-    {
         "id": 41,
         "nivel": 1,
         "cod": "CHN0722",
@@ -685,7 +29,10 @@
             "aula": 45,
             "lab": 45
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB007",
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 43,
@@ -701,7 +48,9 @@
             "aula": 30,
             "lab": 30
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 44,
@@ -717,7 +66,11 @@
             "aula": 60,
             "lab": 0
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB008",
+            "SINF/CSHNB012",
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 45,
@@ -733,7 +86,10 @@
             "aula": 45,
             "lab": 15
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB039",
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 46,
@@ -749,7 +105,10 @@
             "aula": 60,
             "lab": 0
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB013",
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 47,
@@ -765,7 +124,11 @@
             "aula": 30,
             "lab": 60
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB018",
+            "SINF/CSHNB019",
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 48,
@@ -781,7 +144,10 @@
             "aula": 30,
             "lab": 30
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB014",
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 49,
@@ -797,7 +163,9 @@
             "aula": 60,
             "lab": 0
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 50,
@@ -813,7 +181,9 @@
             "aula": 30,
             "lab": 30
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 51,
@@ -829,7 +199,10 @@
             "aula": 60,
             "lab": 0
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB039",
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 52,
@@ -845,7 +218,9 @@
             "aula": 15,
             "lab": 15
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 53,
@@ -861,7 +236,9 @@
             "aula": 60,
             "lab": 0
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 54,
@@ -877,7 +254,11 @@
             "aula": 60,
             "lab": 0
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB054",
+            "SINF/CSHNB044",
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 55,
@@ -893,7 +274,10 @@
             "aula": 45,
             "lab": 15
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB021",
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 56,
@@ -909,7 +293,10 @@
             "aula": 45,
             "lab": 15
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB022",
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 57,
@@ -925,7 +312,9 @@
             "aula": 30,
             "lab": 30
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 58,
@@ -941,7 +330,10 @@
             "aula": 30,
             "lab": 30
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB023",
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 59,
@@ -957,7 +349,11 @@
             "aula": 30,
             "lab": 30
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB025",
+            "SINF/CSHNB026",
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 60,
@@ -973,7 +369,10 @@
             "aula": 60,
             "lab": 0
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB027",
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 61,
@@ -989,7 +388,11 @@
             "aula": 30,
             "lab": 30
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB055",
+            "SINF/CSHNB044",
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 62,
@@ -1005,7 +408,12 @@
             "aula": 30,
             "lab": 30
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB028",
+            "SINF/CSHNB049",
+            "SINF/CSHNB044",
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 63,
@@ -1021,7 +429,14 @@
             "aula": 30,
             "lab": 30
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB033",
+            "SINF/CSHNB048",
+            "SINF/CSHNB038",
+            "SINF/CSHNB051",
+            "SINF/CSHNB044",
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 64,
@@ -1037,7 +452,10 @@
             "aula": 30,
             "lab": 30
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB044",
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 65,
@@ -1053,7 +471,11 @@
             "aula": 15,
             "lab": 45
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB039",
+            "SINF/CSHNB044",
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 66,
@@ -1069,7 +491,11 @@
             "aula": 30,
             "lab": 30
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB032",
+            "SINF/CSHNB044",
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 67,
@@ -1085,7 +511,12 @@
             "aula": 45,
             "lab": 15
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB052",
+            "SINF/CSHNB051",
+            "SINF/CSHNB044",
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 68,
@@ -1101,7 +532,10 @@
             "aula": 30,
             "lab": 30
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB035",
+            "SINF/CSHNB037"
+        ]
     },
     {
         "id": 69,
@@ -1197,7 +631,10 @@
             "aula": 45,
             "lab": 15
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB036",
+            "SINF/CSHNB041"
+        ]
     },
     {
         "id": 75,
@@ -1309,7 +746,9 @@
             "aula": 15,
             "lab": 45
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB040"
+        ]
     },
     {
         "id": 82,
@@ -1353,7 +792,10 @@
             "aula": 15,
             "lab": 15
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB050",
+            "SINF/CSHNB042"
+        ]
     },
     {
         "id": 84,
@@ -1471,7 +913,9 @@
             "aula": 15,
             "lab": 15
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB044"
+        ]
     },
     {
         "id": 91,
@@ -1519,7 +963,9 @@
             "aula": 30,
             "lab": 30
         },
-        "prox": []
+        "prox": [
+            "SINF/CSHNB043"
+        ]
     },
     {
         "id": 94,

@@ -56,7 +56,18 @@ class Curso(Db, Uteis):
     # ------------------------------ DISCIPLINAS: BD ------------------------------ #
 
     async def salvarDisciplinas(self):
-        for d in self.disciplinas: await d.save()
+        for d in self.disciplinas: 
+            await d.save()
+            print(f"Disciplina {d.name.title()} salva com sucesso!")
+
+    async def getDisciplinaDb(self, p):
+        discs = await p.find_many()
+        for d in discs:
+            novo = Disciplina()
+            await novo.preenche_dados(d)
+            self.disciplinas.append(novo)
+        
+
 
     # ------------------------------ DISCIPLINAS: BÁSICO ------------------------------ #
 
@@ -104,7 +115,9 @@ class Curso(Db, Uteis):
     # ------------------------------ DISCIPLINAS: PRÉ-REQUISITO ------------------------------ #
 
     # Função que chama 
-    def runs(self):
+    async def runs(self, p=None):
+        if len(self.disciplinas) == 0 and p != None:
+            await self.getDisciplinaDb(p)
         self.runPre()
         self.runProx()
 
@@ -123,21 +136,9 @@ class Curso(Db, Uteis):
 
     # Função que passa todas as disciplinas para a função
     def runProx(self):
-        for d in self.obrigatorias[::-1]: 
-            self.montaProx(d, d.pre)
-
-
-    # Função que monta a lista de disciplinas pré-requisitos de cada disciplina
-    def montaProx(self, d:Disciplina, pre):
-        if pre != None:
-            
-            if isinstance(pre, Disciplina): 
-                pre.addProx(d)
-            elif isinstance(pre, list):
-                for i in pre: 
-                    self.montaProx(d, i)
-            elif isinstance(pre, dict): 
-                self.montaProx(d, pre["ds"])
+        for d in self.disciplinas[::-1]:
+            pass
+                    
 
     # ------------------------------ DISCIPLINAS: OFERTAS ------------------------------ #
     

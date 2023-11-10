@@ -20,6 +20,7 @@ class Disciplina(Db, Uteis):
         ofertas:list=[],
         prisma=None,
         id_curso:int=None,
+        proxJSON=None
     ):
         self.id = id
         self.name = name
@@ -33,6 +34,7 @@ class Disciplina(Db, Uteis):
         self.descricao = descricao
         self.ofertas = ofertas
         self.preJSON = preJSON
+        self.proxJSON = proxJSON
         self.id_curso = id_curso
         super().__init__(prisma)
     
@@ -43,8 +45,8 @@ class Disciplina(Db, Uteis):
 
     # ------------------------------------- DB -------------------------------------- #
     
-    async def preenche_dados(self):
-        await super().preenche_dados()
+    async def preenche_dados(self, objeto=None):
+        await super().preenche_dados(objeto)
         self.id = self.data.id
         self.name = self.data.name
         self.codigo = self.data.codigo
@@ -52,7 +54,7 @@ class Disciplina(Db, Uteis):
         self.nivel = self.data.nivel
         self.opcional = self.data.opcional
         self.preJSON = self.data.pre
-        self.prox = self.data.prox
+        self.proxJSON = self.data.prox
         self.iraMin = self.data.iraMin
         self.descricao = self.data.descricao
         self.id_curso = self.data.cursoId
@@ -82,15 +84,18 @@ class Disciplina(Db, Uteis):
 
     # Função que adiciona uma disciplina d como proxima de self, em seguida ordena a lista de proximas pelo o n
     def addProx(self, d):
-        if d not in self.prox:
+        if d not in self.prox and d != self:
             self.prox.append(d)
             self.prox = sorted(list(set(self.prox)), key=lambda x: x.nivel)
 
     # Função que retorna se d é pré-requisito de self
     def ehPre(self, d, p=None):
-        if self.pre == None: return False
-        if d == self.pre: return True
-        if p == None: p = self.pre
+        if self.pre == None: 
+            return False
+        if d == self.pre: 
+            return True
+        if p == None: 
+            p = self.pre
         if isinstance(p, list):
             for i in p:
                 if self.ehPre(d, i): return True

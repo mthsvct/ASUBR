@@ -11,5 +11,9 @@ class Db:
     async def create(self, data): return await self.prisma.create(data=data)
     async def update(self, id:int, data): return await self.prisma.update(where={'id': id}, data=data)
     async def delete(self, id:int): return await self.prisma.delete(where={'id': id})
-    async def preenche_dados(self): 
-        if self.prisma: self.data = await self.get_id(self.id)
+    async def preenche_dados(self, objeto=None):
+        if objeto == None: 
+            if self.prisma: 
+                self.data = await self.get_id(self.id)
+        else:
+            self.data = objeto

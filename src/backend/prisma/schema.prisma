@@ -143,6 +143,7 @@ model Horario {
 
     dia Int
     hora Int
+    ocupado Boolean @default(false)
 
     // ------------ RELAÇÕES ------------ //
     oferta Oferta @relation(fields: [ofertaId], references: [id])

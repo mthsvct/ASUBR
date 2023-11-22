@@ -20,7 +20,8 @@ class Disciplina(Db, Uteis):
         ofertas:list=[],
         prisma=None,
         id_curso:int=None,
-        proxJSON=None
+        proxJSON=None,
+        d_json=None
     ):
         self.id = id
         self.name = name
@@ -36,6 +37,7 @@ class Disciplina(Db, Uteis):
         self.preJSON = preJSON
         self.proxJSON = proxJSON
         self.id_curso = id_curso
+        self.d_json = d_json
         super().__init__(prisma)
     
     # ------------------------------ Métodos Especiais ------------------------------ #
@@ -59,6 +61,14 @@ class Disciplina(Db, Uteis):
         self.descricao = self.data.descricao
         self.id_curso = self.data.cursoId
 
+    def preenche_dados_json(self):
+        self.name = self.d_json['name']
+        self.codigo = self.d_json['cod']
+        self.horas = self.d_json['horas']
+        self.nivel = self.d_json['nivel']
+        self.opcional = self.ehOpcional(self.d_json)
+        self.preJSON = self.d_json['pre']
+        self.proxJSON = self.d_json['prox']
     
     async def save(self):
         return await self.create(
@@ -69,7 +79,7 @@ class Disciplina(Db, Uteis):
                 "nivel": self.nivel,
                 "opcional": self.opcional,
                 "pre": json.dumps(self.preJSON),
-                "prox": json.dumps(self.converteProx()),
+                "prox": json.dumps(self.proxJSON),
                 "iraMin": self.iraMin,
                 "descricao": self.descricao,
                 "curso": {
@@ -102,7 +112,6 @@ class Disciplina(Db, Uteis):
         if isinstance(p, dict): return self.ehPre(d, p["ds"])
         return False
     
-
     # Função que converte o proximo em lista de códigos
     def converteProx(self):
         return [d.codigo for d in self.prox]

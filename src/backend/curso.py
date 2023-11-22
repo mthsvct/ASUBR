@@ -1,6 +1,8 @@
+from periodo import Periodo
 from disciplina import Disciplina
 from db import Db
 from utilitarios import Uteis
+from prisma import Prisma
 
 class Curso(Db, Uteis):
 
@@ -12,7 +14,7 @@ class Curso(Db, Uteis):
         disciplinas:list=[],
         alunos:list=[],
         periodos:list=[],
-        prisma=None,
+        prisma:Prisma=None, # Lembrar que esse é o prisma Geral
     ) -> None:
         self.id = id
         self.name = name
@@ -20,12 +22,14 @@ class Curso(Db, Uteis):
         self.disciplinas = disciplinas
         self.alunos = alunos
         self.periodos = periodos
-        super().__init__(prisma)
+        self.atual = None
+        self.db : Prisma = prisma
+        super().__init__(prisma.curso)
 
     # ------------------------------ Métodos Especiais ------------------------------ #
 
     def __str__(self) -> str: return self.info(self.id, self.name, self.qntPeriodos)
-    def __repr__(self) -> str: return self.info(self.id, self.name)
+    def __repr__(self) -> str: return self.info(self.id, self.name, self.qntPeriodos)
 
     # ------------------------------ DB ------------------------------ #
 
@@ -34,10 +38,19 @@ class Curso(Db, Uteis):
         self.id = self.data.id
         self.name = self.data.name
         self.qntPeriodos = self.data.qntPeriodos
+        self.atual = await self.buscaAtual()
+    
+    async def save(self):
+        return await self.create(
+            {
+                "name": self.name,
+                "qntPeriodos": self.qntPeriodos,
+            }
+        )
 
     # ------------------------------ LEITURA DO ARQUIVO JSON ------------------------------ #
 
-    def montaDisciplinasArq(self, disciplinas:list, p):
+    def montaDisciplinasArq(self, disciplinas:list):
         for d in disciplinas:
             self.disciplinas.append(
                 Disciplina(
@@ -49,7 +62,7 @@ class Curso(Db, Uteis):
                     opcional=self.ehOpcional(d),
                     preJSON=d["pre"],
                     id_curso=self.id,
-                    prisma=p
+                    prisma=self.db.disciplina
                 )
             )
 
@@ -60,15 +73,14 @@ class Curso(Db, Uteis):
             await d.save()
             print(f"Disciplina {d.name.title()} salva com sucesso!")
 
-    async def getDisciplinaDb(self, p):
-        discs = await p.find_many()
+    async def getDisciplinaDb(self):
+        discs = await self.db.disciplina.find_many()
         for d in discs:
             novo = Disciplina()
             await novo.preenche_dados(d)
             self.disciplinas.append(novo)
+        self.disciplinas = sorted(self.disciplinas, key=lambda x: x.id)
         
-
-
     # ------------------------------ DISCIPLINAS: BÁSICO ------------------------------ #
 
     # Função que busca uma disciplina pelo código.
@@ -100,11 +112,11 @@ class Curso(Db, Uteis):
 
     # Função que retorna todas as disciplinas obrigatórias do curso.
     @property
-    def obrigatorias(self): return [i for i in self.disciplinas if not i.opcional ]
+    def obrigatorias(self): return [ i for i in self.disciplinas if not i.opcional ]
 
     # Função que retorna todas as disciplinas optativas do curso.
     @property
-    def opcionais(self): return [i for i in self.disciplinas if i.opcional]
+    def opcionais(self): return [ i for i in self.disciplinas if i.opcional ]
 
     # Função que retorna todas as disciplinas obrigatórias do curso de um determinado nível.
     def obriNivel(self, nivel=1): return [ i for i in self.nivel(nivel) if not i.opcional ]
@@ -115,9 +127,9 @@ class Curso(Db, Uteis):
     # ------------------------------ DISCIPLINAS: PRÉ-REQUISITO ------------------------------ #
 
     # Função que chama 
-    async def runs(self, p=None):
-        if len(self.disciplinas) == 0 and p != None:
-            await self.getDisciplinaDb(p)
+    async def runs(self):
+        if len(self.disciplinas) == 0:
+            await self.getDisciplinaDb()
         self.runPre()
         self.runProx()
 
@@ -128,17 +140,28 @@ class Curso(Db, Uteis):
 
     # Função que monta a estrutura que organiza objetos Disciplina no dicionário.
     def montaPre(self, pre):
-        # Ex de pre: {'op': 'OU', 'ds': ['SINF/CSHNB003', {'op': 'E', 'ds': ['SINF/CSHNB004', 'SINF/CSHNB025']}]}
-        # E substituir os códigos pelos objetos de disciplina
-        if isinstance(pre, str):  return self.busca(pre) if pre != "-" else None
-        elif isinstance(pre, dict): return {"op": pre['op'], "ds": self.montaPre(pre['ds'])}
-        elif isinstance(pre, list): return [self.montaPre(x) for x in pre]
+        if isinstance(pre, str):  
+            return self.busca(pre) if pre != "-" else None
+        elif isinstance(pre, dict): 
+            return {"op": pre['op'], "ds": self.montaPre(pre['ds'])}
+        elif isinstance(pre, list): 
+            return [self.montaPre(x) for x in pre]
 
     # Função que passa todas as disciplinas para a função
     def runProx(self):
         for d in self.disciplinas[::-1]:
-            pass
-                    
+            if len(d.proxJSON) > 0:
+                d.prox = [ self.busca(x) for x in d.proxJSON ]
 
+
+    # -------------------------------------- PERIODO ----------------------------------- #
+
+    # Função que retorna o período atual do curso.
+    async def buscaAtual(self): 
+        p = await self.db.periodo.find_first(where={"atual": True})
+        periodo = Periodo()
+        await periodo.preenche_dados(p)
+        return periodo
+    
     # ------------------------------ DISCIPLINAS: OFERTAS ------------------------------ #
     

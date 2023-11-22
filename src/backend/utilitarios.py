@@ -11,7 +11,7 @@ class Dias:
     def __len__(self): return len(self.semana)
 
     @property
-    def semana(self): return self.dias[1:6]
+    def semana(self): return self.dias[1:]
     
     @property
     def fim(self): return [self.dias[0], self.dias[6]]

@@ -1,6 +1,9 @@
 from aluno import Aluno
+
+from oferta import Oferta
 from periodo import Periodo
 from disciplina import Disciplina
+
 from db import Db
 from utilitarios import Uteis
 from prisma import Prisma
@@ -172,13 +175,25 @@ class Curso(Db, Uteis):
     # ------------------------------ ALUNO ------------------------------ # 
     
     def ajustaNivel(self, aluno:Aluno):
+        # Função que ajusta o nível do aluno conforme as matérias pagas.
         r = 1
         for i in range(1, self.qntPeriodos):
             nivel = self.obriNivel(i)
             alunoNivel = aluno.matNivel(i)
-            if len(alunoNivel) > len(nivel) // 2:
-                r = i
+            if len(alunoNivel) > len(nivel) // 2: r = i
         aluno.nivel = r
         return aluno.nivel
             
+    def aptidao(self, oferta:Oferta, aluno:Aluno) -> int:
+        # Função que retorna a aptidão do aluno para uma determinada oferta.
+        r = 0
+        if oferta.disciplina.nivel == aluno.nivel:  
+            r += 10
+        elif oferta.disciplina.nivel < aluno.nivel: 
+            r += 10 + (aluno.nivel - oferta.disciplina.nivel)
+        elif oferta.disciplina.nivel > aluno.nivel: 
+            r += 10 - (oferta.disciplina.nivel - aluno.nivel)
+        r += len(oferta.disciplina.prox)
+        return r
+
 

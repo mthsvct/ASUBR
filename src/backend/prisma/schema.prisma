@@ -56,7 +56,6 @@ model Disciplina {
     opcional Boolean @default(false)
     pre Json
     prox Json
-    iraMin Float @default(0.0)
     descricao String @default("")
 
     // ------------ RELAÇÕES ------------ //
@@ -120,7 +119,7 @@ model Oferta {
     turma Int @default(1)
     professor String @default("")
     vagas Int
-
+    iraMin Float @default(0.0)
 
     // ------------ RELAÇÕES ------------ //
     disciplina Disciplina @relation(fields: [disciplinaId], references: [id])

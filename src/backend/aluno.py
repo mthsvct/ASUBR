@@ -39,7 +39,7 @@ class Aluno(Db):
 
     # ------------------------------ Métodos Especiais ------------------------------ #
     
-    def info(self) -> str: return f"({self.id} - {self.name} - {self.matricula})"
+    def info(self) -> str: return f"({self.id} - {self.name} - {self.matricula} - {self.nivel}º)"
     def __str__(self) -> str: return self.info()    
     def __repr__(self) -> str: return self.info()
 
@@ -94,7 +94,6 @@ class Aluno(Db):
         # Fazer uma verificação de senha
         return self.___password
     
-    
     def encripta(self, p): 
         # Função que encripta a senha
         return sha256(p.encode()).hexdigest()
@@ -117,7 +116,6 @@ class Aluno(Db):
         else:
             return {"error": "Aluno não encontrado"} 
         
-
     def verificarPreRequisitos(self, pre):
         # Função que verifica se o aluno pode pagar uma disciplina
         # Deve verificar os pré-requisitos da disciplina
@@ -128,11 +126,9 @@ class Aluno(Db):
             if pre['op'] == 'OU': return any(self.verificarPreRequisitos(pre['ds']))
             if pre['op'] == 'E':  return all(self.verificarPreRequisitos(pre['ds']))
     
-
     def podePagar(self, disciplina:Disciplina):
         # Função que verifica se o aluno pode pagar uma disciplina
         return False if self.pagou(disciplina) else self.verificarPreRequisitos(disciplina.pre)
-
 
     def pagou(self, disciplina:Disciplina):
         # Função que verifica se o aluno pagou uma disciplina
@@ -143,8 +139,8 @@ class Aluno(Db):
             i += 1 # Incrementa o contador
         return encontrado != None # Se encontrado for diferente de None, retorna True, senão retorna False
 
-        
     # ------------------------------ GERAR MATRICULAS SINTETICAS ------------------------------ #
+
     def gerarMatriculas(self, qnt, curso, limite=5):
         # As matriculas sinteticas são matriculas que são geradas aleatoriamente para testar o sistema
         #   - qnt: quantidade de matriculas sinteticas que serão geradas
@@ -172,7 +168,11 @@ class Aluno(Db):
                     semestre = 2
         self.matriculas = matriculas
             
-            
+    
+    # ------------------------------ MATRICULAS ------------------------------ #
+
+    # Função que retorna todas as matriculas do aluno de um nível
+    def matNivel(self, n): return [ m for m in self.matriculas if m.disciplina.nivel == n ]
 
 
 

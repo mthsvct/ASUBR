@@ -1,3 +1,4 @@
+from aluno import Aluno
 from periodo import Periodo
 from disciplina import Disciplina
 from db import Db
@@ -38,7 +39,7 @@ class Curso(Db, Uteis):
         self.id = self.data.id
         self.name = self.data.name
         self.qntPeriodos = self.data.qntPeriodos
-        await self.runs()
+        await self.runs() # Roda as funções de pré-requisitos e proximos
         self.atual = await self.buscaAtual()
     
     async def save(self):
@@ -166,3 +167,18 @@ class Curso(Db, Uteis):
     
     # ------------------------------ DISCIPLINAS: OFERTAS ------------------------------ #
     
+
+
+    # ------------------------------ ALUNO ------------------------------ # 
+    
+    def ajustaNivel(self, aluno:Aluno):
+        r = 1
+        for i in range(1, self.qntPeriodos):
+            nivel = self.obriNivel(i)
+            alunoNivel = aluno.matNivel(i)
+            if len(alunoNivel) > len(nivel) // 2:
+                r = i
+        aluno.nivel = r
+        return aluno.nivel
+            
+

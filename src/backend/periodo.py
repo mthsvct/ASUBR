@@ -1,9 +1,11 @@
 from datetime import datetime
+from random import choice
+
 from oferta import Oferta
 from db import Db
 from horario import Horario
 from utilitarios import DIAS
-from random import choice
+from aluno import Aluno
 
 
 class Periodo(Db):
@@ -76,10 +78,10 @@ class Periodo(Db):
         while n > 0:
             novo = choice(horarios[choice(list(horarios.keys()))])
             if novo.ocupado == False and novo.turno < 3:
-                novo.ocupado = True
-                hs.append(novo)
-                n -= 1
-        return hs
+                novo.ocupado = True; hs.append(novo); n -= 1
+
+        # Retornar ordenado pelo o dia. Se os dois forem iguais, ordena pelo a hora
+        return sorted(hs, key=lambda h: (h.dia, h.hora))
 
     def escolheDisciplina(self, curso, i:int):
         disciplina = None
@@ -115,6 +117,13 @@ class Periodo(Db):
             if i.disciplina.id == dsId:
                 ofs.append(i)
         return ofs
+    
+
+    def disponiveis(self, aluno:Aluno):
+        # Função que retorna todas as ofertas disponíveis para o aluno
+        #   - aluno: objeto Aluno
+        #   - retorna: lista de objetos Oferta
+        return [ o for o in self.ofertas if aluno.podePagar(o.disciplina) and o.vagas > 0 ]
 
 
 

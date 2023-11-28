@@ -28,8 +28,7 @@ class Uteis:
 
     def info(self, *args):
         novo = '('
-        for arg in args:
-            novo += f'{arg} - '
+        for arg in args: novo += f'{arg} - '
         return novo[:-3] + ')'
     
 

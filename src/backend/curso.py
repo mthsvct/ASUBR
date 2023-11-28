@@ -38,6 +38,7 @@ class Curso(Db, Uteis):
         self.id = self.data.id
         self.name = self.data.name
         self.qntPeriodos = self.data.qntPeriodos
+        await self.runs()
         self.atual = await self.buscaAtual()
     
     async def save(self):

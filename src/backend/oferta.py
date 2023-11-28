@@ -14,6 +14,7 @@ class Oferta(Db):
         vagas:int=40,
         disciplina:Disciplina=None,
         horarios:[Horario]=None,
+        prisma=None
     ) -> None:
         self.id = id
         self.codHorario = codHorario
@@ -22,6 +23,8 @@ class Oferta(Db):
         self.vagas = vagas
         self.disciplina = disciplina
         self.horarios = horarios
+        self.prisma = prisma
+        super().__init__(prisma)
 
     # ------------------------------ Métodos Especiais ------------------------------ #
     def info(self): return f"(Oferta: {self.disciplina.name} - {self.cod} - {self.vagas}vs)"
@@ -44,34 +47,37 @@ class Oferta(Db):
         self.horarios = self.data.horarios
 
 
+    async def save(self):
+        return await self.create(
+            {
+                "codHorario": self.codHorario,
+                "turma": self.turma,
+                "professor": self.professor,
+                "vagas": self.vagas,
+                "disciplina": self.disciplina.id
+            }
+        )
+
 
     # ------------------------------ Métodos ------------------------------ #
 
     def hrTurno(self, h):
-        if h in [6, 12, 18]:
-            return "12"
-        elif h in [8, 14, 20]:
-            return "34"
-        elif h in [10, 16, 22]:
-            return "56"
+        if   (h in [6, 12, 18]): return "12"
+        elif (h in [8, 14, 20]): return "34"
+        elif (h in [10, 16,22]): return "56"
 
-
-    def montaCod(self, h:Horario): return f"{h.turnoStr[0]}{self.hrTurno(h.hora)}"
+    def montaCod(self, h:Horario): 
+        return f"{h.turnoStr[0]}{self.hrTurno(h.hora)}"
 
     def geraCodHor(self): 
         cod, r = [], []
-        
-        for h in self.horarios:
+        for h in self.horarios: 
             cod.append((self.montaCod(h), h))
-        
         d = self.buscaCodIguais(cod)
-
         for c in d:
             aux = ''
-            for h in d[c]:
-                aux += str( h.dia )
+            for h in d[c]: aux+=str( h.dia )
             r.append(aux+c)
-            
         return r
     
     # Montar dicionários com os códigos iguais
@@ -80,11 +86,12 @@ class Oferta(Db):
     def buscaCodIguais(self, cod:[(str, Horario)]):
         cods = {}
         for c in cod:
-            if c[0] in cods:
+            if (c[0] in cods): 
                 cods[c[0]].append(c[1])
-            else:
+            else: 
                 cods[c[0]] = [c[1]]
         return cods
 
     @property
-    def cod(self): return self.geraCodHor() if self.horarios != [] else None
+    def cod(self): return self.geraCodHor() if (self.horarios != []) else None
+

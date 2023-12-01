@@ -1,12 +1,15 @@
-from aluno import Aluno
+from random import choice
+from prisma import Prisma
 
+from aluno import Aluno
 from oferta import Oferta
 from periodo import Periodo
 from disciplina import Disciplina
-
+from selecao import Selecao
+from combinacao import Combinacao
 from db import Db
 from utilitarios import Uteis
-from prisma import Prisma
+
 
 class Curso(Db, Uteis):
 
@@ -28,17 +31,25 @@ class Curso(Db, Uteis):
         self.periodos = periodos
         self.atual = None
         self.db : Prisma = prisma
-        super().__init__(prisma.curso)
+        if prisma:
+            super().__init__(prisma.curso)
 
     # ------------------------------ Métodos Especiais ------------------------------ #
 
     def __str__(self) -> str: return self.info(self.id, self.name, self.qntPeriodos)
     def __repr__(self) -> str: return self.info(self.id, self.name, self.qntPeriodos)
+    def __getitem__(self, i): return self.disciplinas[i] if i < len(self.disciplinas) else None
+
 
     # ------------------------------ DB ------------------------------ #
 
-    async def preenche_dados(self):
-        await super().preenche_dados()
+    async def run(self):
+        aux = await self.prisma.find_first()
+        await self.preenche_dados(aux)
+
+
+    async def preenche_dados(self, objeto=None):
+        await super().preenche_dados(objeto)
         self.id = self.data.id
         self.name = self.data.name
         self.qntPeriodos = self.data.qntPeriodos
@@ -129,6 +140,10 @@ class Curso(Db, Uteis):
     # Função que retorna todas as disciplinas optativas do curso de um determinado nível.
     def optaNivel(self, nivel=1): return [ i for i in self.nivel(nivel) if i.opcional ]
 
+    def atribuiPrisma(self, prisma:Prisma):
+        self.db = prisma
+        self.prisma = prisma.curso
+
     # ------------------------------ DISCIPLINAS: PRÉ-REQUISITO ------------------------------ #
 
     # Função que chama 
@@ -187,13 +202,64 @@ class Curso(Db, Uteis):
     def aptidao(self, oferta:Oferta, aluno:Aluno) -> int:
         # Função que retorna a aptidão do aluno para uma determinada oferta.
         r = 0
-        if oferta.disciplina.nivel == aluno.nivel:  
-            r += 10
-        elif oferta.disciplina.nivel < aluno.nivel: 
-            r += 10 + (aluno.nivel - oferta.disciplina.nivel)
-        elif oferta.disciplina.nivel > aluno.nivel: 
-            r += 10 - (oferta.disciplina.nivel - aluno.nivel)
-        r += len(oferta.disciplina.prox)
+        if oferta.disciplina.opcional and aluno.jaPagouTodasOps():
+            r = 1
+        else:
+            if oferta.disciplina.nivel == aluno.nivel:  
+                r += 15
+            elif oferta.disciplina.nivel < aluno.nivel: 
+                r += 10 + (aluno.nivel - oferta.disciplina.nivel)
+            elif oferta.disciplina.nivel > aluno.nivel: 
+                r += 10 - (oferta.disciplina.nivel - aluno.nivel)
+            qnt = len(oferta.disciplina.prox)
+            if qnt > 0: r += qnt
+            else: r -= 2
+            if oferta.disciplina.opcional: r -= 1
+
         return r
 
 
+    # ------------------------------ COMBINACOES ------------------------------ #
+
+    def calculaSelecoes(self, aluno:Aluno, lista:[Oferta]):
+        # Esta função retorna uma lista de Selecoes. Selecao com cada aptidão calculada para o aluno.
+        aux = [ Selecao(oferta=x, aptidao=self.aptidao(x, aluno), prisma=self.db.selecao) for x in lista ]
+        return sorted(aux, key=lambda x: x.aptidao, reverse=True)
+
+    
+    def runCombinacoes(self, aluno:Aluno):
+        listaDisponiveis = self.atual.disponiveis(aluno) # Gera lista de ofertas disponíveis ao aluno
+        self.ajustaNivel(aluno) # Antes de gerar as combinações, ajusta o nível do aluno
+        listaSelecoes = self.calculaSelecoes(aluno, listaDisponiveis) # Calcula as seleções
+        return self.geraCombinacoes(aluno, lista=listaSelecoes) # Gera as combinações
+
+
+    def geraCombinacoes(self, aluno:Aluno, qnt:int=5, lista:[Selecao]=[]):
+        # Função que gera combinações de horários para o aluno.
+        #   - aluno: aluno que terá as combinações geradas.
+        #   - qnt: quantidade de combinações que serão geradas.
+        #   - retorna uma lista de combinações.
+        aluno.combinacoes = [ Combinacao(selecoes=[]) for i in range(qnt)  ]
+        for index, combinacao in enumerate(aluno.combinacoes):
+            if index > 0: 
+                self.combina(combinacao, lista)  
+            else: 
+                self.combinaMaior(combinacao, lista)
+        aluno.combinacoes = sorted(aluno.combinacoes, key=lambda x: x.aptidao, reverse=True)
+        return aluno.combinacoes    
+            
+
+    def combina(self, combinacao:Combinacao, lista:[Selecao]):
+        # Realiza a combinacao de selecoes a partir do sorteio Choice.
+        i = 1
+        while len(combinacao) < 5 and i < len(lista):
+            combinacao.add(choice(lista))
+            i += 1
+    
+
+    def combinaMaior(self, combinacao:Combinacao, lista:[Selecao]):
+        # Realiza a combinacao de selecoes a partir do maior.
+        i = 1
+        while len(combinacao) < 5 and i < len(lista):
+            combinacao.add(lista[i])
+            i += 1

@@ -15,7 +15,6 @@ class Disciplina(Db, Uteis):
         pre=None,
         preJSON=None,
         prox:list=[],
-        iraMin:float=0.0,
         descricao:str="",
         ofertas:list=[],
         prisma=None,
@@ -31,7 +30,6 @@ class Disciplina(Db, Uteis):
         self.opcional = opcional
         self.pre = pre
         self.prox = prox
-        self.iraMin = iraMin
         self.descricao = descricao
         self.ofertas = ofertas
         self.preJSON = preJSON
@@ -57,7 +55,6 @@ class Disciplina(Db, Uteis):
         self.opcional = self.data.opcional
         self.preJSON = self.data.pre
         self.proxJSON = self.data.prox
-        self.iraMin = self.data.iraMin
         self.descricao = self.data.descricao
         self.id_curso = self.data.cursoId
 

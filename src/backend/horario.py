@@ -16,9 +16,11 @@ class Horario(Uteis):
         self.ocupado:bool = ocupado
     
     # ------------------------------ Métodos Especiais ------------------------------ #
+    
     def infor(self): return f"({DIAS[self.dia]} - {self.hora}h - {self.status})"
     def __str__(self): return self.infor()
     def __repr__(self): return self.infor()
+    def __eq__(self, o: object): return self.choca(o)
     
     # ------------------------------ PROPERTYS ------------------------------ #
     @property
@@ -31,3 +33,9 @@ class Horario(Uteis):
     def turnoStr(self): return "Manhã" if self.turno == 1 else "Tarde" if self.turno == 2 else "Noite"
 
     # ------------------------------ DB ------------------------------ #
+
+    # ------------------------------ Métodos ------------------------------ #
+
+    # Função que verifica se um outro horário choca com este
+    def choca(self, horario): 
+        return self.dia == horario.dia and self.hora == horario.hora

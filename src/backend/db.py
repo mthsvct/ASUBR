@@ -4,7 +4,10 @@ class Db:
     def __init__(self, prisma=None):
         self.prisma = prisma
         self.data = None
+
+
     
+   
     async def get(self): return await self.prisma.find_first()
     async def get_id(self, id:int): return await self.prisma.find_first(where={'id': id})
     async def get_all(self): return await self.prisma.find_many()

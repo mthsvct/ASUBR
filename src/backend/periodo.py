@@ -101,7 +101,7 @@ class Periodo(Db):
                     ofertas.append(
                         Oferta(
                             disciplina = d,
-                            turma = busca,
+                            turma = busca[0] if busca != [] else 1,
                             horarios = self.escolheHorarios(d, ofs[i]),
                             professor= "Fulano de Tal"
                         )

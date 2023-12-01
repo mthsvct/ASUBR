@@ -38,7 +38,7 @@ class Aluno(Db):
         super().__init__(prisma)
 
     # ------------------------------ Métodos Especiais ------------------------------ #
-    
+
     def info(self) -> str: return f"({self.id} - {self.name} - {self.matricula} - {self.nivel}º)"
     def __str__(self) -> str: return self.info()    
     def __repr__(self) -> str: return self.info()
@@ -83,9 +83,8 @@ class Aluno(Db):
         # função que retorna as combinações do aluno
         pass
 
-    async def get_by_email(self, email):
-        # Função que retorna o aluno pelo email
-        return await self.prisma.find_unique(where={'email': email})
+    # Função que retorna o aluno pelo email
+    async def get_by_email(self, email): return await self.prisma.find_unique(where={'email': email})
 
     # ------------------------------ Propertys ------------------------------ #
 
@@ -126,7 +125,7 @@ class Aluno(Db):
             if pre['op'] == 'OU': return any(self.verificarPreRequisitos(pre['ds']))
             if pre['op'] == 'E':  return all(self.verificarPreRequisitos(pre['ds']))
     
-    def podePagar(self, disciplina:Disciplina):
+    def podePagar(self, disciplina:Disciplina): 
         # Função que verifica se o aluno pode pagar uma disciplina
         return False if self.pagou(disciplina) else self.verificarPreRequisitos(disciplina.pre)
 
@@ -166,13 +165,19 @@ class Aluno(Db):
                     semestre = 1
                 else:
                     semestre = 2
+
         self.matriculas = matriculas
-            
+
+
+
     
     # ------------------------------ MATRICULAS ------------------------------ #
 
-    # Função que retorna todas as matriculas do aluno de um nível
+    # Função que retorna todas as matriculas do aluno de um nível.
     def matNivel(self, n): return [ m for m in self.matriculas if m.disciplina.nivel == n ]
 
+    # Função que retorna a quantidade matérias opcionais que o aluno já pagou.
+    def pagouOps(self): return len([ m for m in self.matriculas if m.disciplina.opcional ])
 
-
+    # Retorna true caso o aluno já tenha pago a quantidade requerida de disciplinas opcionais.
+    def jaPagouTodasOps(self): return self.pagouOps() == 2

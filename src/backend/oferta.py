@@ -14,7 +14,8 @@ class Oferta(Db):
         vagas:int=40,
         disciplina:Disciplina=None,
         horarios:[Horario]=None,
-        prisma=None
+        prisma=None,
+        iraMin:float=0.0,
     ) -> None:
         self.id = id
         self.codHorario = codHorario
@@ -24,9 +25,11 @@ class Oferta(Db):
         self.disciplina = disciplina
         self.horarios = horarios
         self.prisma = prisma
+        self.iraMin = iraMin
         super().__init__(prisma)
 
     # ------------------------------ Métodos Especiais ------------------------------ #
+    
     def info(self): return f"(Oferta: {self.disciplina.name} - {self.cod} - {self.vagas}vs)"
     def __str__(self): return self.info()
     def __repr__(self): return self.info()
@@ -43,6 +46,7 @@ class Oferta(Db):
         self.turma = self.data.turma
         self.professor = self.data.professor
         self.vagas = self.data.vagas
+        self.iraMin = self.data.iraMin
         self.disciplina = self.data.disciplina
         self.horarios = self.data.horarios
 
@@ -95,3 +99,11 @@ class Oferta(Db):
     @property
     def cod(self): return self.geraCodHor() if (self.horarios != []) else None
 
+
+
+    # Verifica se uma oferta choca os horários de outra
+    def choca(self, oferta):
+        for h in self.horarios:
+            for h2 in oferta.horarios:
+                if h == h2: return True
+        return False

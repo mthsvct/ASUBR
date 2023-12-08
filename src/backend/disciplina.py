@@ -43,6 +43,24 @@ class Disciplina(Db, Uteis):
     def __str__(self) -> str: return self.info(self.id, self.name, self.codigo, self.horas, self.nivel)
     def __repr__(self) -> str: return self.info(self.id, self.name, self.codigo)
 
+    def __dict__(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "codigo": self.codigo,
+            "horas": self.horas,
+            "nivel": self.nivel,
+            "opcional": self.opcional,
+            "pre": self.preJSON,
+            "prox": self.proxJSON,
+            "descricao": self.descricao,
+            # "ofertas": self.ofertas,
+            "id_curso": self.id_curso
+        }
+
+    def dicio(self):
+        return self.__dict__()
+
     # ------------------------------------- DB -------------------------------------- #
     
     async def preenche_dados(self, objeto=None):

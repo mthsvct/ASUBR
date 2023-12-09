@@ -40,6 +40,18 @@ class Periodo(Db):
     def __str__(self): return self.info()
     def __repr__(self): return self.info()
 
+    def dicio(self):
+        return {
+            "id": self.id,
+            "ano": self.ano,
+            "semestre": self.semestre,
+            "atual": self.atual,
+            "inicioMatriculas": self.inicioMatriculas,
+            "fimMatriculas": self.fimMatriculas,
+            "processamento": self.processamento,
+            "cursoId": self.cursoId,
+        }
+
     # ------------------------------ DB ------------------------------ #
 
     async def save(self):

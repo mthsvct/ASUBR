@@ -37,6 +37,13 @@ curso = Curso()
 
 # --------------------------------- Rotas ------------------------------ #
 
+# --------------- CURSOS ------------------ #
+
+# Rota para obter um curso
+@app.get("/curso")
+async def cursoCompleto(): return curso.dicio()
+
+
 # -------------- DISCIPLINAS -------------- #
 
 @app.get("/disciplina/{id}")
@@ -49,7 +56,19 @@ async def disciplinas():
 
 @app.get("/disciplinas/{nivel}")
 async def disciplinasNivel(nivel:int): 
-    return [ disciplina.dicio() for disciplina in curso.nivel(nivel) ] 
+    return [ disciplina.dicio() for disciplina in curso.nivel(nivel) ]
+
+# -------------- PERIODO -------------- #
+
+# Rota para obter o período atual
+@app.get("/periodo")
+async def periodo(): return curso.atual.dicio()
+
+# Rota para obter um período
+@app.get("/periodo/{ano}/{semestre}")
+async def periodo(ano:int, semestre:int): 
+    return b.dicio() if (b:=curso.buscaPeriodo(ano, semestre)) else {"message": "Período não encontrado!"}
+
 
 
 # ------------------------------ Main ---------------------------------- #

@@ -21,4 +21,3 @@ class Db:
                 self.data = await self.get_id(self.id)
         else:
             self.data = objeto
-

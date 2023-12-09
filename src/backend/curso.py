@@ -40,6 +40,12 @@ class Curso(Db, Uteis):
     def __repr__(self) -> str: return self.info(self.id, self.name, self.qntPeriodos)
     def __getitem__(self, i): return self.disciplinas[i] if i < len(self.disciplinas) else None
 
+    def dicio(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "qntPeriodos": self.qntPeriodos
+        }
 
     # ------------------------------ DB ------------------------------ #
 
@@ -55,6 +61,7 @@ class Curso(Db, Uteis):
         self.qntPeriodos = self.data.qntPeriodos
         await self.runs() # Roda as funções de pré-requisitos e proximos
         self.atual = await self.buscaAtual()
+        self.periodos = await self.preenchePeriodos()
     
     async def save(self):
         return await self.create(
@@ -183,20 +190,42 @@ class Curso(Db, Uteis):
         await periodo.preenche_dados(p)
         return periodo
     
+    # Função que retorna todos os períodos do curso.
+    async def preenchePeriodos(self):
+        periodos = []
+        for p in await self.db.periodo.find_many():
+            periodo = Periodo()
+            await periodo.preenche_dados(p)
+            periodos.append(periodo)
+        return periodos
+    
+    def buscaPeriodo(self, ano:int, semestre:int):
+        retorno = None
+        for p in self.periodos:
+            if p.ano == ano and p.semestre == semestre:
+                retorno = p
+                break
+        return retorno
+    
     # ------------------------------ DISCIPLINAS: OFERTAS ------------------------------ #
     
 
 
     # ------------------------------ ALUNO ------------------------------ # 
     
-    def ajustaNivel(self, aluno:Aluno):
+    async def ajustaNivel(self, aluno:Aluno):
         # Função que ajusta o nível do aluno conforme as matérias pagas.
+        antigo = aluno.nivel
         r = 1
         for i in range(1, self.qntPeriodos):
             nivel = self.obriNivel(i)
             alunoNivel = aluno.matNivel(i)
             if len(alunoNivel) > len(nivel) // 2: r = i
         aluno.nivel = r
+
+        if antigo != aluno.nivel:
+            await aluno.update(aluno.id, {"nivel": aluno.nivel})
+        
         return aluno.nivel
             
     def aptidao(self, oferta:Oferta, aluno:Aluno) -> int:
@@ -227,9 +256,9 @@ class Curso(Db, Uteis):
         return sorted(aux, key=lambda x: x.aptidao, reverse=True)
 
     
-    def runCombinacoes(self, aluno:Aluno):
+    async def runCombinacoes(self, aluno:Aluno):
         listaDisponiveis = self.atual.disponiveis(aluno) # Gera lista de ofertas disponíveis ao aluno
-        self.ajustaNivel(aluno) # Antes de gerar as combinações, ajusta o nível do aluno
+        await self.ajustaNivel(aluno) # Antes de gerar as combinações, ajusta o nível do aluno
         listaSelecoes = self.calculaSelecoes(aluno, listaDisponiveis) # Calcula as seleções
         return self.geraCombinacoes(aluno, lista=listaSelecoes) # Gera as combinações
 

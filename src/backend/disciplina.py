@@ -42,7 +42,6 @@ class Disciplina(Db, Uteis):
 
     def __str__(self) -> str: return self.info(self.id, self.name, self.codigo, self.horas, self.nivel)
     def __repr__(self) -> str: return self.info(self.id, self.name, self.codigo)
-
     def __dict__(self):
         return {
             "id": self.id,
@@ -54,7 +53,6 @@ class Disciplina(Db, Uteis):
             "pre": self.preJSON,
             "prox": self.proxJSON,
             "descricao": self.descricao,
-            # "ofertas": self.ofertas,
             "id_curso": self.id_curso
         }
 

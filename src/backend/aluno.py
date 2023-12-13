@@ -5,6 +5,7 @@ from disciplina import Disciplina
 from cryptography.fernet import Fernet
 from hashlib import sha256
 
+from autenticacao import verificar_access_token, gerar_hash, criar_acess_token, verificar_hash
 
 class Aluno(Db):
 
@@ -96,6 +97,12 @@ class Aluno(Db):
     # Função que retorna o aluno pelo email
     async def get_by_email(self, email): 
         return await self.prisma.find_unique(where={'email': email})
+    
+    async def preenche_dados_email(self, email):
+        # Função que preenche os dados do aluno pelo email
+        await self.preenche_dados(await self.get_by_email(email))
+        return self
+
 
     # ------------------------------ Propertys ------------------------------ #
 
@@ -116,16 +123,37 @@ class Aluno(Db):
 
     async def login(self, email, senha):
         # Função que faz o login do aluno
-        aluno = await self.get_by_email(email)
-        if aluno:
-            if aluno.password == self.encripta(senha):
+        aluno = await self.get_by_email(email) # Busca o aluno pelo email
+        if aluno: # Se o aluno for encontrado
+            if verificar_hash(senha, aluno.password): 
                 await self.preenche_dados(aluno)
-                return self
+                token = criar_acess_token({"sub": self.email})
+                return {"message": "Login realizado com sucesso!", "aluno": self.dicio(), 'token': token}
             else:
                 return {"error": "Senha incorreta"}
         else:
             return {"error": "Aluno não encontrado"} 
-        
+
+    async def cadastrar(self, aluno, curso, password):
+        # Função que cadastra o aluno no banco de dados
+        buscado = curso.buscaAluno(aluno.email)
+        if buscado:
+            return {"message": "Email já cadastrado!"}
+        else:
+            novo = Aluno(
+                name=aluno.name,
+                email=aluno.email,
+                password=password,
+                matricula=aluno.matricula,
+                nivel=aluno.nivel,
+                ira=aluno.ira,
+                cursoId=curso.id,
+                prisma=self.prisma
+            )
+            await novo.save()
+            await curso.atualizarAlunos()
+            return {"message": "Aluno cadastrado com sucesso!", "aluno": curso.alunos[-1].dicio()}
+
     def verificarPreRequisitos(self, pre):
         # Função que verifica se o aluno pode pagar uma disciplina
         # Deve verificar os pré-requisitos da disciplina
@@ -178,8 +206,6 @@ class Aluno(Db):
                     semestre = 2
 
         self.matriculas = matriculas
-
-
 
     
     # ------------------------------ MATRICULAS ------------------------------ #

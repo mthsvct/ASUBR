@@ -4,9 +4,6 @@ class Db:
     def __init__(self, prisma=None):
         self.prisma = prisma
         self.data = None
-
-
-    
    
     async def get(self): return await self.prisma.find_first()
     async def get_id(self, id:int): return await self.prisma.find_first(where={'id': id})
@@ -14,6 +11,9 @@ class Db:
     async def delete(self, id:int): return await self.prisma.delete(where={'id': id})
     async def create(self, data): return await self.prisma.create(data=data)
     async def update(self, id:int, data): return await self.prisma.update(where={'id': id}, data=data)
+    
+    async def delete_this(self): return await self.prisma.delete(where={'id': self.id})
+    async def update_this(self, data): return await self.prisma.update(where={'id': self.id}, data=data)
     
     async def preenche_dados(self, objeto=None):
         if objeto == None: 

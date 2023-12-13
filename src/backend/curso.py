@@ -222,6 +222,7 @@ class Curso(Db, Uteis):
             alunos.append(aluno)
         return alunos
 
+
     def buscaAluno(self, email: str):
         retorno = None
         for aluno in self.alunos:
@@ -230,10 +231,12 @@ class Curso(Db, Uteis):
                 break
         return retorno
 
+
     async def atualizarAlunos(self):
         self.alunos = []
         self.alunos = await self.pegaAlunos()
     
+
     async def ajustaNivel(self, aluno:Aluno):
         # Função que ajusta o nível do aluno conforme as matérias pagas.
         antigo = aluno.nivel
@@ -243,12 +246,11 @@ class Curso(Db, Uteis):
             alunoNivel = aluno.matNivel(i)
             if len(alunoNivel) > len(nivel) // 2: r = i
         aluno.nivel = r
-
         if antigo != aluno.nivel:
             await aluno.update(aluno.id, {"nivel": aluno.nivel})
-        
         return aluno.nivel
             
+
     def aptidao(self, oferta:Oferta, aluno:Aluno) -> int:
         # Função que retorna a aptidão do aluno para uma determinada oferta.
         r = 0

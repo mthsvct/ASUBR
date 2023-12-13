@@ -1,24 +1,18 @@
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from prisma import Prisma
-import asyncio
+from dotenv import load_dotenv
+from autenticacao import gerar_hash, SECRET_KEY, ALGORITHM
 
-from passlib.context import CryptContext
+import jwt  # PyJWT library
+
+# from fastapi.security import OAuth2PasswordBearer
 
 from curso import Curso
 from aluno import Aluno
 
-# ----------------- Configurações do passlib ----------------- #
-
-pwd_context = CryptContext(schemes=["bcrypt"])
-
-def gerar_hash(texto):
-    return pwd_context.hash(texto)
-
-def verificar_hash(texto, hash) -> bool:
-    return pwd_context.verify(texto, hash)
 
 # ----------------- Configurações do FastAPI ----------------- #
 
@@ -47,11 +41,10 @@ curso = Curso()
 
 @app.on_event("startup")
 async def startup():
+    load_dotenv()
     await prisma.connect()
-    # await prisma.connect()
     curso.atribuiPrisma(prisma)
     await curso.run()
-
 
 @app.on_event("shutdown")
 async def shutdown():
@@ -102,25 +95,45 @@ class AlunoModel(BaseModel):
     nivel: int = 1
     ira: float = 0.0
 
+class AlunoLogin(BaseModel):
+    email: str
+    password: str
+
 @app.post("/aluno/cadastrar")
 async def cadastrar(aluno: AlunoModel):
-    # aluno.password = gerar_hash(aluno.password)
-    buscado = curso.buscaAluno(aluno.email)
-    if buscado:
-        return {"message": "Email já cadastrado!"}
-    novo = Aluno(
-        name=aluno.name,
-        email=aluno.email,
-        password=aluno.password,
-        matricula=aluno.matricula,
-        nivel=aluno.nivel,
-        ira=aluno.ira,
-        cursoId=curso.id,
-        prisma=prisma.aluno
-    )
-    await novo.save()
-    await curso.atualizarAlunos()
-    return {"message": "Aluno cadastrado com sucesso!"}
+    return await Aluno(prisma=prisma.aluno).cadastrar(aluno, curso, gerar_hash(aluno.password))
+
+@app.post("/aluno/login")
+async def login(aluno: AlunoLogin):
+    return await Aluno(prisma=prisma.aluno).login(aluno.email, aluno.password)
+
+class Me(BaseModel):
+    token: str
+
+@app.get("/aluno/me")
+async def me(eu: Me):
+    # Decodificar o token, pegar o telefone, buscar o usuário no bd e retornar.
+    try:
+        # Decodificando o token para obter o telefone
+        decoded_token = jwt.decode(eu.token, SECRET_KEY, algorithms=[ALGORITHM])
+        email = decoded_token.get('sub')
+        # Verifica se o telefone existe no token
+        if email is None:
+            raise HTTPException(status_code=401, detail="Token inválido")
+        # Consulta no banco de dados pelo telefone
+        aluno = await Aluno(prisma=prisma.aluno).preenche_dados_email(email)
+        if aluno is None:
+            raise HTTPException(status_code=404, detail="Aluno não encontrado")
+        return aluno.dicio()
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Token expirado")
+    except jwt.InvalidTokenError:
+        raise HTTPException(status_code=401, detail="Token inválido")
+
+
+
+
+
 
 # ------------------------------ Main ---------------------------------- #
 
@@ -132,5 +145,4 @@ async def main():
     
 
 if __name__ == "__main__":
-    # asyncio.run(main())
     uvicorn.run(app, host="0.0.0.0", port=8080)

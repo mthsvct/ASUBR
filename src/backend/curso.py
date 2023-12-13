@@ -62,6 +62,7 @@ class Curso(Db, Uteis):
         await self.runs() # Roda as funções de pré-requisitos e proximos
         self.atual = await self.buscaAtual()
         self.periodos = await self.preenchePeriodos()
+        self.alunos = await self.pegaAlunos()
     
     async def save(self):
         return await self.create(
@@ -212,6 +213,26 @@ class Curso(Db, Uteis):
 
 
     # ------------------------------ ALUNO ------------------------------ # 
+
+    async def pegaAlunos(self):
+        alunos = []
+        for a in await self.db.aluno.find_many():
+            aluno = Aluno()
+            await aluno.preenche_dados(a)
+            alunos.append(aluno)
+        return alunos
+
+    def buscaAluno(self, email: str):
+        retorno = None
+        for aluno in self.alunos:
+            if aluno.email == email:
+                retorno = aluno
+                break
+        return retorno
+
+    async def atualizarAlunos(self):
+        self.alunos = []
+        self.alunos = await self.pegaAlunos()
     
     async def ajustaNivel(self, aluno:Aluno):
         # Função que ajusta o nível do aluno conforme as matérias pagas.

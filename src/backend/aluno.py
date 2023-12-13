@@ -43,6 +43,16 @@ class Aluno(Db):
     def __str__(self) -> str: return self.info()    
     def __repr__(self) -> str: return self.info()
 
+    def dicio(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "matricula": self.matricula,
+            'nivel': self.nivel,
+            'ira': self.ira,
+            "cursoId": self.cursoId
+        }
+
     # -------------------------------- DB ------------------------------ #
 
     async def preenche_dados(self, objeto=None):
@@ -64,7 +74,7 @@ class Aluno(Db):
                 'name': self.name,
                 'email': self.email,
                 'matricula': self.matricula,
-                'password': self.encripta(self.password), # 'password': 'senha encriptada
+                'password': self.password, # 'password': 'senha encriptada
                 'nivel': self.nivel,
                 'ira': self.ira,
                 "cursoId": self.cursoId
@@ -84,7 +94,8 @@ class Aluno(Db):
         pass
 
     # Função que retorna o aluno pelo email
-    async def get_by_email(self, email): return await self.prisma.find_unique(where={'email': email})
+    async def get_by_email(self, email): 
+        return await self.prisma.find_unique(where={'email': email})
 
     # ------------------------------ Propertys ------------------------------ #
 

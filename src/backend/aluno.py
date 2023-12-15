@@ -18,9 +18,9 @@ class Aluno(Db):
         matricula:str=None,
         nivel:int=None,
         ira:float=None,
-        matriculas:list=None,
-        combinacoes:list=None,
-        interesses:list=None,
+        matriculas:list=[],
+        combinacoes:list=[],
+        interesses:list=[],
         cursoId:int=None,
         prisma=None
     ) -> None:
@@ -48,6 +48,7 @@ class Aluno(Db):
         return {
             "id": self.id,
             "name": self.name,
+            "email": self.email,
             "matricula": self.matricula,
             'nivel': self.nivel,
             'ira': self.ira,
@@ -69,7 +70,7 @@ class Aluno(Db):
         self.cursoId = self.data.cursoId
 
     async def save(self):
-        # Função que salva o aluno no banco de dados   
+        # Função que salva o aluno no banco de dados
         return await self.create(
             {
                 'name': self.name,
@@ -100,9 +101,42 @@ class Aluno(Db):
     
     async def preenche_dados_email(self, email):
         # Função que preenche os dados do aluno pelo email
-        await self.preenche_dados(await self.get_by_email(email))
-        return self
+        objeto = await self.get_by_email(email)
+        if objeto is None:
+            return None
+        else:
+            await self.preenche_dados(await self.get_by_email(email))
+            return self
 
+    async def preenche_dados_id(self, id):
+        busca = self.get_id(id)
+        if busca is None:
+            retorno = {"status": 404, "message": "Aluno não encontrado"}
+        else:
+            await self.preenche_dados(busca)
+            retorno = {"status": 200, "message": "Aluno encontrado", 'aluno': self.dicio()}
+        return retorno, self
+
+    async def atualizar(self):
+        # Função que atualiza o aluno no banco de dados
+        dicio = self.dicio()
+        dicio['password'] = self.password
+        return await self.update(self.id, dicio)
+    
+    def atribuir(self, objeto):
+        # Função que atribui os dados do objeto ao aluno
+        self.name = objeto.name
+        self.email = objeto.email
+        self.password = objeto.password
+        self.matricula = objeto.matricula
+        self.nivel = objeto.nivel
+        self.ira = objeto.ira
+        self.cursoId = objeto.cursoId
+
+    async def atribuiAtualiza(self, objeto):
+        # Função que atribui os dados do objeto ao aluno e atualiza no banco de dados
+        self.atribuir(objeto)
+        await self.atualizar()
 
     # ------------------------------ Propertys ------------------------------ #
 
@@ -164,11 +198,11 @@ class Aluno(Db):
             if pre['op'] == 'OU': return any(self.verificarPreRequisitos(pre['ds']))
             if pre['op'] == 'E':  return all(self.verificarPreRequisitos(pre['ds']))
     
-    def podePagar(self, disciplina:Disciplina): 
+    def podePagar(self, disciplina:Disciplina) -> bool: 
         # Função que verifica se o aluno pode pagar uma disciplina
         return False if self.pagou(disciplina) else self.verificarPreRequisitos(disciplina.pre)
 
-    def pagou(self, disciplina:Disciplina):
+    def pagou(self, disciplina:Disciplina) -> bool:
         # Função que verifica se o aluno pagou uma disciplina
         i, encontrado = 0, None # i: contador, encontrado: variável que armazena a disciplina
         while i < len(self.matriculas) and encontrado == None: # Enquanto não encontrar a disciplina
@@ -207,7 +241,6 @@ class Aluno(Db):
 
         self.matriculas = matriculas
 
-    
     # ------------------------------ MATRICULAS ------------------------------ #
 
     # Função que retorna todas as matriculas do aluno de um nível.
@@ -218,3 +251,10 @@ class Aluno(Db):
 
     # Retorna true caso o aluno já tenha pago a quantidade requerida de disciplinas opcionais.
     def jaPagouTodasOps(self): return self.pagouOps() == 2
+
+    # Função que cria e adiciona uma nova matricula ao aluno.
+    def matricular(self, disciplina, prisma, ano=2021, semestre=1) -> Matricula:
+        nova = Matricula(ano=ano,semestre=semestre,disciplina=disciplina,prisma=prisma)
+        self.matriculas.append(nova)
+        self.matriculas.sort(key=lambda m: m.disciplina.nivel)
+        return nova

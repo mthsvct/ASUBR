@@ -222,21 +222,26 @@ class Curso(Db, Uteis):
             alunos.append(aluno)
         return alunos
 
-
-    def buscaAluno(self, email: str):
+    def buscaAluno(self, email: str) -> Aluno:
         retorno = None
         for aluno in self.alunos:
             if aluno.email == email:
                 retorno = aluno
                 break
         return retorno
-
+    
+    def buscaAlunoId(self, id:int) -> Aluno:
+        retorno = None
+        for aluno in self.alunos:
+            if aluno.id == id:
+                retorno = aluno
+                break
+        return retorno
 
     async def atualizarAlunos(self):
         self.alunos = []
         self.alunos = await self.pegaAlunos()
     
-
     async def ajustaNivel(self, aluno:Aluno):
         # Função que ajusta o nível do aluno conforme as matérias pagas.
         antigo = aluno.nivel
@@ -250,7 +255,6 @@ class Curso(Db, Uteis):
             await aluno.update(aluno.id, {"nivel": aluno.nivel})
         return aluno.nivel
             
-
     def aptidao(self, oferta:Oferta, aluno:Aluno) -> int:
         # Função que retorna a aptidão do aluno para uma determinada oferta.
         r = 0
@@ -270,6 +274,22 @@ class Curso(Db, Uteis):
 
         return r
 
+
+    # ------------------------------ MATRICULAS ------------------------------ # 
+
+    async def matricular(self, alunoId:int, disciplinaId:int, ano:int, semestre:int):
+        aluno = self.buscaAlunoId(alunoId)
+        disciplina = self.buscaId(disciplinaId)
+        if aluno == None:
+            retorno = {"status": 404, "message": "Aluno não encontrado"}
+        elif disciplina == None:
+            retorno = {"status": 404, "message": "Disciplina não encontrada"}
+        elif aluno.pagou(disciplina):
+            retorno = {"status": 400, "message": "Aluno já pagou essa disciplina"}
+        else:
+            resultado = aluno.matricular(disciplina, prisma=self.db.matricula)
+            retorno = {"status": 200, "message": resultado.dicio()}
+        return retorno
 
     # ------------------------------ COMBINACOES ------------------------------ #
 

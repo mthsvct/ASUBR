@@ -1,0 +1,58 @@
+.login {
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--azul);
+
+    .formulario {
+        // border: 3px solid black;
+        display: flex;
+        flex-direction: column;
+
+        form {
+            // border: 1px solid yellow;
+            width: 400px;
+
+            &, .inputs, .botoes {
+                display: flex;
+            }
+
+            .inputs{
+                margin-top: 35px;
+            }
+
+            &, .inputs {
+                flex-direction: column;
+            }
+
+
+            & {
+                justify-content: center;
+                align-items: center;
+            }
+
+
+            .inputs input {
+                width: 400px;
+                margin-bottom: 10px;
+                height: 50px;
+                border-radius: 15px;
+            }
+
+
+            .botoes {
+                justify-content: space-between;
+                width: 400px;
+            }
+
+        }
+
+    }
+
+}
+
+

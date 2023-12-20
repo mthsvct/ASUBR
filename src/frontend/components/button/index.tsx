@@ -5,11 +5,11 @@ import global from '@/app/page.module.scss';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     loading?: boolean,
+    linkagem?: string,
     children: ReactNode, // O QUE TEM DENTRO DO COMPONENTE POR EX: <Button>Nome do Butão</Button> o children é o "Nome do Butão"
-
 }
 
-export function Button({loading, children, ...rest}: ButtonProps){
+export function Button({loading, linkagem,  children, ...rest}: ButtonProps){
     
     return (
         <button 
@@ -20,7 +20,9 @@ export function Button({loading, children, ...rest}: ButtonProps){
             { loading ? 
                 (<FaSpinner color='#FFF' size={16} />) 
                 :
-                (<a className={styles.buttonText}>{children}</a>)
+                    linkagem ? (<a href={linkagem} className={styles.buttonText}>{children}</a>)
+                    :
+                    (<a className={styles.buttonText}>{children}</a>)
             }            
         </button>
     )

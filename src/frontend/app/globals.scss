@@ -25,6 +25,11 @@
     font-family: 'League Spartan', sans-serif;
 }
 
+a {
+    color: inherit; /* Define a cor do texto como a cor padrão herdada */
+    text-decoration: none; /* Remove sublinhado padrão */
+}
+
 
 h1 {
     font-weight: 900;
@@ -39,7 +44,9 @@ button {
 
 input[type="text"], 
 input[type="password"], 
-input[type="email"] {
+input[type="email"],
+input[type="number"] {
+
     border: none;
     outline: none;
     background: none;

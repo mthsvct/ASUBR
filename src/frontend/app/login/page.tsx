@@ -27,7 +27,7 @@ export default function Login() {
 
                         <div  className={styles.botoes}>
                             <Button type="submit">Login</Button>
-                            <Button>Cadastrar</Button>
+                            <Button linkagem='/cadastrar' >Cadastrar</Button>
                         </div>
                     </form>
                 </div>

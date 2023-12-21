@@ -69,9 +69,13 @@ async def disciplina(id:int):
 async def disciplinas(): 
     return [ disciplina.dicio() for disciplina in curso.disciplinas ]
 
-@app.get("/disciplinas/{nivel}")
+@app.get("/disciplinas/nivel/{nivel}")
 async def disciplinasNivel(nivel:int): 
     return [ disciplina.dicio() for disciplina in curso.nivel(nivel) ]
+
+@app.get('/disciplinas/resumidas')
+async def disciplinasResumidas():
+    return [ disciplina.dicioResumido() for disciplina in curso.disciplinas ]
 
 # -------------- PERIODO -------------- #
 

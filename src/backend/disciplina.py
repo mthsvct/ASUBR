@@ -10,7 +10,7 @@ class Disciplina(Db, Uteis):
         name:str=None,
         codigo:str=None,
         horas:int=None,
-        nivel:int=None,
+        nivel:int=1,
         opcional:bool=None,
         pre=None,
         preJSON=None,
@@ -58,6 +58,15 @@ class Disciplina(Db, Uteis):
 
     def dicio(self):
         return self.__dict__()
+    
+    def dicioResumido(self):
+        return {
+            'id': self.id,
+            "name": self.name,
+            "codigo": self.codigo,
+            "horas": self.horas,
+            "nivel": self.nivel if self.nivel else 1
+        }
 
     # ------------------------------------- DB -------------------------------------- #
     

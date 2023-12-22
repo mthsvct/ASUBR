@@ -63,7 +63,8 @@ async def cursoCompleto(): return curso.dicio()
 
 @app.get("/disciplina/{id}")
 async def disciplina(id:int):
-    return curso[id].dicio() if curso[id] else {"message": "Disciplina não encontrada!"}
+    print(id, curso[id], curso[id-1])
+    return curso[id-1].dicio() if curso[id-1] else {"message": "Disciplina não encontrada!"}
 
 @app.get("/disciplinas")
 async def disciplinas(): 

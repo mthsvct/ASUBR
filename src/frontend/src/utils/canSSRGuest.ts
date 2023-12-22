@@ -6,9 +6,6 @@ export function canSSRGuest<P>(fn: GetServerSideProps<P>) {
 	return async (ctx: GetServerSidePropsContext): Promise<GetServerSidePropsResult<P>> => {
 		const cookies = parseCookies(ctx);
 		// Se o cara tentar acessar a pagina porem tendo já um login salvo redirecionamos
-		
-		// console.log(cookies)
-		
 		if(cookies['@nextauth.token']){
 			return {
 				redirect:{
@@ -17,9 +14,6 @@ export function canSSRGuest<P>(fn: GetServerSideProps<P>) {
 				}
 			}
 		}
-
-		console.log('passou pelo canSSRGuest')
-
 		return await fn(ctx);
 	}
 }

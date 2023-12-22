@@ -10,9 +10,11 @@ import { Header } from "@/components/header";
 function Disciplina({disciplina, index}){
     return (
         <div key={index}>
-            <h1>{disciplina.name}</h1>
-            <p>{disciplina.codigo}</p>
-            <p>{disciplina.horas}h</p>
+            <a href={`/disciplina/${disciplina.id}`}>
+                <h1>{disciplina.name}</h1>
+                <p>{disciplina.codigo}</p>
+                <p>{disciplina.horas}h</p>
+            </a>
         </div>
     )
 }

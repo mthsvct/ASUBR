@@ -15,7 +15,7 @@ export function redirectHome<P>(fn: GetServerSideProps<P>) {
 			}
 		}
 		let aux = await fn(ctx);
-		console.log(aux);
+		// console.log(aux);
 		return aux;	
 	}
 }

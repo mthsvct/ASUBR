@@ -7,9 +7,11 @@ export function canSSRAuth<P>(fn: GetServerSideProps<P>){
   return async (ctx: GetServerSidePropsContext): Promise<GetServerSidePropsResult<P>> => {
 		const cookies = parseCookies(ctx);
 		const token = cookies['@nextauth.token'];
+
+		// console.log(token)
 		
 		if(!token){ // Se não tiver token redireciona para a pagina de login
-		return{
+			return{
 				redirect:{
 					destination: '/login',
 					permanent: false,

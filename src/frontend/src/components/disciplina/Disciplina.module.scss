@@ -1,0 +1,46 @@
+.disciplinaV1 {
+
+    display: flex;
+    flex-direction: column;
+
+    border: var(--borda);
+
+    border-radius: 10px;
+    width:  250px;
+    transition: var(--trans);
+
+
+    &:hover {
+        background-color: var(--amarelo);
+    }
+
+    // max-width: 500px; // Limite maximo do texto
+    // white-space: nowrap; // Removendo quebra de linha
+    // overflow: hidden; // Removendo a barra de rolagem
+    // text-overflow: ellipsis; // Adicionando "..." ao final do texto
+    a {
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        div:not(:last-child) {
+            // border-bottom: none;
+            border-bottom: var(--borda);
+        }
+
+        div:not(:first-child) {
+            padding: 5px 0;
+        }
+
+
+        .name {
+            height: 100px;
+            font-size: 0.9rem;
+        }
+    }
+    
+
+}

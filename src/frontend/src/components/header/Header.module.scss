@@ -1,3 +1,69 @@
 .cabecalho {
-    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 50px 0px;
+
+    &, nav, .perfil {
+        display: flex;
+    }
+
+    nav {
+        width: 65%;
+        justify-content: space-around;
+        align-items: center;
+        // padding: 0px 120px;
+        // margin: 0px 100px;
+
+        div {
+            display: flex;
+
+            width: 80%;
+            height: 100%;
+
+            justify-content: center;
+            align-items: center;
+
+            a {
+                display: flex;
+                width: 200px;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+                padding: 0px 25px;
+                font-size: 1.2rem;
+                transition: var(--trans);
+                border-radius: 10px;
+                
+                &:hover {
+                    font-weight: 600;
+                    background-color: var(--amarelo);
+                }
+                
+            }
+        }
+
+        
+        
+    }
+    
+    .logo {
+        width: 10%;
+        h1 {
+            
+            font-size: 2rem;
+        }
+        h1:not(:last-child) {
+            margin-right: 15px;
+        }
+    }
+    
+    .perfil {
+        width: 10%;
+        align-items: center;    
+        justify-content: flex-end;
+        svg {
+            width: 50px;
+            height: 50px;
+        }
+    }
 }

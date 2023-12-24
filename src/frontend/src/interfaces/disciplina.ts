@@ -11,3 +11,11 @@ export interface DisciplinaProps {
     pre: any;
     prox: Array<any>;
 }
+
+export interface DisciplinaPropsResumida {
+    id: number;
+    name: string;
+    nivel: number;
+    horas: number;
+    opcional: boolean;
+}

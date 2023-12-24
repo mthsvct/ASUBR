@@ -5,14 +5,25 @@ import styles from './Header.module.scss'
 export function Header() {
     return (
         <header className={styles.cabecalho}>
-            <Logo justName={true} />
+            <div className={styles.logo}>
+                <a href="/dashboard">
+                    <Logo justName={true} />
+                </a>
+            </div>
             <nav>
-                <a href="#"><h4>Seleções</h4></a>
-                <a href="#"><h4>Disciplinas</h4></a>
-                <a href="#"><h4>Ofertas</h4></a>
-                <a href="#"><h4>Interesses</h4></a>
+                <div>
+
+                    <a href="#"><p>Combinações</p></a>
+                    <a href="/disciplinas"><p>Disciplinas</p></a>
+                    <a href="#"><p>Ofertas</p></a>
+                    <a href="#"><p>Interesses</p></a>
+                </div>
             </nav>
-            <FaUserCircle />
+            <div className={styles.perfil}>
+                <a href="#">
+                    <FaUserCircle />
+                </a>
+            </div>
         </header>
     )
 }

@@ -1,0 +1,144 @@
+.periodos {
+
+    display: flex;
+    flex-direction: column;
+    // border: 1px solid red;
+    padding: 0px 7.5%;
+    // width: 85%;
+    margin-top: 50px;
+
+    .titulo {
+        // font-size: 50pt;
+        margin-bottom: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        // border: 1px solid green;
+
+        svg {
+            width: 50px;
+            height: 50px;
+        }
+
+
+        .menuFiltro {
+            // display: flex;
+            flex-direction: column;
+            border: var(--borda);
+            border-radius: 15px;
+            width: 400px;
+            padding: 40px;
+            position: absolute;
+            right: 8.5%;
+            top: 255px;
+            background-color: var(--claro);
+            box-shadow: 5px 5px 0px black;
+            // align-items: center;
+
+            form {
+                display: flex;
+                flex-direction: column;
+                margin-top: 30px;
+
+                // border: 1px solid red;
+
+                .inputsFora {
+                    // border: 1px solid blue;
+                    display: flex;
+                    width: 100%;
+                    justify-content: flex-start;
+                    align-items: center;
+                    margin-bottom: 15px;
+
+                    input[type="checkbox"] {
+                        // width: 20px;
+                        // min-width: none;
+                        width: 25px;
+                        height: 25px;
+                        padding: 0;
+                        border-radius: 50%;
+                        border: none;
+                        border: var(--borda);
+                    }
+
+                    label {
+                        width: 80%;
+                        margin-left: 10px;
+                    }
+
+                }
+
+
+                .horas {
+                    margin-top: 10px;
+                    .todos {
+                        margin-top: 10px;
+                        display: flex;
+
+                        .coluna {
+                            display: flex;
+                            width: 50%;
+                            flex-direction: column;
+
+                            .horasInput {
+                                display: flex;
+                                width: 100%;
+                                justify-content: flex-start;
+                                align-items: center;
+                                margin-bottom: 10px;
+                                input[type="checkbox"] {
+                                    // width: 20px;
+                                    // min-width: none;
+                                    width: 25px;
+                                    height: 25px;
+                                    padding: 0;
+                                    border-radius: 50%;
+                                    border: none;
+                                    border: var(--borda);
+                                }
+                                label {
+                                    margin-left: 10px;
+                                }
+
+
+                            }
+                        }
+
+
+                    }
+                }
+
+                .botoes {
+                    margin-top: 40px;
+                    display: flex;
+                    justify-content: space-between;
+                }
+            }
+
+
+        }
+
+    }
+
+
+
+
+
+    .periodo {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 100px;
+        // flex-wrap: wrap;
+
+        .disciplinas {
+            display: flex;
+            flex-wrap: wrap;
+            .disciplina {
+                margin-left: 10px;
+                margin-bottom: 25px;
+            }
+        }
+
+    }
+
+}

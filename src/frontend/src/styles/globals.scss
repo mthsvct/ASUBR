@@ -25,6 +25,10 @@
     font-family: 'League Spartan', sans-serif;
 }
 
+body {
+    background-color: var(--claro);
+}
+
 a {
     color: inherit; /* Define a cor do texto como a cor padrão herdada */
     text-decoration: none; /* Remove sublinhado padrão */

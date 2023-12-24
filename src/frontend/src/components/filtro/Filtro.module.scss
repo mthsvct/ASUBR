@@ -1,0 +1,47 @@
+
+
+.filtroPeriodos {
+    display: flex;
+    // border: 1px solid blue;
+
+    font-size: 1.5rem;
+
+    .todos {
+        // background-color: var(--amarelo);
+        width: 150px;
+        height: 60px;
+        border-left: var(--borda);
+    }
+
+
+    div {
+        border-right: var(--borda);
+        border-bottom: var(--borda);
+        border-top: var(--borda);
+        width: 60px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // border-radius: 10px;
+        margin-right: 0px;
+        cursor: pointer;
+        transition: var(--trans);
+    }
+
+    // div:hover {
+    //     background-color: var(--amarelo);
+    //     color: black;
+    //     // color: var(--claro);
+    //     // width: 100px;0
+    //     // height: 65px;
+    //     // transform: scale(3);
+        
+    // }
+
+    .selecionado {
+        background-color: black;
+        color: var(--claro);
+    }
+
+}

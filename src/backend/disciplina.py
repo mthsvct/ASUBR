@@ -50,8 +50,8 @@ class Disciplina(Db, Uteis):
             "horas": self.horas,
             "nivel": self.nivel,
             "opcional": self.opcional,
-            "pre": self.preJSON,
-            "prox": self.proxJSON,
+            "pre": self.pegaPre(self.pre),
+            "prox": self.pegaProx(),
             "descricao": self.descricao,
             "id_curso": self.id_curso
         }
@@ -63,9 +63,11 @@ class Disciplina(Db, Uteis):
         return {
             'id': self.id,
             "name": self.name,
-            "codigo": self.codigo,
+            # "codigo": self.codigo,
             "horas": self.horas,
-            "nivel": self.nivel if self.nivel else 1
+            'opcional': self.opcional,
+            "nivel": self.nivel if self.nivel else 1,
+            'pre': self.temPre,
         }
 
     # ------------------------------------- DB -------------------------------------- #
@@ -137,3 +139,19 @@ class Disciplina(Db, Uteis):
     # Função que converte o proximo em lista de códigos
     def converteProx(self):
         return [d.codigo for d in self.prox]
+
+    # Função que converte o pré-requisito em lista de códigos
+    def pegaPre(self, pre):
+        if pre == None: return '-'
+        if isinstance(pre, Disciplina): return pre.dicioResumido()
+        if isinstance(pre, list): return [self.pegaPre(i) for i in pre]
+        if isinstance(pre, dict): return {'op': pre['op'], 'ds': self.pegaPre(pre['ds'])}
+
+    def pegaProx(self):
+        return [d.dicioResumido() for d in self.prox]
+    
+
+    @property
+    def temPre(self):
+        return self.pre != None
+    

@@ -1,6 +1,6 @@
 import { Footer } from "@/components/footer"
 import { Header } from "@/components/header"
-import { DisciplinaProps } from "@/pages/interfaces/disciplina";
+import { DisciplinaProps } from "../../../interfaces/disciplina";
 import { api } from "@/services/apiClient";
 import Head from "next/head"
 import { useRouter } from "next/router";
@@ -39,7 +39,6 @@ function DisciplinaInfos({id}) {
                 <p>{disciplina.codigo}</p>
                 <p>{disciplina.horas}h</p>
                 <p>{disciplina.id}</p>
-                {/* <p>{disciplina.pre}</p> */}
             </div>
         )
     }

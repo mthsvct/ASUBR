@@ -30,12 +30,13 @@ export function Filtro({filtros, setFiltros}:{filtros: any, setFiltros: any}) {
         <div className={styles.menuFiltro} style={{display:'none'}}>
             <h2>Filtros</h2>
 
-            <form action="">
+            <form>
                 <div className={styles.inputsFora}>
                     <Input 
                         type="checkbox" 
                         name="opcionais" 
                         id="opcionais"
+                        checked={filtros.opcionais}
                         onChange={
                             (e) => {
                                 setFiltros({
@@ -53,6 +54,7 @@ export function Filtro({filtros, setFiltros}:{filtros: any, setFiltros: any}) {
                         type="checkbox" 
                         name="semPre" 
                         id="semPre" 
+                        checked={filtros.semPre}
                         onChange={
                             (e) => {
                                 setFiltros({
@@ -70,6 +72,7 @@ export function Filtro({filtros, setFiltros}:{filtros: any, setFiltros: any}) {
                         type="checkbox" 
                         name="naoPagos" 
                         id="naoPagos" 
+                        checked={filtros.naoPagos}
                         onChange={
                             (e) => {
                                 setFiltros({
@@ -87,6 +90,7 @@ export function Filtro({filtros, setFiltros}:{filtros: any, setFiltros: any}) {
                         type="checkbox" 
                         name="pagos" 
                         id="pagos" 
+                        checked={filtros.pagos}
                         onChange={
                             (e) => {
                                 setFiltros({
@@ -108,7 +112,8 @@ export function Filtro({filtros, setFiltros}:{filtros: any, setFiltros: any}) {
                                 <Input 
                                     type="checkbox" 
                                     name="h15" 
-                                    id="h15" 
+                                    id="h15"
+                                    checked={filtros.horas.includes(15)}
                                     onChange={(e) => marca({e, filtros, setFiltros, valor: 15})}
                                 />
                                 <label htmlFor="h15"><p>15h</p></label>
@@ -119,6 +124,7 @@ export function Filtro({filtros, setFiltros}:{filtros: any, setFiltros: any}) {
                                     type="checkbox" 
                                     name="h30" 
                                     id="h30" 
+                                    checked={filtros.horas.includes(30)}
                                     onChange={(e) => marca({e, filtros, setFiltros, valor: 30})}
                                 />
                                 <label htmlFor="h30"><p>30h</p></label>
@@ -131,6 +137,7 @@ export function Filtro({filtros, setFiltros}:{filtros: any, setFiltros: any}) {
                                     type="checkbox" 
                                     name="h60" 
                                     id="h60"
+                                    checked={filtros.horas.includes(60)}
                                     onChange={(e) => marca({e, filtros, setFiltros, valor: 60})}
                                 />
                                 <label htmlFor="h60"><p>60h</p></label>
@@ -140,6 +147,7 @@ export function Filtro({filtros, setFiltros}:{filtros: any, setFiltros: any}) {
                                     type="checkbox" 
                                     name="h90" 
                                     id="h90" 
+                                    checked={filtros.horas.includes(90)}
                                     onChange={(e) => marca({e, filtros, setFiltros, valor: 90})}
                                 />
                                 <label htmlFor="h90"><p>90h</p></label>
@@ -151,7 +159,27 @@ export function Filtro({filtros, setFiltros}:{filtros: any, setFiltros: any}) {
 
 
                 <div className={styles.botoes}>
-                    <Button>Resetar</Button>
+                    <Button
+                        linkagem='#'
+                        onClick={
+                            () => {
+                                // desmarcar todos os checkboxes
+                                // const inputs = document.querySelectorAll('input[type="checkbox"]') as NodeListOf<HTMLInputElement>;
+                                // inputs.forEach((input) => {
+                                //     input.checked = false;
+                                // })
+                                setFiltros({
+                                    opcionais: false,
+                                    semPre: false,
+                                    naoPagos: false,
+                                    pagos: false,
+                                    horas: []
+                                })
+                            }
+                        }
+                    >
+                        Resetar
+                    </Button>
                     {/* <Button type="submit">Aplicar</Button> */}
                 </div>
 

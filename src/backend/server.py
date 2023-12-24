@@ -2,6 +2,7 @@ import uvicorn
 from fastapi import FastAPI, HTTPException, Depends, Header
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from typing import List
 from prisma import Prisma
 from dotenv import load_dotenv
 from autenticacao import gerar_hash, SECRET_KEY, ALGORITHM
@@ -140,12 +141,15 @@ async def me(token: str = Depends(autenticado)):
     return {"message": "Aluno autenticado!", "aluno": aluno.dicio()}
 
 def verifica(eu):
-    decoded_token = jwt.decode(eu.token, SECRET_KEY, algorithms=[ALGORITHM])
-    email = decoded_token.get('sub')
-    if email is None:
-        return 401, 'Token inválido'
-    else: 
-        return 200, email
+    try:
+        decoded_token = jwt.decode(eu.token, SECRET_KEY, algorithms=[ALGORITHM])
+        email = decoded_token.get('sub')
+        if email is None:
+            return 401, 'Token inválido'
+        else: 
+            return 200, email
+    except ValueError:
+        return 401, ValueError
 
 @app.delete("/aluno/{id}")
 async def delete_aluno(id:int, eu: Me):
@@ -204,6 +208,19 @@ async def matricular(matricula: MatriculaModelo):
         return retorno
     else:
         raise HTTPException(status_code=retorno['status'], detail=retorno['message'])
+
+class MatriculasModelo(BaseModel):
+    alunoId: int
+    matriculas: List[MatriculaModelo]
+
+@app.post('/matricular/varias')
+async def matricularVarias(matriculas: MatriculasModelo):
+    retorno = await curso.matricularVarias(matriculas.alunoId, matriculas.matriculas)
+    if retorno['status'] == 200:
+        return retorno
+    else:
+        raise HTTPException(status_code=retorno['status'], detail=retorno['message'])
+
 
 # ------------------------------ Main ---------------------------------- #
 

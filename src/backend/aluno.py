@@ -253,8 +253,10 @@ class Aluno(Db):
     def jaPagouTodasOps(self): return self.pagouOps() == 2
 
     # Função que cria e adiciona uma nova matricula ao aluno.
-    def matricular(self, disciplina, prisma, ano=2021, semestre=1) -> Matricula:
-        nova = Matricula(ano=ano,semestre=semestre,disciplina=disciplina,prisma=prisma)
+    async def matricular(self, disciplina, prisma, ano=2021, semestre=1, salvando:bool=False) -> Matricula:
+        nova = Matricula(ano=ano,semestre=semestre,disciplina=disciplina,prisma=prisma, alunoId=self.id)
         self.matriculas.append(nova)
         self.matriculas.sort(key=lambda m: m.disciplina.nivel)
+        if salvando:
+            await nova.save()
         return nova

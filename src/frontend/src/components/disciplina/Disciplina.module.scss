@@ -5,13 +5,14 @@
 
     border: var(--borda);
 
-    border-radius: 10px;
+    border-radius: 25px;
     width:  250px;
     transition: var(--trans);
 
 
     &:hover {
-        background-color: var(--amarelo);
+        // background-color: var(--amarelo);
+        transform: scale(1.05);
     }
 
     // max-width: 500px; // Limite maximo do texto

@@ -9,12 +9,14 @@ class Matricula(Db):
         ano:int=None,
         semestre:int=None,
         disciplina:Disciplina=None,
+        alunoId:int=None,
         prisma=None
     ):
         self.id = id
         self.ano = ano
         self.semestre = semestre
         self.disciplina = disciplina
+        self.alunoId = alunoId
         super().__init__(prisma)
 
 
@@ -29,6 +31,16 @@ class Matricula(Db):
             "semestre": self.semestre,
             "disciplina": self.disciplina.dicio()
         }
+
+    async def save(self):
+        await self.create(
+            {
+                "ano": self.ano,
+                "semestre": self.semestre,
+                "disciplinaId": self.disciplina.id,
+                "alunoId": self.alunoId
+            }
+        )
 
     # ------------------------------ DB ------------------------------ #
     async def preenche_dados(self, objeto=None):

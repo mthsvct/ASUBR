@@ -287,9 +287,28 @@ class Curso(Db, Uteis):
         elif aluno.pagou(disciplina):
             retorno = {"status": 400, "message": "Aluno já pagou essa disciplina"}
         else:
-            resultado = aluno.matricular(disciplina, prisma=self.db.matricula)
+            resultado = await aluno.matricular(disciplina, prisma=self.db.matricula, salvando=True)
             retorno = {"status": 200, "message": resultado.dicio()}
         return retorno
+
+    async def matricularVarias(self, alunoId:int, matriculas:list):
+        aluno = self.buscaAlunoId(alunoId)
+        if aluno == None:
+            retorno = {"status": 404, "message": "Aluno não encontrado"}
+        else:
+            for m in matriculas:
+                # busca a disciplina:
+                disciplina = self.buscaId(m.disciplinaId)
+                # verifica se a disciplina foi encontrada:
+                if disciplina == None:
+                    retorno = {"status": 404, "message": "Disciplina não encontrada"}
+                    break
+                else:
+                    resultado = await aluno.matricular(disciplina, prisma=self.db.matricula, ano=m.ano, semestre=m.semestre, salvando=True)
+                    retorno = {"status": 200, "message": resultado.dicio()}
+        return retorno
+
+        
 
     # ------------------------------ COMBINACOES ------------------------------ #
 

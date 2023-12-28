@@ -4,9 +4,72 @@ import { Descricao } from "@/components/descricao";
 import { Button2 } from "@/components/button/button2";
 import { CiHeart } from "react-icons/ci";
 import { CiCircleCheck } from "react-icons/ci";
+import { MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
 import { ehOpcional } from "@/utils/utilitarios";
+import global from '@/styles/Home.module.scss';
+import { api } from "@/services/apiClient";
+import { toast } from "react-toastify";
+import { useState } from "react";
 
-export function Infos({disciplina}: {disciplina: DisciplinaProps}) {
+
+export function Infos(
+    {
+        disciplina,
+        setDisciplina,
+        pagou,
+        user
+    }: {
+        disciplina: DisciplinaProps,
+        setDisciplina: Function, 
+        pagou: boolean,
+        user: any
+    }) {
+
+    const [ auxPagou, setAuxPagou ] = useState(pagou);
+    
+    async function pagar() {
+        if(!auxPagou) {
+            // Não pagou!
+            await api.post(
+                '/matricular', 
+                {
+                    "alunoId": user.id,
+                    "disciplinaId": disciplina.id
+                }
+            ).then(
+                response => {
+                    console.log(response);
+                    setAuxPagou(true);
+                    toast.success("Disciplina paga com sucesso!");
+                }
+            ).catch(
+                error => {
+                    console.log(error);
+                    toast.error("Erro ao pagar disciplina");
+                }
+            )
+        } else {
+            // Já pagou!
+            // /matricula/delete/{alunoId}/{disciplinaId}
+            await api.delete(
+                `/matricula/delete/${user.id}/${disciplina.id}`,
+            ).then(
+                response => {
+                    console.log(response);
+                    setAuxPagou(false);
+                    toast.success("Disciplina removida com sucesso!");
+                }
+            ).catch(
+                error => {
+                    console.log(error);
+                    toast.error("Erro ao remover disciplina");
+                }
+            )
+        }
+    }
+
+
+
     return (
         <div className={styles.infos}>
             <div className={styles.coluna1}>
@@ -21,14 +84,44 @@ export function Infos({disciplina}: {disciplina: DisciplinaProps}) {
             <div className={styles.coluna2}>
 
                 <div className={styles.botoes}>
-                    <Button2>
-                        <CiCircleCheck />
-                        <p>Já pagou?</p>
-                    </Button2>
-                    <Button2>
-                        <CiHeart />
-                        <p>Registrar Interesse</p>
-                    </Button2>
+
+                    <div className={`${styles.jaPagou} ${
+                        auxPagou ? global.verde : ''
+                    }`}>
+                        
+                        <Button2
+                            onClick={pagar}
+                        >
+                            {
+                                auxPagou ? (
+                                    <>
+                                        <CiCircleCheck />
+                                        <p>Pago!</p>
+                                    </>
+                                ) : (
+                                    <>
+                                        <MdOutlineCheckBoxOutlineBlank />
+                                        <p>Já pagou?</p>
+                                    </>
+                                )
+                            }
+                        </Button2>
+                    </div>
+
+                    {
+                        auxPagou == false ? (
+                            <div className={styles.interesses}>
+                                <Button2>
+                                    <CiHeart />
+                                    <p>Registrar Interesse</p>
+                                </Button2>
+                            </div>
+                        ) : (
+                            <></>
+                        )
+                    }
+                    
+                    
                 </div>
 
                 <div className={styles.descricao}>

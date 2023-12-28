@@ -10,8 +10,6 @@
         display: flex;
     }
 
-    
-
     .conteudo {
         width: 85%;
         flex-direction: column;
@@ -66,8 +64,12 @@
                     justify-content: space-between;
                     margin-bottom: 25px;
 
-                    button {
+                    div {
                         width: 49.5%;
+                    }
+
+                    button {
+                        width: 100%;
                         a {
                             display: flex;
                             justify-content: center;
@@ -81,6 +83,19 @@
                                 height: 40px;
                             }
 
+                        }
+                    }
+
+
+                    .jaPagou {
+                        // border: 1px solid orange;
+                        // border: var(--);
+                        border-radius: 20px;
+                        .pagou {
+                            // border: 7px solid blue;
+                            button {
+                                background-color: var(--verde);
+                            }
                         }
                     }
 

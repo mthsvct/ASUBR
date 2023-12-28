@@ -287,7 +287,6 @@ class Curso(Db, Uteis):
 
         return r
 
-
     # ------------------------------ MATRICULAS ------------------------------ # 
 
     async def matricular(self, alunoId:int, disciplinaId:int, ano:int, semestre:int):
@@ -323,7 +322,18 @@ class Curso(Db, Uteis):
             self.alunos = await self.pegaAlunos() # Atualiza a lista de alunos
         return retorno
 
-        
+    async def deleteMatricula(self, alunoId:int, disciplinaId:int):
+        aluno = self.buscaAlunoId(alunoId)
+        disciplina = self.buscaId(disciplinaId)
+        if aluno == None:
+            retorno = {"status": 404, "message": "Aluno não encontrado"}
+        elif disciplina == None:
+            retorno = {"status": 404, "message": "Disciplina não encontrada"}
+        else:
+            resultado = await aluno.deleteMatricula(disciplina)
+            retorno = { "status": 200, "message": resultado }
+            self.alunos = await self.pegaAlunos()
+        return retorno
 
     # ------------------------------ COMBINACOES ------------------------------ #
 

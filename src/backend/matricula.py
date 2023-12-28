@@ -47,6 +47,7 @@ class Matricula(Db):
     # ------------------------------ DB ------------------------------ #
     async def preenche_dados(self, objeto=None):
         await super().preenche_dados(objeto)
+        self.id = self.data.id
         self.ano = self.data.ano
         self.semestre = self.data.semestre
         self.disciplinaId = self.data.disciplinaId

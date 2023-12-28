@@ -261,3 +261,22 @@ class Aluno(Db):
         if salvando:
             await nova.save()
         return nova
+    
+    def buscaMatricula(self, disciplina) -> Matricula:
+        # Função que busca uma matricula do aluno
+        i, encontrado = 0, None
+        while i < len(self.matriculas) and encontrado == None:
+            if self.matriculas[i].disciplina.id == disciplina.id:
+                encontrado = self.matriculas[i]
+            i += 1
+        return encontrado
+    
+    async def deleteMatricula(self, disciplina:Disciplina):
+        # Função que deleta uma matricula do aluno
+        matricula = self.buscaMatricula(disciplina)
+        if matricula:
+            await matricula.delete_this()
+            self.matriculas.remove(matricula)
+            return {"message": "Matricula deletada com sucesso!"}         
+        else:
+            raise Exception("Matricula não encontrada")

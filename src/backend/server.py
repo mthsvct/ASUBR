@@ -236,7 +236,7 @@ class MatriculaModelo(BaseModel):
 async def matricular(matricula: MatriculaModelo):
     retorno = await curso.matricular(matricula.alunoId, matricula.disciplinaId, matricula.ano, matricula.semestre)
     if retorno['status'] == 200:
-        return retorno
+        return {"disciplina": retorno['message'], "pagou": True}
     else:
         raise HTTPException(status_code=retorno['status'], detail=retorno['message'])
 
@@ -256,6 +256,12 @@ async def matricularVarias(matriculas: MatriculasModelo):
 async def matriculasAluno(alunoId:int):
     aluno = curso.buscaAlunoId(alunoId)
     return [ matricula.dicio() for matricula in aluno.matriculas ]
+
+@app.delete('/matricula/delete/{alunoId}/{disciplinaId}')
+async def delete_matricula(alunoId:int, disciplinaId:int):
+    r = await curso.deleteMatricula(alunoId, disciplinaId)
+    return r
+
 
 # ------------------------------ Main ---------------------------------- #
 

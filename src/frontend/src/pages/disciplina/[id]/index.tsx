@@ -15,12 +15,12 @@ import { AuthContext } from "@/contexts/AuthContext";
 
 function DisciplinaInfos({ id, user }) {
     
-    const [ disciplina, setDisciplina ] = useState<DisciplinaProps | null>(null);
+    const [ disciplina, setDisciplina ] = useState<any>(null);
     const [ carregando, setCarregando ] = useState(true);
 
     useEffect(
         () => {
-            api.get(`/disciplina/${id}`).then(
+            api.get(`/disciplina/${id}/aluno/${user.id}`).then(
                 response => {
                     setDisciplina(response.data);
                     setCarregando(false);
@@ -40,9 +40,14 @@ function DisciplinaInfos({ id, user }) {
         return (
             <div className={styles.disciplina}>
                 <div className={styles.conteudo}>
-                    <Infos disciplina={disciplina} />
-                    <Pre disciplina={disciplina} />
-                    <Prox disciplina={disciplina} />
+                    <Infos 
+                        disciplina={disciplina.disciplina} 
+                        setDisciplina={setDisciplina}
+                        pagou={disciplina.pagou} 
+                        user={user}
+                        />
+                    <Pre disciplina={disciplina.disciplina} />
+                    <Prox disciplina={disciplina.disciplina} />
                 </div>
             </div>
         )

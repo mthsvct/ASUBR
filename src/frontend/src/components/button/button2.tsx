@@ -13,7 +13,7 @@ export function Button2({loading, linkagem,  children, ...rest}: ButtonProps){
     
     return (
         <button 
-            className={`${styles.button2} ${global.claro} ${global.trans} ${global.toEscuro}`}
+            className={`${styles.button2} ${global.trans} ${global.toEscuro}`}
             disabled={loading}
             {...rest}
             >

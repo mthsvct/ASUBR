@@ -14,32 +14,32 @@ import { Button } from "@/components/button";
 import { Filtro } from "./filtro";
 import { AuthContext } from "@/contexts/AuthContext";
 
+function verHoras(filtros: any, disciplina: any) {
+    if(filtros.horas.length > 0){
+        return filtros.horas.includes(disciplina.horas);
+    }
+    return true;
+}
 
-function verificacoes(disciplina: any, filtros: any) {
 
-    if(
+function verificacoes(disciplina: any, filtros: any, pagou: boolean ) {
+    return (
         !filtros.opcionais && 
         !filtros.obrigatorias && 
         !filtros.semPre && 
-        filtros.horas.length == 0) {
-        return true;
-    }
-    console.log(disciplina.obrigatorias && !disciplina.opcional)
-    
-    if(filtros.opcionais && disciplina.opcional) {
-        console.log("Eh Opcional!");
-        return true;
-    } else if(filtros.obrigatorias && !disciplina.opcional) {
-        console.log("Eh Obrigatoria!");
-        return true;
-    } else if(filtros.semPre && !disciplina.pre) {
-        // console.log("Nao tem pre!");
-        return true;
-    } else if(filtros.horas.length > 0 && filtros.horas.includes(disciplina.horas)) {
-        // console.log("Tem as horas!");
-        return true;
-    }
-    return false;
+        !filtros.naoPagos &&
+        !filtros.pagos &&
+        filtros.horas.length == 0
+    ) || (
+        (
+            (filtros.opcionais && disciplina.opcional) || 
+            (filtros.obrigatorias && !disciplina.opcional) || 
+            (filtros.naoPagos && !pagou) ||
+            (filtros.pagos && pagou) ||
+            (filtros.semPre && !disciplina.pre)
+        ) && 
+        verHoras(filtros, disciplina)
+    );
 }
 
 
@@ -50,7 +50,7 @@ function Periodo({disciplinas, periodo, filtros}:{disciplinas: Array<any>, perio
 
 
     for(let i = 0; i < disciplinas.length; i++) {
-        if( verificacoes(disciplinas[i], filtros) ) {
+        if( verificacoes(disciplinas[i].disciplina, filtros, disciplinas[i].pagou) ) {
             selecionados.push(
                 <div className={styles.disciplina} key={`Disciplina-${i}`}>
                     <DisciplinaV1 key={`${disciplinas[i].id}`} disciplina={disciplinas[i].disciplina} pagou={disciplinas[i].pagou} />

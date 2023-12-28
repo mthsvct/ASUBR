@@ -12,19 +12,25 @@ import { ehOpcional } from "@/utils/utilitarios";
 import { Input } from "@/components/input";
 import { Button } from "@/components/button";
 import { Filtro } from "./filtro";
+import { AuthContext } from "@/contexts/AuthContext";
 
 
 function verificacoes(disciplina: any, filtros: any) {
 
-    if(!filtros.opcionais && !filtros.semPre && filtros.horas.length == 0) {
-        console.log("Nao tem filtro!");
+    if(
+        !filtros.opcionais && 
+        !filtros.obrigatorias && 
+        !filtros.semPre && 
+        filtros.horas.length == 0) {
         return true;
     }
-
-    console.log(disciplina)
+    console.log(disciplina.obrigatorias && !disciplina.opcional)
     
     if(filtros.opcionais && disciplina.opcional) {
-        // console.log("Eh Opcional!");
+        console.log("Eh Opcional!");
+        return true;
+    } else if(filtros.obrigatorias && !disciplina.opcional) {
+        console.log("Eh Obrigatoria!");
         return true;
     } else if(filtros.semPre && !disciplina.pre) {
         // console.log("Nao tem pre!");
@@ -47,21 +53,19 @@ function Periodo({disciplinas, periodo, filtros}:{disciplinas: Array<any>, perio
         if( verificacoes(disciplinas[i], filtros) ) {
             selecionados.push(
                 <div className={styles.disciplina} key={`Disciplina-${i}`}>
-                    <DisciplinaV1 key={`${disciplinas[i].id}`} disciplina={disciplinas[i]} />
+                    <DisciplinaV1 key={`${disciplinas[i].id}`} disciplina={disciplinas[i].disciplina} pagou={disciplinas[i].pagou} />
                 </div>
             );
         }
     }
-
-    if (selecionados.length == 0) {
-        return <></>
-    } 
     
     return (
         <div key={`${periodo}`} className={styles.periodo}>
             <div className={styles.titulo}><h2>{periodo}º Periodo</h2></div>
             <div className={styles.disciplinas}>
             { 
+                selecionados.length == 0 ? 
+                <h4>Não há disciplinas nesse período</h4> :
                 selecionados
             }
             </div>
@@ -75,17 +79,18 @@ function Periodos({periodos}:{periodos: Array<any>}){
     const [ selecionado, setSelecionado ] = useState(-1);
     const [ filtros, setFiltros ] = useState({
         opcionais: false,
+        obrigatorias: false,
         semPre: false,
         naoPagos: false,
         pagos: false,
         horas: []
     })
 
-    useEffect(
-        () => {
-            console.log(filtros);
-        }, [filtros]
-    )
+    // useEffect(
+    //     () => {
+    //         console.log(filtros);
+    //     }, [filtros]
+    // )
 
     return (
         <div className={styles.periodos}>
@@ -122,17 +127,18 @@ function Periodos({periodos}:{periodos: Array<any>}){
     )
 }
 
-export default function Disciplinas() {
+function DisciplinasInfos({user}){
 
     const [ disciplinas, setDisciplinas ] = useState([]);
-    const [ loading, setLoading ] = useState(true);
+    const [ carregando, setCarregando ] = useState(true);
 
     useEffect(
         () => {
-            api.get('/disciplinas/resumidas/niveis').then(
+            // api.get('/disciplinas/resumidas/niveis').then(
+            api.get(`/disciplinas/aluno/${user.id}`).then(
                 response => {
                     setDisciplinas(response.data);
-                    setLoading(false);
+                    setCarregando(false);
                 }
             ).catch(
                 error => {
@@ -143,11 +149,34 @@ export default function Disciplinas() {
         }, [] // toda vez que o tamanho do array de disciplinas mudar, ele vai executar o useEffect.
     )
 
+
+    return (
+        <>
+            {carregando ? <h1>Carregando...</h1> : <Periodos periodos={disciplinas} />}
+        </>
+    )
+
+}
+
+
+export default function Disciplinas() {
+
+    const { user, loading } = useContext(AuthContext);
+    const [ carregando, setCarregando ] = useState(true);
+
+    useEffect(
+        () => {
+            if (!loading) {
+                setCarregando(false);
+            } 
+        }, [loading]
+    );
+
     return (
         <>
             <Head><title>Disciplinas</title></Head>
             <Header />
-            {loading ? <h1>Carregando...</h1> : <Periodos periodos={disciplinas} />}
+            { carregando ? <h1>Carregando...</h1> : <DisciplinasInfos user={user} /> }
             <Footer />
         </>
     )    

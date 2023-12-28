@@ -10,13 +10,15 @@ class Matricula(Db):
         semestre:int=None,
         disciplina:Disciplina=None,
         alunoId:int=None,
-        prisma=None
+        prisma=None,
+        disciplinaId:int=None
     ):
         self.id = id
         self.ano = ano
         self.semestre = semestre
         self.disciplina = disciplina
         self.alunoId = alunoId
+        self.disciplinaId = disciplinaId
         super().__init__(prisma)
 
 
@@ -29,7 +31,7 @@ class Matricula(Db):
             "id": self.id,
             "ano": self.ano,
             "semestre": self.semestre,
-            "disciplina": self.disciplina.dicio()
+            "disciplina": self.disciplina.dicioResumido()
         }
 
     async def save(self):
@@ -47,5 +49,5 @@ class Matricula(Db):
         await super().preenche_dados(objeto)
         self.ano = self.data.ano
         self.semestre = self.data.semestre
-        self.disciplina = self.data.disciplina
+        self.disciplinaId = self.data.disciplinaId
 

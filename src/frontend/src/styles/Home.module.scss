@@ -37,10 +37,19 @@
     background-color: var(--claro);
 }
 
+
+.escuro,
+.toEscuro:hover {
+    background-color: black;
+}
+
+.toEscuro:hover {
+    color: var(--claro);
+}
+
 .b1 {
     border: var(--b1);
 }
-
 
 .trans {
     transition: var(--trans);

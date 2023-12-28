@@ -20,7 +20,7 @@ from aluno import Aluno
 app = FastAPI()
 
 # Configurar as origens permitidas (permitir solicitações do seu aplicativo React)
-origins = [ "http://localhost:3000" ]
+origins = [ '*', "http://127.0.0.1:3000/", "http://localhost:3000", "http://localhost", "http://localhost:8080" ]
 
 # Adicionar o middleware CORS
 app.add_middleware(
@@ -77,6 +77,37 @@ async def disciplinasNivel(nivel:int):
 @app.get('/disciplinas/resumidas')
 async def disciplinasResumidas():
     return [ disciplina.dicioResumido() for disciplina in curso.disciplinas ]
+
+
+@app.get('/disciplina/{discId}/aluno/{alunoId}')
+async def disciplinaAluno(discId:int, alunoId:int):
+    aluno = curso.buscaAlunoId(alunoId)
+    disciplina = curso[discId-1]
+    return {
+        "disciplina": disciplina.dicio(),
+        "pagou": aluno.pagou(disciplina)
+    }
+
+@app.get('/disciplina/{discId}/aluno/{alunoId}/resumida')
+async def disciplinaAluno(discId:int, alunoId:int):
+    aluno = curso.buscaAlunoId(alunoId)
+    disciplina = curso[discId-1]
+    return {
+        "disciplina": disciplina.dicioResumido(),
+        "pagou": aluno.pagou(disciplina)
+    }
+
+@app.get('/disciplinas/aluno/{alunoId}')
+async def disciplinasAluno(alunoId:int):
+    aluno = curso.buscaAlunoId(alunoId)
+    return [ 
+        [
+            {
+                "disciplina": disciplina.dicioResumido(),
+                "pagou": aluno.pagou(disciplina)
+            } for disciplina in curso.nivel(i)
+        ] for i in range(1, curso.qntPeriodos+1)
+    ]
 
 @app.get('/disciplinas/resumidas/niveis')
 async def disciplinasResumidasNiveis():
@@ -138,7 +169,7 @@ async def me(token: str = Depends(autenticado)):
     aluno = await Aluno(prisma=prisma.aluno).preenche_dados_email(token)
     if aluno is None:
         raise HTTPException(status_code=404, detail="Aluno não encontrado")
-    return {"message": "Aluno autenticado!", "aluno": aluno.dicio()}
+    return aluno.dicio()
 
 def verifica(eu):
     try:
@@ -221,6 +252,10 @@ async def matricularVarias(matriculas: MatriculasModelo):
     else:
         raise HTTPException(status_code=retorno['status'], detail=retorno['message'])
 
+@app.get('/matriculas/aluno/{alunoId}')
+async def matriculasAluno(alunoId:int):
+    aluno = curso.buscaAlunoId(alunoId)
+    return [ matricula.dicio() for matricula in aluno.matriculas ]
 
 # ------------------------------ Main ---------------------------------- #
 

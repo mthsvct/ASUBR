@@ -9,7 +9,6 @@ function marca({e, filtros, setFiltros, valor}:{e: any, filtros: any, setFiltros
             horas: [...filtros.horas, valor]
         })
     } else {
-        // Remover o 90h do array
         const index = filtros.horas.indexOf(valor);
         if (index > -1) {
             let copia = [...filtros.horas];
@@ -39,14 +38,58 @@ export function Filtro({filtros, setFiltros}:{filtros: any, setFiltros: any}) {
                         checked={filtros.opcionais}
                         onChange={
                             (e) => {
-                                setFiltros({
-                                    ...filtros,
-                                    opcionais: e.target.checked
-                                })
+                                if(e.target.checked && filtros.obrigatorias) {
+                                    setFiltros({
+                                        ...filtros,
+                                        opcionais: true,
+                                        obrigatorias: false
+                                    })
+                                } else if(e.target.checked && !filtros.obrigatorias) {
+                                    setFiltros({
+                                        ...filtros,
+                                        opcionais: true
+                                    })
+                                } else {
+                                    setFiltros({
+                                        ...filtros,
+                                        opcionais: false
+                                    })
+                                }
                             }
                         }
                     />
                     <label htmlFor="opcionais"><p>Somente Opcionais</p></label>
+                </div>
+
+                <div className={styles.inputsFora}>
+                    <Input 
+                        type="checkbox" 
+                        name="obrigatorias" 
+                        id="obrigatorias"
+                        checked={filtros.obrigatorias}
+                        onChange={
+                            (e) => {
+                                if(e.target.checked && filtros.opcionais) {
+                                    setFiltros({
+                                        ...filtros,
+                                        opcionais: false,
+                                        obrigatorias: true
+                                    })
+                                } else if(e.target.checked && !filtros.opcionais) {
+                                    setFiltros({
+                                        ...filtros,
+                                        obrigatorias: true
+                                    })
+                                } else {
+                                    setFiltros({
+                                        ...filtros,
+                                        obrigatorias: false
+                                    })
+                                }
+                            }
+                        }
+                    />
+                    <label htmlFor="obrigatorias"><p>Somente Obrigatórias</p></label>
                 </div>
 
                 <div className={styles.inputsFora}>
@@ -153,8 +196,20 @@ export function Filtro({filtros, setFiltros}:{filtros: any, setFiltros: any}) {
                                 <label htmlFor="h90"><p>90h</p></label>
                             </div>
                         </div>
-                    </div>
 
+                        <div className={styles.coluna}>
+                            <div className={styles.horasInput}>
+                                <Input 
+                                    type="checkbox" 
+                                    name="h300" 
+                                    id="h300" 
+                                    checked={filtros.horas.includes(300)}
+                                    onChange={(e) => marca({e, filtros, setFiltros, valor: 300})}
+                                />
+                                <label htmlFor="h300"><p>300h</p></label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
 
@@ -163,11 +218,6 @@ export function Filtro({filtros, setFiltros}:{filtros: any, setFiltros: any}) {
                         linkagem='#'
                         onClick={
                             () => {
-                                // desmarcar todos os checkboxes
-                                // const inputs = document.querySelectorAll('input[type="checkbox"]') as NodeListOf<HTMLInputElement>;
-                                // inputs.forEach((input) => {
-                                //     input.checked = false;
-                                // })
                                 setFiltros({
                                     opcionais: false,
                                     semPre: false,
@@ -180,11 +230,8 @@ export function Filtro({filtros, setFiltros}:{filtros: any, setFiltros: any}) {
                     >
                         Resetar
                     </Button>
-                    {/* <Button type="submit">Aplicar</Button> */}
                 </div>
-
             </form>
         </div>
     )
-    
 }

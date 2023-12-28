@@ -35,8 +35,10 @@
                 border-radius: 10px;
                 
                 &:hover {
-                    font-weight: 600;
-                    background-color: var(--amarelo);
+                    font-weight: 800;
+                    // background-color: black;
+                    // color: white;
+                    // box-shadow:var(--sombra2);
                 }
                 
             }
@@ -48,6 +50,7 @@
     
     .logo {
         width: 10%;
+        
         h1 {
             
             font-size: 2rem;
@@ -55,13 +58,38 @@
         h1:not(:last-child) {
             margin-right: 15px;
         }
+
     }
     
     .perfil {
         width: 10%;
         align-items: center;    
         justify-content: flex-end;
+        flex-direction: column;
+
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            transition: var(--trans);
+            padding: 5px 0px;
+            border-radius: 10px;
+            
+            &:hover {
+                font-weight: 800;
+                // background-color: black;
+                // color: white;
+                // box-shadow:var(--sombra2);
+                // background-color: var(--verde);
+                // box-shadow: ;
+            }
+
+        }
+
         svg {
+            margin-bottom: 5px;
             width: 50px;
             height: 50px;
         }

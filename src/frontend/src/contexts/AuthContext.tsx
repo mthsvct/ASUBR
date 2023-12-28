@@ -4,9 +4,11 @@ import Router from "next/router";
 import { api } from "../services/apiClient";
 import { toast } from "react-toastify";
 
+
 type AuthContextData = {
-    user: UserProps;
+    user: UserProps | null; // Defina o usuário como nullable inicialmente
     isAuthenticated: boolean;
+    loading: boolean; // Adicione um estado de carregamento
     signIn: (credentials: SignInProps) => Promise<void>;
     signOut: () => void;
     signUp: (credentials: SignUpProps) => Promise<void>; 
@@ -57,7 +59,8 @@ export function signOut(){
 
 export function AuthProvider({children}:AuthProviderProps){
 
-    const [user, setUser] = useState<UserProps>(); // Inicialmente o usuário não está logado, então não temos um usuário.
+    // const [user, setUser] = useState<UserProps>(); // Inicialmente o usuário não está logado, então não temos um usuário.
+    const [user, setUser] = useState<UserProps | null>(null); // Inicialize como null
     const isAuthenticated = !!user; // Converter para booleano;
     const [loading, setLoading] = useState(true);
 
@@ -81,9 +84,14 @@ export function AuthProvider({children}:AuthProviderProps){
                 ) // Fim do then.
                 .catch(() => {
                     // Caso de erro, deslogamos.
+                    setUser(null); // Defina o usuário como null em caso de erro
+                    setLoading(false);
                     signOut();
                 }) // Fim do catch.
-            } 
+            } else {
+                setUser(null); // Defina o usuário como null se não houver token
+                setLoading(false);
+            }
 
         }, []
     )
@@ -161,7 +169,7 @@ export function AuthProvider({children}:AuthProviderProps){
     // O user no value tava dando erro, o que professor recomendou: Confira no seu arquivo tsconfig.json se a opção strict esta marcada como false; 
 
     return(
-        <AuthContext.Provider value={{user, isAuthenticated, signIn, signOut, signUp }}>
+        <AuthContext.Provider value={{user, isAuthenticated, loading, signIn, signOut, signUp }}>
             {children}
         </AuthContext.Provider>
     )

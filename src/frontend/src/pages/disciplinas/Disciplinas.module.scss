@@ -2,10 +2,9 @@
 
     display: flex;
     flex-direction: column;
-    // border: 1px solid red;
     padding: 0px 7.5%;
-    // width: 85%;
     margin-top: 50px;
+    margin-bottom: 50px;
 
     .titulo {
         // font-size: 50pt;
@@ -30,9 +29,9 @@
             padding: 40px;
             position: absolute;
             right: 8.5%;
-            top: 255px;
+            top: 280px;
             background-color: var(--claro);
-            box-shadow: 5px 5px 0px black;
+            box-shadow: var(--sombra);
             // align-items: center;
 
             form {

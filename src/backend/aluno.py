@@ -22,7 +22,8 @@ class Aluno(Db):
         combinacoes:list=[],
         interesses:list=[],
         cursoId:int=None,
-        prisma=None
+        prisma=None,
+        prisma_matricula=None
     ) -> None:
         self.id = id
         self.name = name
@@ -36,6 +37,7 @@ class Aluno(Db):
         self.interesses = interesses
         self.cursoId = cursoId
         self.prisma = prisma
+        self.prisma_matricula = prisma_matricula
         super().__init__(prisma)
 
     # ------------------------------ Métodos Especiais ------------------------------ #
@@ -68,6 +70,7 @@ class Aluno(Db):
         self.nivel = self.data.nivel
         self.ira = self.data.ira
         self.cursoId = self.data.cursoId
+        # self.matriculas = await self.get_matriculas()
 
     async def save(self):
         # Função que salva o aluno no banco de dados
@@ -83,9 +86,7 @@ class Aluno(Db):
             }
         )
 
-    async def get_matriculas(self):
-        # função que retorna as matriculas do aluno
-        pass
+    
 
     async def get_interesses(self):
         # função que retorna os interesses do aluno
@@ -109,7 +110,7 @@ class Aluno(Db):
             return self
 
     async def preenche_dados_id(self, id):
-        busca = self.get_id(id)
+        busca = await self.get_id(id)
         if busca is None:
             retorno = {"status": 404, "message": "Aluno não encontrado"}
         else:

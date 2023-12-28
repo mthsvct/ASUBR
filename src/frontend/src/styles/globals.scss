@@ -15,6 +15,9 @@
     --b2: 1px solid red;
 
     --trans: cubic-bezier(0.215, 0.610, 0.355, 1) 0.3s;
+    --sombra:  5px 5px 0px black;
+    --sombra2:  5px 5px 0px var(--amarelo);
+
 }
 
 
@@ -57,4 +60,10 @@ input[type="number"] {
     border: var(--borda);
     border-radius: 10px;
     padding: 10px 15px;   
+}
+
+
+svg {
+    width: 50px;
+    height: 50px;
 }

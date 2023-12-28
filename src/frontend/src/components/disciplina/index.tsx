@@ -4,10 +4,25 @@ import styles from './Disciplina.module.scss'
 
 interface DiscV1Props {
     disciplina: DisciplinaPropsResumida;
-    index?: number | undefined;
+    pagou?: boolean;
 }
 
-export function DisciplinaV1({disciplina}:DiscV1Props){
+function jaPagou(pagou: boolean ) { return pagou ? "Paga!" : "Não paga!" }
+
+function Paga({pagou}: {pagou: boolean | undefined}) {
+    if(pagou == undefined) {
+        pagou = false;
+    }
+
+    if(pagou) {
+        return <div className={styles.pagou}><p>{jaPagou(pagou)}</p></div>
+    } else {
+        return <div className={styles.naoPagou}><p>{jaPagou(pagou)}</p></div>
+    }
+}
+
+
+export function DisciplinaV1({disciplina, pagou}:DiscV1Props){
     return (
         <div className={styles.disciplinaV1}>
             <a href={`/disciplina/${disciplina.id}`}>
@@ -15,7 +30,7 @@ export function DisciplinaV1({disciplina}:DiscV1Props){
                 <div className={styles.horas}><p>{disciplina.horas}h</p></div>
                 <div className={styles.opcional}><p>{ehOpcional(disciplina.opcional)}</p></div>
                 <div className={styles.nivel}><p>{disciplina.nivel}º Periodo</p></div>
-                <div className={styles.paga}><p>Não paga!</p></div>
+                <Paga pagou={pagou} />
             </a>
         </div>
     )

@@ -4,22 +4,26 @@ import { DisciplinaProps } from "../../../interfaces/disciplina";
 import { api } from "@/services/apiClient";
 import Head from "next/head"
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import styles from './Disciplina.module.scss';
+import { Infos } from "./infos";
+import { Pre } from "./pre";
+import { Prox } from "./prox";
+import { AuthContext } from "@/contexts/AuthContext";
 
 
-
-
-function DisciplinaInfos({id}) {
-    const [disciplina, setDisciplina] = useState<DisciplinaProps | null>(null);
-    const [loading, setLoading] = useState(true);
+function DisciplinaInfos({ id, user }) {
+    
+    const [ disciplina, setDisciplina ] = useState<DisciplinaProps | null>(null);
+    const [ carregando, setCarregando ] = useState(true);
 
     useEffect(
         () => {
             api.get(`/disciplina/${id}`).then(
                 response => {
                     setDisciplina(response.data);
-                    setLoading(false);
+                    setCarregando(false);
                 }
             ).catch(
                 error => {
@@ -30,15 +34,16 @@ function DisciplinaInfos({id}) {
         }, [id]
     );
 
-    if (loading) {
+    if (carregando || disciplina == null) {
         return <h1>Carregando...</h1>
     } else {
         return (
-            <div>
-                <h1>{disciplina.name}</h1>
-                <p>{disciplina.codigo}</p>
-                <p>{disciplina.horas}h</p>
-                <p>{disciplina.id}</p>
+            <div className={styles.disciplina}>
+                <div className={styles.conteudo}>
+                    <Infos disciplina={disciplina} />
+                    <Pre disciplina={disciplina} />
+                    <Prox disciplina={disciplina} />
+                </div>
             </div>
         )
     }
@@ -49,12 +54,22 @@ export default function Disciplina() {
 
     const router = useRouter();
     const { id } = router.query;
+    const { user, loading } = useContext(AuthContext);
+    const [ carregando, setCarregando ] = useState(true);
+
+    useEffect(
+        () => {
+            if (!loading && id != undefined) {
+                setCarregando(false);
+            } 
+        }, [loading, id]
+    );
 
     return (
         <>
             <Head><title>Disciplina</title></Head>
             <Header />
-            {id == undefined ? <h1>Carregando</h1> : <DisciplinaInfos id={id} />}
+            { carregando ? <h1>Carregando</h1> : <DisciplinaInfos id={id} user={user} />}
             <Footer />
         </>
     )

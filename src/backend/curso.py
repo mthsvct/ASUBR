@@ -2,6 +2,7 @@ from random import choice
 from prisma import Prisma
 
 from aluno import Aluno
+from matricula import Matricula
 from oferta import Oferta
 from periodo import Periodo
 from disciplina import Disciplina
@@ -217,10 +218,22 @@ class Curso(Db, Uteis):
     async def pegaAlunos(self):
         alunos = []
         for a in await self.db.aluno.find_many():
-            aluno = Aluno()
+            aluno = Aluno(prisma=self.db.aluno, prisma_matricula=self.db.matricula)
             await aluno.preenche_dados(a)
+            aluno.matriculas = await self.get_matriculas(aluno)
             alunos.append(aluno)
         return alunos
+
+    async def get_matriculas(self, aluno:Aluno):
+        mats = await self.db.matricula.find_many(where={'alunoId': aluno.id})
+        matriculas = []
+        for m in mats:
+            mat = Matricula(prisma=self.db.matricula)
+            await mat.preenche_dados(m)
+            disc = self.buscaId(mat.disciplinaId)
+            mat.disciplina = disc
+            matriculas.append(mat)
+        return matriculas
 
     def buscaAluno(self, email: str) -> Aluno:
         retorno = None
@@ -289,6 +302,7 @@ class Curso(Db, Uteis):
         else:
             resultado = await aluno.matricular(disciplina, prisma=self.db.matricula, salvando=True)
             retorno = {"status": 200, "message": resultado.dicio()}
+            self.alunos = await self.pegaAlunos() # Atualiza a lista de alunos
         return retorno
 
     async def matricularVarias(self, alunoId:int, matriculas:list):
@@ -306,6 +320,7 @@ class Curso(Db, Uteis):
                 else:
                     resultado = await aluno.matricular(disciplina, prisma=self.db.matricula, ano=m.ano, semestre=m.semestre, salvando=True)
                     retorno = {"status": 200, "message": resultado.dicio()}
+            self.alunos = await self.pegaAlunos() # Atualiza a lista de alunos
         return retorno
 
         

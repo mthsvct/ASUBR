@@ -11,16 +11,21 @@ import { api } from "@/services/apiClient";
 import { toast } from "react-toastify";
 import { useState } from "react";
 
+function PodePagar({ pagou }: { pagou: boolean }) {
+    if(pagou){
+        return <p>Você já pagou esta disciplina. :D</p>
+    } else {
+        return <p></p>
+    }
+}
 
 export function Infos(
     {
         disciplina,
-        setDisciplina,
         pagou,
         user
     }: {
         disciplina: DisciplinaProps,
-        setDisciplina: Function, 
         pagou: boolean,
         user: any
     }) {
@@ -50,7 +55,6 @@ export function Infos(
             )
         } else {
             // Já pagou!
-            // /matricula/delete/{alunoId}/{disciplinaId}
             await api.delete(
                 `/matricula/delete/${user.id}/${disciplina.id}`,
             ).then(
@@ -78,7 +82,9 @@ export function Infos(
                 <div className={styles.opcional}><p>{ehOpcional(disciplina.opcional)}</p></div>
                 <div className={styles.nivel}><p>{disciplina.nivel}º periodo</p></div>
                 <div className={styles.horas}><p>{disciplina.horas}h</p></div>
-                <div className={styles.podePagar}><p>Você pode pagar esta matéria</p></div>
+                <div className={styles.podePagar}>
+                    <PodePagar pagou={auxPagou} />
+                </div>
             </div>
 
             <div className={styles.coluna2}>
@@ -96,7 +102,7 @@ export function Infos(
                                 auxPagou ? (
                                     <>
                                         <CiCircleCheck />
-                                        <p>Pago!</p>
+                                        <p>Paga!</p>
                                     </>
                                 ) : (
                                     <>

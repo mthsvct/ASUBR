@@ -24,7 +24,6 @@ function marca({e, filtros, setFiltros, valor}:{e: any, filtros: any, setFiltros
 
 
 export function Filtro({filtros, setFiltros}:{filtros: any, setFiltros: any}) {
-
     return (
         <div className={styles.menuFiltro} style={{display:'none'}}>
             <h2>Filtros</h2>

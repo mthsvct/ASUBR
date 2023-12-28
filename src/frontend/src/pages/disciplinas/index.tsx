@@ -15,31 +15,57 @@ import { Filtro } from "./filtro";
 import { AuthContext } from "@/contexts/AuthContext";
 
 function verHoras(filtros: any, disciplina: any) {
-    if(filtros.horas.length > 0){
-        return filtros.horas.includes(disciplina.horas);
-    }
-    return true;
+    return filtros.horas.includes(disciplina.horas);
 }
 
-
-function verificacoes(disciplina: any, filtros: any, pagou: boolean ) {
+function filtrado(filtros: any) {
     return (
         !filtros.opcionais && 
         !filtros.obrigatorias && 
         !filtros.semPre && 
         !filtros.naoPagos &&
-        !filtros.pagos &&
-        filtros.horas.length == 0
-    ) || (
-        (
-            (filtros.opcionais && disciplina.opcional) || 
-            (filtros.obrigatorias && !disciplina.opcional) || 
-            (filtros.naoPagos && !pagou) ||
-            (filtros.pagos && pagou) ||
-            (filtros.semPre && !disciplina.pre)
-        ) && 
-        verHoras(filtros, disciplina)
-    );
+        !filtros.pagos 
+    )
+}
+
+
+function verificacoes(disciplina: any, filtros: any, pagou: boolean ) {
+
+    let retorno = false;
+
+    if(filtrado(filtros) && filtros.horas.length == 0) {
+        // Se não possui filtro nenhum e não possui filtro de horas
+        // Então retorna true, pois essa disciplina pode aparecer.
+        return true;
+
+    } else if(filtrado(filtros) && filtros.horas.length > 0){
+        // Se não possui filtro nenhum, mas possui filtro de horas
+        // Então retorna true somente a disciplina tem a quantidade de horas que está incluida no filtro de horas.
+        return verHoras(filtros, disciplina);
+    } else {
+        // Se possui algum filtro
+        // Então retorna true somente se a disciplina passar por todos os filtros.
+        if(filtros.opcionais && disciplina.opcional) {
+            retorno = true;
+        } else if(filtros.obrigatorias && !disciplina.opcional) {
+            retorno = true;
+        } else if(filtros.semPre && !disciplina.pre) {
+            retorno = true;
+        } else if(filtros.naoPagos && !pagou) {
+            retorno = true;
+        } else if(filtros.pagos && pagou) {
+            retorno = true;
+        } else {
+            retorno = false;
+        }
+
+        if(retorno && filtros.horas.length > 0) {
+            retorno = verHoras(filtros, disciplina);
+        }
+    }
+
+
+    return retorno;  
 }
 
 

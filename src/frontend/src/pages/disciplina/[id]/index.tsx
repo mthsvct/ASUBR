@@ -42,7 +42,6 @@ function DisciplinaInfos({ id, user }) {
                 <div className={styles.conteudo}>
                     <Infos 
                         disciplina={disciplina.disciplina} 
-                        setDisciplina={setDisciplina}
                         pagou={disciplina.pagou} 
                         user={user}
                         />

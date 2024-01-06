@@ -74,12 +74,15 @@ function Periodo({disciplinas, periodo, filtros}:{disciplinas: Array<any>, perio
     
     let selecionados = [];
 
-
     for(let i = 0; i < disciplinas.length; i++) {
-        if( verificacoes(disciplinas[i].disciplina, filtros, disciplinas[i].pagou) ) {
+        if( verificacoes(disciplinas[i], filtros, disciplinas[i].pagou) ) {
             selecionados.push(
                 <div className={styles.disciplina} key={`Disciplina-${i}`}>
-                    <DisciplinaV1 key={`${disciplinas[i].id}`} disciplina={disciplinas[i].disciplina} pagou={disciplinas[i].pagou} />
+                    <DisciplinaV1 
+                        key={`${disciplinas[i].id}`} 
+                        disciplina={disciplinas[i]} 
+                        pagou={disciplinas[i].pagou} 
+                    />
                 </div>
             );
         }
@@ -90,9 +93,7 @@ function Periodo({disciplinas, periodo, filtros}:{disciplinas: Array<any>, perio
             <div className={styles.titulo}><h2>{periodo}º Periodo</h2></div>
             <div className={styles.disciplinas}>
             { 
-                selecionados.length == 0 ? 
-                <h4>Não há disciplinas nesse período</h4> :
-                selecionados
+                selecionados.length == 0 ? <h4>Não há disciplinas nesse período</h4> : selecionados
             }
             </div>
         </div>
@@ -111,12 +112,6 @@ function Periodos({periodos}:{periodos: Array<any>}){
         pagos: false,
         horas: []
     })
-
-    // useEffect(
-    //     () => {
-    //         console.log(filtros);
-    //     }, [filtros]
-    // )
 
     return (
         <div className={styles.periodos}>
@@ -160,7 +155,6 @@ function DisciplinasInfos({user}){
 
     useEffect(
         () => {
-            // api.get('/disciplinas/resumidas/niveis').then(
             api.get(`/disciplinas/aluno/${user.id}`).then(
                 response => {
                     setDisciplinas(response.data);

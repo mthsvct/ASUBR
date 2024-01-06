@@ -24,7 +24,7 @@ function Cabecalho({user}) {
             <div className={styles.perfil}>
                 <a href="#">
                     <FaUserCircle />
-                    <p>{user.name}</p>
+                    {/* <p>{user.name}</p> */}
                 </a>
             </div>
         </header>

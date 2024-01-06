@@ -24,6 +24,7 @@ function DisciplinaInfos({ id, user }) {
                 response => {
                     setDisciplina(response.data);
                     setCarregando(false);
+                    console.log(response.data);
                 }
             ).catch(
                 error => {
@@ -41,12 +42,12 @@ function DisciplinaInfos({ id, user }) {
             <div className={styles.disciplina}>
                 <div className={styles.conteudo}>
                     <Infos 
-                        disciplina={disciplina.disciplina} 
+                        disciplina={disciplina} 
                         pagou={disciplina.pagou} 
                         user={user}
                         />
-                    <Pre disciplina={disciplina.disciplina} />
-                    <Prox disciplina={disciplina.disciplina} />
+                    <Pre disciplina={disciplina} />
+                    <Prox disciplina={disciplina} />
                 </div>
             </div>
         )

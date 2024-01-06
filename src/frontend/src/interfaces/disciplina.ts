@@ -10,6 +10,7 @@ export interface DisciplinaProps {
     descricao: string;
     pre: any;
     prox: Array<any>;
+    pagou?: boolean;
 }
 
 export interface DisciplinaPropsResumida {

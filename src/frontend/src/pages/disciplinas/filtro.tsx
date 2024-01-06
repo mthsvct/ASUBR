@@ -1,6 +1,7 @@
 import { Input } from '@/components/input';
 import styles from './Disciplinas.module.scss'
 import { Button } from '@/components/button';
+import { MdClose } from 'react-icons/md';
 
 function marca({e, filtros, setFiltros, valor}:{e: any, filtros: any, setFiltros: any, valor: any}) {
     if(e.target.checked) {
@@ -26,7 +27,19 @@ function marca({e, filtros, setFiltros, valor}:{e: any, filtros: any, setFiltros
 export function Filtro({filtros, setFiltros}:{filtros: any, setFiltros: any}) {
     return (
         <div className={styles.menuFiltro} style={{display:'none'}}>
-            <h2>Filtros</h2>
+
+            <div className={styles.tituloMenu}>
+                <h2>Filtros</h2>
+                <MdClose style={{cursor:'pointer'}} onClick={
+                    () => {
+                        const menu = document.querySelector(`.${styles.menuFiltro}`) as HTMLElement;
+                        if (menu && menu.style.display === 'none') menu.style.display = 'flex';
+                        else menu.style.display = 'none';
+                    }
+                } />
+            </div>
+
+            
 
             <form>
                 <div className={styles.inputsFora}>

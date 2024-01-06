@@ -64,13 +64,13 @@
     .perfil {
         width: 10%;
         align-items: center;    
-        justify-content: flex-end;
+        justify-content: right;
         flex-direction: column;
 
         a {
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: right;
+            align-items: flex-end;
             flex-direction: column;
             width: 100%;
             transition: var(--trans);

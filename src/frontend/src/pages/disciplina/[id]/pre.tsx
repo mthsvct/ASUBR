@@ -24,13 +24,12 @@ function MontaPre({pre}: {pre: any}) {
         )
 
     } else if(pre.id !== undefined) {
-
+        console.log(pre)
         return (
             <div className={styles.disciplinaUnica} key={key+1}>
-                <DisciplinaV1 disciplina={pre} />
+                <DisciplinaV1 disciplina={pre} pagou={pre.pagou} />
             </div>
         )
-
     } else {
         return (
             <div className={styles.disciplinas} key={key}>
@@ -54,7 +53,9 @@ export function Pre({disciplina}: {disciplina: DisciplinaProps}) {
             </div>
 
             <div className={styles.disciplinas}>
-                <MontaPre pre={disciplina.pre} />
+                <MontaPre 
+                    pre={disciplina.pre} 
+                    />
             </div>
 
         </div>

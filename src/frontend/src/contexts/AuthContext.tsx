@@ -29,12 +29,12 @@ type SignInProps = {
 }
 
 type SignUpProps = {
-    name: string;
-    email: string;
-    password: string;
-    matricula: string;
-    ira: number;
-    nivel: number;
+    nameN: string;
+    emailN: string;
+    passwordN: string;
+    matriculaN: string;
+    iraN: number;
+    nivelN: number;
 }
 
 type AuthProviderProps = {
@@ -104,12 +104,22 @@ export function AuthProvider({children}:AuthProviderProps){
             // Fazer a requisição para a API.
             const response = await api.post('/aluno/login', {
                 email: email,
-                password:password
+                password: password
             });
 
             //console.log(response.data);
+
+            const {status} = response.data;
+
+            // console.log(response.data);
+
+            if (status != 200) {
+                toast.error("Erro ao acessar. :(");
+                return;
+            } 
             
-            const { id, name, matricula, ira, nivel, token } = response.data;
+            const { id, name, matricula, ira, nivel } = response.data.aluno;
+            const { token } = response.data;
 
             setCookie(undefined, '@nextauth.token', token, {
                 maxAge: 60 * 60 * 24 * 30, // 30 dias
@@ -133,7 +143,7 @@ export function AuthProvider({children}:AuthProviderProps){
         }
     }
 
-    async function signUp({name, email, password, matricula, ira, nivel}: SignUpProps){
+    async function signUp({nameN, emailN, passwordN, matriculaN, iraN, nivelN}: SignUpProps){
         
         // signUp = Cadastrar
         
@@ -142,20 +152,38 @@ export function AuthProvider({children}:AuthProviderProps){
             // Fazer a requisição para a API para criar o usuário.
 
             const response = await api.post('/aluno/cadastrar', {
-                name: name,
-                email: email,
-                password: password,
-                matricula: matricula,
-                ira: ira,
-                nivel: nivel
+                name: nameN,
+                email: emailN,
+                password: passwordN,
+                matricula: matriculaN,
+                ira: iraN,
+                nivel: nivelN
             });
 
-            console.log("Cadastrado!");
+            console.log(response.data);
+
+            if(response.data.status != 200){
+                toast.error("Erro ao cadastrar. :(");
+                return;
+            }
+
+            const { id, name, email, matricula, ira, nivel } = response.data.aluno;
+            const { token } = response.data;
+
+            setCookie(undefined, '@nextauth.token', token, {
+                maxAge: 60 * 60 * 24 * 30, // 30 dias
+                path: "/" // Quais caminhos terão acesso ao cookie.
+            }); // Esta função eh para salvar o cookie no navegador.
+
+            setUser({id, name, email, matricula, ira, nivel});
+        
+            // Passar para as próximas requisições nosso token.
+            api.defaults.headers['Authorization'] = `Bearer ${token}`
 
             toast.success("Cadastrado com Sucesso! :D");
 
             // Redirecionar o usuário para a página de login.
-            Router.push('/login');
+            Router.push('/check');
 
         } catch(err) {
             // Caso de erro, não fazer nada.

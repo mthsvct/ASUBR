@@ -37,12 +37,15 @@ class Disciplina(Db, Uteis):
         self.id_curso = id_curso
         self.d_json = d_json
         super().__init__(prisma)
-    
+
+    @property
+    def temPre(self): return self.pre != None
+
     # ------------------------------ Métodos Especiais ------------------------------ #
 
     def __str__(self) -> str: return self.info(self.id, self.name, self.codigo, self.horas, self.nivel)
     def __repr__(self) -> str: return self.info(self.id, self.name, self.codigo)
-    def __dict__(self):
+    def __dict__(self, aluno=None):
         return {
             "id": self.id,
             "name": self.name,
@@ -50,25 +53,31 @@ class Disciplina(Db, Uteis):
             "horas": self.horas,
             "nivel": self.nivel,
             "opcional": self.opcional,
-            "pre": self.pegaPre(self.pre),
-            "prox": self.pegaProx(),
+            "pre": self.pegaPre(self.pre, aluno),
+            "prox": self.pegaProx(aluno),
             "descricao": self.descricao,
             "id_curso": self.id_curso
         }
 
-    def dicio(self):
-        return self.__dict__()
+    def dicio(self, aluno=None): return self.__dict__(aluno)
     
-    def dicioResumido(self):
-        return {
+    def dicioResumido(self, aluno=None):
+        aux = {
             'id': self.id,
             "name": self.name,
-            # "codigo": self.codigo,
             "horas": self.horas,
-            'opcional': self.opcional,
+            "opcional": self.opcional,
             "nivel": self.nivel if self.nivel else 1,
             'pre': self.temPre,
         }
+        if aluno: aux['pagou'] = aluno.pagou(self)
+        return aux
+    
+    def dicioPagas(self, aluno):
+        aux = self.dicio(aluno)
+        aux['pagou'] = aluno.pagou(self)
+        return aux
+
 
     # ------------------------------------- DB -------------------------------------- #
     
@@ -141,17 +150,22 @@ class Disciplina(Db, Uteis):
         return [d.codigo for d in self.prox]
 
     # Função que converte o pré-requisito em lista de códigos
-    def pegaPre(self, pre):
+    def pegaPre(self, pre, aluno=None):
         if pre == None: return '-'
-        if isinstance(pre, Disciplina): return pre.dicioResumido()
+        if isinstance(pre, Disciplina): 
+            aux = pre.dicioResumido()
+            if aluno:
+                aux['pagou'] = aluno.pagou(pre)
+            return aux
         if isinstance(pre, list): return [self.pegaPre(i) for i in pre]
         if isinstance(pre, dict): return {'op': pre['op'], 'ds': self.pegaPre(pre['ds'])}
 
-    def pegaProx(self):
-        return [d.dicioResumido() for d in self.prox]
-    
-
-    @property
-    def temPre(self):
-        return self.pre != None
+    def pegaProx(self, aluno=None):
+        lista = []
+        for d in self.prox:
+            aux = d.dicioResumido()
+            if aluno:
+                aux['pagou'] = aluno.pagou(d)
+            lista.append(aux)
+        return lista
     

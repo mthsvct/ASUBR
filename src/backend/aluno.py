@@ -159,21 +159,39 @@ class Aluno(Db):
     async def login(self, email, senha):
         # Função que faz o login do aluno
         aluno = await self.get_by_email(email) # Busca o aluno pelo email
-        if aluno: # Se o aluno for encontrado
+
+
+        print('\n', aluno, '\n')
+
+        if aluno != None: # Se o aluno for encontrado
             if verificar_hash(senha, aluno.password): 
                 await self.preenche_dados(aluno)
                 token = criar_acess_token({"sub": self.email})
-                return {"message": "Login realizado com sucesso!", "aluno": self.dicio(), 'token': token}
+                return {
+                    "status": 200,
+                    "message": "Login realizado com sucesso!", 
+                    "aluno": self.dicio(), 
+                    'token': token
+                }
             else:
-                return {"error": "Senha incorreta"}
+                return {
+                    "status": 401,
+                    "error": "Senha incorreta"
+                }
         else:
-            return {"error": "Aluno não encontrado"} 
+            return {
+                "status": 404,
+                "error": "Aluno não encontrado"
+            }
 
     async def cadastrar(self, aluno, curso, password):
         # Função que cadastra o aluno no banco de dados
         buscado = curso.buscaAluno(aluno.email)
         if buscado:
-            return {"message": "Email já cadastrado!"}
+            return {
+                "status": 401,    
+                "message": "Email já cadastrado!"
+            }
         else:
             novo = Aluno(
                 name=aluno.name,
@@ -187,7 +205,13 @@ class Aluno(Db):
             )
             await novo.save()
             await curso.atualizarAlunos()
-            return {"message": "Aluno cadastrado com sucesso!", "aluno": curso.alunos[-1].dicio()}
+            token = criar_acess_token({"sub": aluno.email})
+            return {
+                "status": 200,
+                "message": "Aluno cadastrado com sucesso!", 
+                "aluno": curso.alunos[-1].dicio(),
+                "token": token
+            }
 
     def verificarPreRequisitos(self, pre):
         # Função que verifica se o aluno pode pagar uma disciplina

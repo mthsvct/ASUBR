@@ -127,12 +127,12 @@ export default function Cadastrar() {
         setLoading(true);
 
         let data = {
-            name: user.name,
-            email: user.email,
-            password: user.password,
-            matricula: user.matricula,
-            ira: user.ira,
-            nivel: user.nivel
+            nameN: user.name,
+            emailN: user.email,
+            passwordN: user.password,
+            matriculaN: user.matricula,
+            iraN: user.ira,
+            nivelN: user.nivel
         }
 
         await signUp(data);

@@ -6,6 +6,7 @@ import { DisciplinaV1 } from "@/components/disciplina";
 
 function DisciplinasProximas({disciplina}:{disciplina: DisciplinaProps}) {
     if (disciplina.prox.length > 0) {
+        console.log(disciplina.prox[0])
         return (
             <div className={styles.disciplinas}>
                 {
@@ -13,7 +14,10 @@ function DisciplinasProximas({disciplina}:{disciplina: DisciplinaProps}) {
                         (disciplina, index) => {
                             return (
                                 <div key={index} className={styles.disciplinaUnique}>
-                                    <DisciplinaV1 disciplina={disciplina} index={index} />
+                                    <DisciplinaV1 
+                                        disciplina={disciplina} 
+                                        pagou={disciplina.pagou}
+                                        />
                                 </div>
                             )
                         }

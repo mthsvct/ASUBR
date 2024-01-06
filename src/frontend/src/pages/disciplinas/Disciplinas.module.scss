@@ -32,7 +32,25 @@
             top: 280px;
             background-color: var(--claro);
             box-shadow: var(--sombra);
-            // align-items: center;
+
+            .tituloMenu {
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+                align-items: center;
+
+                svg {
+                    width: 35px;
+                    height: 35px;
+
+                    transition: var(--trans);
+
+                    &:hover {
+                        transform: rotate(90deg);
+                    }
+
+                }
+            }
 
             form {
                 display: flex;

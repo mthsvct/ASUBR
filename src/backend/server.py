@@ -6,13 +6,11 @@ from typing import List
 from prisma import Prisma
 from dotenv import load_dotenv
 from autenticacao import gerar_hash, SECRET_KEY, ALGORITHM
-
 import jwt  # PyJWT library
-
 # from fastapi.security import OAuth2PasswordBearer
-
 from curso import Curso
 from aluno import Aluno
+
 
 
 # ----------------- Configurações do FastAPI ----------------- #
@@ -30,6 +28,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
 
 
 # ----------------- Configurações do Prisma --------------------- #
@@ -54,11 +54,20 @@ async def shutdown():
 
 # --------------------------------- Rotas ------------------------------ #
 
-# --------------- CURSOS ------------------ #
 
+
+
+
+# --------------- CURSOS ------------------ #
+    
 # Rota para obter um curso
 @app.get("/curso")
 async def cursoCompleto(): return curso.dicio()
+
+
+
+
+
 
 # -------------- DISCIPLINAS -------------- #
 
@@ -78,40 +87,34 @@ async def disciplinasNivel(nivel:int):
 async def disciplinasResumidas():
     return [ disciplina.dicioResumido() for disciplina in curso.disciplinas ]
 
-
 @app.get('/disciplina/{discId}/aluno/{alunoId}')
 async def disciplinaAluno(discId:int, alunoId:int):
     aluno = curso.buscaAlunoId(alunoId)
     disciplina = curso[discId-1]
-    return {
-        "disciplina": disciplina.dicio(),
-        "pagou": aluno.pagou(disciplina)
-    }
+    return disciplina.dicioPagas(aluno)
 
 @app.get('/disciplina/{discId}/aluno/{alunoId}/resumida')
 async def disciplinaAluno(discId:int, alunoId:int):
     aluno = curso.buscaAlunoId(alunoId)
     disciplina = curso[discId-1]
-    return {
-        "disciplina": disciplina.dicioResumido(),
-        "pagou": aluno.pagou(disciplina)
-    }
+    return disciplina.dicioResumido(aluno)
 
 @app.get('/disciplinas/aluno/{alunoId}')
 async def disciplinasAluno(alunoId:int):
     aluno = curso.buscaAlunoId(alunoId)
     return [ 
         [
-            {
-                "disciplina": disciplina.dicioResumido(),
-                "pagou": aluno.pagou(disciplina)
-            } for disciplina in curso.nivel(i)
+            d.dicioResumido(aluno) for d in curso.nivel(i)
         ] for i in range(1, curso.qntPeriodos+1)
     ]
 
 @app.get('/disciplinas/resumidas/niveis')
 async def disciplinasResumidasNiveis():
     return [ [ d.dicioResumido() for d in curso.nivel(nivel) ] for nivel in range(1, curso.qntPeriodos+1) ]
+
+
+
+
 
 # -------------- PERIODO -------------- #
 
@@ -123,6 +126,10 @@ async def periodo(): return curso.atual.dicio()
 @app.get("/periodo/{ano}/{semestre}")
 async def periodo(ano:int, semestre:int): 
     return b.dicio() if (b:=curso.buscaPeriodo(ano, semestre)) else {"message": "Período não encontrado!"}
+
+
+
+
 
 # -------------- ALUNO -------------- #
 
@@ -224,6 +231,10 @@ async def update_aluno(dados: AlunoCompleto):
     return {"message": "Aluno atualizado com sucesso!", "aluno": buscado.dicio()}
 
 
+
+
+
+
 # -------------- MATRICULA -------------- #
 
 class MatriculaModelo(BaseModel):
@@ -259,8 +270,7 @@ async def matriculasAluno(alunoId:int):
 
 @app.delete('/matricula/delete/{alunoId}/{disciplinaId}')
 async def delete_matricula(alunoId:int, disciplinaId:int):
-    r = await curso.deleteMatricula(alunoId, disciplinaId)
-    return r
+    return await curso.deleteMatricula(alunoId, disciplinaId)
 
 
 # ------------------------------ Main ---------------------------------- #

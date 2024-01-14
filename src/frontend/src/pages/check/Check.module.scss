@@ -1,0 +1,120 @@
+.check {
+
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    
+    &, .formulario {
+        display: flex;
+    }
+    
+    &, .formulario {
+        flex-direction: column;
+    }
+    
+    .formulario {
+        width: 85%;
+        
+
+        .titulo {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+
+            h2 {
+                font-size: 25pt;
+            }
+
+            // border: 1px solid green;
+        }
+
+
+        .periodos {
+            width: 100%;
+            display: flex;
+
+            flex-direction: column;
+            justify-content: center;
+            margin-top: 50px;
+            align-items: center;
+            // border: 1px solid red;
+
+
+            .periodo {
+                display: flex;
+                flex-direction: column;
+                // border: 1px solid blue;
+                // border-bottom: var(--borda);
+                border-bottom: 1px solid #ccc;
+                margin-bottom: 50px;
+                width: 90%;
+
+                .perTitulo {
+                    
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 25px;
+                    h3 {
+                        // margin-bottom: 25px;
+                        font-size: 21pt;
+                    }
+                }
+
+                .disciplinas {
+
+
+                    .disciplina {
+                        margin-bottom: 15px;
+                        display: flex;
+                        align-items: center;
+                        cursor: pointer;
+                        transition: var(--trans);
+                        font-size: 18pt;
+    
+                        input {
+                            margin-right: 10px;
+                            // width: 80px;
+                            width: 30px;
+                            height: 30px;
+                        }
+    
+                        label {
+                            
+                            cursor: pointer;
+                            width: 100%;
+                            // border: 1px solid red;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+    
+                            svg {
+                                width: 30px;
+                                height: 30px;
+                            }
+    
+                        }
+    
+                        &:hover {
+                            font-size: 22pt;
+                            padding-top: 10px;
+                            padding-bottom: 10px;
+                        }
+    
+                    }
+                }   
+
+                
+
+
+                
+
+            }
+
+        }
+
+    }
+
+}

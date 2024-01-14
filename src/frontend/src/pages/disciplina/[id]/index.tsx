@@ -24,7 +24,6 @@ function DisciplinaInfos({ id, user }) {
                 response => {
                     setDisciplina(response.data);
                     setCarregando(false);
-                    console.log(response.data);
                 }
             ).catch(
                 error => {
@@ -74,7 +73,11 @@ export default function Disciplina() {
         <>
             <Head><title>Disciplina</title></Head>
             <Header />
-            { carregando ? <h1>Carregando</h1> : <DisciplinaInfos id={id} user={user} />}
+            {
+                carregando ? 
+                    <h1>Carregando</h1> : 
+                    <DisciplinaInfos id={id} user={user} />
+            }
             <Footer />
         </>
     )

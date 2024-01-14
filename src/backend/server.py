@@ -112,6 +112,12 @@ async def disciplinasAluno(alunoId:int):
 async def disciplinasResumidasNiveis():
     return [ [ d.dicioResumido() for d in curso.nivel(nivel) ] for nivel in range(1, curso.qntPeriodos+1) ]
 
+@app.get('/disciplinas/ultraresumidas/aluno/{alunoId}')
+async def disciplinasUltraResumidas(alunoId:int):
+    aluno = curso.buscaAlunoId(alunoId)
+    return [[d.dicioUltraResumido(aluno) for d in curso.nivel(i)] for i in range(1, curso.qntPeriodos+1)]
+
+
 
 
 

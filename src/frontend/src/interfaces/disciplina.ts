@@ -11,6 +11,7 @@ export interface DisciplinaProps {
     pre: any;
     prox: Array<any>;
     pagou?: boolean;
+    podePagar?: boolean;
 }
 
 export interface DisciplinaPropsResumida {

@@ -87,6 +87,7 @@ class Aluno(Db):
         )
 
     
+    # -------------------------------- DB ------------------------------ #
 
     async def get_interesses(self):
         # função que retorna os interesses do aluno

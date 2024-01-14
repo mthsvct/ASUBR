@@ -70,12 +70,20 @@ class Disciplina(Db, Uteis):
             "nivel": self.nivel if self.nivel else 1,
             'pre': self.temPre,
         }
-        if aluno: aux['pagou'] = aluno.pagou(self)
+        if aluno: 
+            aux['pagou'] = aluno.pagou(self)
+            aux['podePagar'] = aluno.podePagar(self)
         return aux
     
     def dicioPagas(self, aluno):
         aux = self.dicio(aluno)
         aux['pagou'] = aluno.pagou(self)
+        aux['podePagar'] = aluno.podePagar(self)
+        return aux
+    
+    def dicioUltraResumido(self, aluno=None):
+        aux = {'id': self.id, 'name': self.name.title()}
+        if aluno: aux['pagou'] = aluno.pagou(self)
         return aux
 
 

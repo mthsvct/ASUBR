@@ -11,13 +11,17 @@ import { api } from "@/services/apiClient";
 import { toast } from "react-toastify";
 import { useState } from "react";
 
-function PodePagar({ pagou }: { pagou: boolean }) {
+
+function PodePagar({ pagou, podePagar }: { pagou: boolean, podePagar: boolean }) {
     if(pagou){
         return <p>Você já pagou esta disciplina. :D</p>
+    } else if(podePagar) {
+        return <p>Você pode pagar esta disciplina. :D</p>
     } else {
-        return <p></p>
+        return <p>Devido aos pré-requisitos, você ainda não pode pagar esta disciplina. :( </p>
     }
 }
+
 
 export function Infos(
     {
@@ -73,7 +77,6 @@ export function Infos(
     }
 
 
-
     return (
         <div className={styles.infos}>
             <div className={styles.coluna1}>
@@ -83,7 +86,7 @@ export function Infos(
                 <div className={styles.nivel}><p>{disciplina.nivel}º periodo</p></div>
                 <div className={styles.horas}><p>{disciplina.horas}h</p></div>
                 <div className={styles.podePagar}>
-                    <PodePagar pagou={auxPagou} />
+                    <PodePagar pagou={auxPagou} podePagar={disciplina.podePagar} />
                 </div>
             </div>
 
@@ -91,28 +94,36 @@ export function Infos(
 
                 <div className={styles.botoes}>
 
-                    <div className={`${styles.jaPagou} ${
-                        auxPagou ? global.verde : ''
-                    }`}>
-                        
-                        <Button2
-                            onClick={pagar}
-                        >
-                            {
-                                auxPagou ? (
-                                    <>
-                                        <CiCircleCheck />
-                                        <p>Paga!</p>
-                                    </>
-                                ) : (
-                                    <>
-                                        <MdOutlineCheckBoxOutlineBlank />
-                                        <p>Já pagou?</p>
-                                    </>
-                                )
-                            }
-                        </Button2>
-                    </div>
+                    {
+                        disciplina.podePagar ? (
+                            <div className={`${styles.jaPagou} ${
+                                auxPagou ? global.verde : ''
+                            }`}>
+                                
+                                <Button2
+                                    onClick={pagar}
+                                >
+                                    {
+                                        auxPagou ? (
+                                            <>
+                                                <CiCircleCheck />
+                                                <p>Paga!</p>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <MdOutlineCheckBoxOutlineBlank />
+                                                <p>Já pagou?</p>
+                                            </>
+                                        )
+                                    }
+                                </Button2>
+                            </div>
+                        ) : (
+                            <></>
+                        )
+                    }
+
+                    
 
                     {
                         auxPagou == false ? (

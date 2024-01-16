@@ -7,7 +7,6 @@ from horario import Horario
 from utilitarios import DIAS
 from aluno import Aluno
 
-
 class Periodo(Db):
 
     def __init__(
@@ -22,6 +21,8 @@ class Periodo(Db):
         prisma=None,
         ofertas:[Oferta]=[],
         cursoId:int=None,
+        prismaOferta=None,
+        prismaHorario=None,
     ):
         self.id = id
         self.ano = ano
@@ -32,6 +33,8 @@ class Periodo(Db):
         self.processamento = processamento
         self.ofertas = ofertas
         self.cursoId = cursoId
+        self.prismaOferta = prismaOferta
+        self.prismaHorario = prismaHorario
         super().__init__(prisma)
 
     # ------------------------------ Métodos Especiais ------------------------------ #
@@ -77,12 +80,32 @@ class Periodo(Db):
         self.fimMatriculas = self.data.fimMatriculas
         self.processamento = self.data.processamento
         self.cursoId = self.data.cursoId
+        self.ofertas = await self.get_ofertas()
+
+    async def get_ofertas(self):
+        ofertas = []
+        busca = await self.prismaOferta.find_many(where={"periodoId": self.id})
+        for i in busca:
+            o = Oferta(prisma=self.prismaOferta, prismaHorario=self.prismaHorario)
+            await o.preenche_dados(i)
+            ofertas.append(o)
+            o = None
+        return ofertas
+        
 
     # ------------------------------ OFERTAS SINTÉTICAS ------------------------------ #
 
     # Função que gera horários artificiais apenas para testes, todos livres.
-    def geraHorarios(self): 
-        return { dia: [ Horario(dia=DIAS[dia], hora=hora) for hora in range(8, 22, 2) ] for dia in DIAS }
+    def geraHorarios(self, prismaHorario): 
+        return { 
+            dia: [ 
+                Horario(
+                    dia=DIAS[dia], 
+                    hora=hora, 
+                    prisma=prismaHorario,
+                ) for hora in range(8, 22, 2) 
+            ] for dia in DIAS 
+        }
     
     def escolheHorarios(self, disciplina, horarios):
         n = disciplina.horas // 30
@@ -91,7 +114,6 @@ class Periodo(Db):
             novo = choice(horarios[choice(list(horarios.keys()))])
             if novo.ocupado == False and novo.turno < 3:
                 novo.ocupado = True; hs.append(novo); n -= 1
-
         # Retornar ordenado pelo o dia. Se os dois forem iguais, ordena pelo a hora
         return sorted(hs, key=lambda h: (h.dia, h.hora))
 
@@ -103,10 +125,9 @@ class Periodo(Db):
 
     # Função que gera ofertas artificiais apenas para testes
     def gerarOfertas(self, curso):
-        ofs = { i: self.geraHorarios() for i in range(1, curso.qntPeriodos) }
+        ofs = { i: self.geraHorarios(curso.db.horario) for i in range(1, curso.qntPeriodos+1) }
         ofertas = []
-        for i in range(1, curso.qntPeriodos):
-
+        for i in range(1, curso.qntPeriodos+1):
             for d in curso.nivel(i): # 6 ofertas por período
                 if d.horas > 15:
                     busca = self.busca(d.id)
@@ -115,7 +136,9 @@ class Periodo(Db):
                             disciplina = d,
                             turma = busca[0] if busca != [] else 1,
                             horarios = self.escolheHorarios(d, ofs[i]),
-                            professor= "Fulano de Tal"
+                            professor= "Fulano de Tal",
+                            prisma=curso.db.oferta,
+                            periodoId=self.id
                         )
                     )
         return ofertas

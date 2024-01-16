@@ -1,7 +1,17 @@
 
 import styles from './Filtro.module.scss'
 
-export function FiltroPeriodos({qnt, selecionado, setSelecionado}:{qnt: number, selecionado: number, setSelecionado: Function}){
+export function FiltroPeriodos(
+    {
+        qnt, 
+        selecionado, 
+        setSelecionado
+    }:{
+        qnt: number, 
+        selecionado: number, 
+        setSelecionado: Function
+    }){
+        
     let blocos = []
     
     blocos.push(

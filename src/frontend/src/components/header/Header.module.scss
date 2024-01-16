@@ -60,6 +60,95 @@
         }
 
     }
+
+
+    .menuPerfil {
+        display: flex;
+        position: absolute;
+        top: 110px;
+        right: 8%;
+        flex-direction: column;
+        border: var(--borda);
+        border-radius: 15px;
+        padding: 15px;
+        width: 250px;
+        // min-height: 200px;
+        background-color: var(--claro);
+
+        align-items: center;
+        justify-content: center;
+
+        .tituloMenu {
+            display: flex;
+            // border: 1px solid red;
+
+            width: 100%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: column;
+
+            margin-bottom: 25px;
+
+            .botoesMenu {
+                display: flex;
+                width: 100%;
+
+                justify-content: space-between;
+                align-items: center;
+
+                // border: 1px solid red;
+
+                svg {
+                    width: 35px;
+                    height: 35px;
+                    cursor: pointer;
+                }
+
+            }
+
+            p { 
+                font-size: 0.9rem;
+                font-weight: 400;
+                width: 100%;
+            }
+            
+
+        }
+
+
+        .botoes {
+
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            // border: 1px solid red;
+
+            button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            a button:last-child {
+                // margin-bottom: 0px;
+                background-color: var(--vermelho);
+
+
+                &:hover {
+                    background-color: var(--claro);
+                }
+            }
+
+
+        }
+        
+
+
+
+    }
     
     .perfil {
         width: 10%;

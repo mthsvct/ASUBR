@@ -70,19 +70,21 @@ class Disciplina(Db, Uteis):
             "nivel": self.nivel if self.nivel else 1,
             'pre': self.temPre,
         }
-        if aluno: 
+        
+        if aluno != None: 
             aux['pagou'] = aluno.pagou(self)
             aux['podePagar'] = aluno.podePagar(self)
         return aux
     
     def dicioPagas(self, aluno):
+        
         aux = self.dicio(aluno)
         aux['pagou'] = aluno.pagou(self)
         aux['podePagar'] = aluno.podePagar(self)
         return aux
     
     def dicioUltraResumido(self, aluno=None):
-        aux = {'id': self.id, 'name': self.name.title()}
+        aux = {'id': self.id, 'name': self.name.title(), 'nivel': self.nivel}
         if aluno: aux['pagou'] = aluno.pagou(self)
         return aux
 
@@ -161,12 +163,13 @@ class Disciplina(Db, Uteis):
     def pegaPre(self, pre, aluno=None):
         if pre == None: return '-'
         if isinstance(pre, Disciplina): 
-            aux = pre.dicioResumido()
-            if aluno:
-                aux['pagou'] = aluno.pagou(pre)
+            print('\n'*3, aluno, '\n', pre, '\n'*3, )
+            aux = pre.dicioResumido(aluno)
+            # if aluno != None:
+            #     aux['pagou'] = aluno.pagou(pre)
             return aux
-        if isinstance(pre, list): return [self.pegaPre(i) for i in pre]
-        if isinstance(pre, dict): return {'op': pre['op'], 'ds': self.pegaPre(pre['ds'])}
+        if isinstance(pre, list): return [self.pegaPre(i, aluno) for i in pre]
+        if isinstance(pre, dict): return {'op': pre['op'], 'ds': self.pegaPre(pre['ds'], aluno)}
 
     def pegaProx(self, aluno=None):
         lista = []

@@ -279,6 +279,22 @@ async def delete_matricula(alunoId:int, disciplinaId:int):
     return await curso.deleteMatricula(alunoId, disciplinaId)
 
 
+
+
+# -------------- OFERTAS -------------- #
+
+@app.get('/ofertas')
+async def ofertas():
+    aux = [ oferta.dicioResumido() for oferta in curso.atual.ofertas ]
+    return [
+        [ oferta for oferta in aux if oferta['disciplina']['nivel'] == nivel
+        ] for nivel in range(1, curso.qntPeriodos+1) 
+    ]
+
+
+
+
+
 # ------------------------------ Main ---------------------------------- #
 
 if __name__ == "__main__":

@@ -62,6 +62,7 @@ class Curso(Db, Uteis):
         self.qntPeriodos = self.data.qntPeriodos
         await self.runs() # Roda as funções de pré-requisitos e proximos
         self.atual = await self.buscaAtual()
+        self.atribuiDisciplinasOfertas()
         self.periodos = await self.preenchePeriodos()
         self.alunos = await self.pegaAlunos()
     
@@ -188,15 +189,28 @@ class Curso(Db, Uteis):
     # Função que retorna o período atual do curso.
     async def buscaAtual(self): 
         p = await self.db.periodo.find_first(where={"atual": True})
-        periodo = Periodo()
+        periodo = Periodo(
+            prisma=self.db.periodo, 
+            prismaOferta=self.db.oferta,
+            prismaHorario=self.db.horario
+        )
         await periodo.preenche_dados(p)
         return periodo
     
+    # Função que atribui as disciplinas às ofertas do período atual.
+    def atribuiDisciplinasOfertas(self):
+        for o in self.atual.ofertas:
+            o.disciplina = self.buscaId(o.disciplinaId)
+
     # Função que retorna todos os períodos do curso.
     async def preenchePeriodos(self):
         periodos = []
         for p in await self.db.periodo.find_many():
-            periodo = Periodo()
+            periodo = Periodo(
+                prisma=self.db.periodo, 
+                prismaOferta=self.db.oferta,
+                prismaHorario=self.db.horario
+            )
             await periodo.preenche_dados(p)
             periodos.append(periodo)
         return periodos

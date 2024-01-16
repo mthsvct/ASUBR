@@ -23,6 +23,7 @@ function Paga({pagou}: {pagou: boolean | undefined}) {
 
 
 export function DisciplinaV1({disciplina, pagou}:DiscV1Props){
+    // console.log(disciplina)
     return (
         <div className={styles.disciplinaV1}>
             <a href={`/disciplina/${disciplina.id}`}>

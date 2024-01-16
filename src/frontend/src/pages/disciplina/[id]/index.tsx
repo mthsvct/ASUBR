@@ -24,6 +24,7 @@ function DisciplinaInfos({ id, user }) {
                 response => {
                     setDisciplina(response.data);
                     setCarregando(false);
+                    console.log(response.data);
                 }
             ).catch(
                 error => {
@@ -43,6 +44,7 @@ function DisciplinaInfos({ id, user }) {
                     <Infos 
                         disciplina={disciplina} 
                         pagou={disciplina.pagou} 
+                        setDisciplina={setDisciplina}
                         user={user}
                         />
                     <Pre disciplina={disciplina} />

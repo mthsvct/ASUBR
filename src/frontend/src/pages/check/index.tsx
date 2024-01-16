@@ -30,17 +30,12 @@ function DisciplinaCheck(
                 id={`DISC-${disciplina.id}`} 
                 type="checkbox" 
                 name={disciplina.name} 
-                checked={pagou}
+                checked={disciplina.pagou}
                 onChange={
                     (event) => {
                         disciplina.pagou = event.target.checked;
                         setPagou(event.target.checked);
                         setPeriodos(periodos);
-                        console.log(event.target.checked);
-
-                        
-
-
                         if(event.target.checked) {
                             setQntPagas(qntPagas+1);
                         } else {
@@ -75,23 +70,53 @@ function Periodo({ indice, periodo, user, setPeriodos, periodos }) {
         <div className={styles.periodo}>
             <div className={styles.perTitulo}>
                 <h3>{indice}º Periodo</h3>
-                {/* <h2>{qntPagas}</h2> */}
                 <Button
                     onClick={
                         (event) => {
                             event.preventDefault();
                             const inputs = document.querySelectorAll(`#D-${indice} input`) as NodeListOf<HTMLInputElement>;
-                            inputs.forEach(
-                                (input) => {
-                                    input.checked = true;
-                                }
-                            )
+                            
+                            if(qntPagas == periodo.length) {
+                                setQntPagas(0);
+                                setPeriodos(
+                                    periodos.map(
+                                        (per, index) => {
+                                            if(index == indice-1) {
+                                                per.forEach(
+                                                    (disciplina) => {
+                                                        disciplina.pagou = false;
+                                                    }
+                                                )
+                                            }
+                                            return per;
+                                        }
+                                    )
+                                )
+                            } else {
+                                console.log(periodos);
+                                setPeriodos(
+                                    periodos.map(
+                                        (per, index) => {
+                                            console.log(index+1, indice, index+1 == indice);
+                                            if(index+1 == indice) {
+                                                per.forEach(
+                                                    (disciplina) => {
+                                                        disciplina.pagou = true;
+                                                    }
+                                                )
+                                            }
+                                            return per;
+                                        }
+                                    )
+                                )
+                                setQntPagas(periodo.length);
+                                console.log(periodos);
+                            }
+                            
                         }
                     }
                 >
-                    {
-                        qntPagas == periodo.length ? "Desmarcar Todas" : "Marcar Todas"
-                    }
+                    {qntPagas == periodo.length ? "Desmarcar Todas" : "Marcar Todas"}
                 </Button>
             </div>
             <div className={styles.disciplinas} id={`D-${indice}`}>

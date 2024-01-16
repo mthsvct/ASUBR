@@ -26,10 +26,12 @@ function PodePagar({ pagou, podePagar }: { pagou: boolean, podePagar: boolean })
 export function Infos(
     {
         disciplina,
+        setDisciplina,
         pagou,
         user
     }: {
         disciplina: DisciplinaProps,
+        setDisciplina: Function,
         pagou: boolean,
         user: any
     }) {
@@ -48,6 +50,8 @@ export function Infos(
             ).then(
                 response => {
                     console.log(response);
+                    disciplina.podePagar = false;
+                    setDisciplina(disciplina);
                     setAuxPagou(true);
                     toast.success("Disciplina paga com sucesso!");
                 }
@@ -64,6 +68,8 @@ export function Infos(
             ).then(
                 response => {
                     console.log(response);
+                    disciplina.podePagar = true;
+                    setDisciplina(disciplina);
                     setAuxPagou(false);
                     toast.success("Disciplina removida com sucesso!");
                 }
@@ -95,7 +101,7 @@ export function Infos(
                 <div className={styles.botoes}>
 
                     {
-                        disciplina.podePagar ? (
+                        disciplina.podePagar || auxPagou ? (
                             <div className={`${styles.jaPagou} ${
                                 auxPagou ? global.verde : ''
                             }`}>

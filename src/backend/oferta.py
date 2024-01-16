@@ -12,20 +12,26 @@ class Oferta(Db):
         turma:int=None,
         professor:str=None,
         vagas:int=40,
+        disciplinaId:int=None,
         disciplina:Disciplina=None,
         horarios:[Horario]=None,
         prisma=None,
         iraMin:float=0.0,
+        periodoId:int=None,
+        prismaHorario=None,
     ) -> None:
         self.id = id
         self.codHorario = codHorario
         self.turma = turma
         self.professor = professor
         self.vagas = vagas
+        self.disciplinaId = disciplinaId
         self.disciplina = disciplina
         self.horarios = horarios
         self.prisma = prisma
         self.iraMin = iraMin
+        self.periodoId = periodoId
+        self.prismaHorario = prismaHorario
         super().__init__(prisma)
 
     # ------------------------------ Métodos Especiais ------------------------------ #
@@ -40,27 +46,69 @@ class Oferta(Db):
     # ------------------------------ DB ------------------------------ #
 
     async def preenche_dados(self, objeto=None):
-        super().preenche_dados(objeto)
+        await super().preenche_dados(objeto)
         self.id = self.data.id
         self.codHorario = self.data.codHorario
         self.turma = self.data.turma
         self.professor = self.data.professor
         self.vagas = self.data.vagas
         self.iraMin = self.data.iraMin
-        self.disciplina = self.data.disciplina
-        self.horarios = self.data.horarios
-
+        self.disciplinaId = self.data.disciplinaId
+        self.horarios = await self.get_horarios()
+        self.periodoId = self.data.periodoId
 
     async def save(self):
-        return await self.create(
+        print(self)
+        aux = await self.create(
             {
-                "codHorario": self.codHorario,
+                "codHorario": self.textoHor(),
                 "turma": self.turma,
                 "professor": self.professor,
                 "vagas": self.vagas,
-                "disciplina": self.disciplina.id
+                "disciplinaId": self.disciplina.id,
+                "periodoId": self.periodoId,
+                "iraMin": self.iraMin,
             }
         )
+        self.id = aux.id
+        await self.saveHorarios()
+        return aux
+
+    async def saveHorarios(self):
+        for h in self.horarios:
+            h.ofertaId = self.id
+            await h.save()
+
+    def dicio(self):
+        return {
+            "id": self.id,
+            "codHorario": self.textoHor(),
+            "turma": self.turma,
+            "professor": self.professor,
+            "vagas": self.vagas,
+            "disciplinaId": self.disciplina.id if self.disciplina else self.disciplinaId,
+            "periodoId": self.periodoId,
+            "iraMin": self.iraMin,
+            'disciplina': self.disciplina.dicioUltraResumido() if self.disciplina else None,
+        }
+    
+    def dicioResumido(self):
+        return {
+            'id': self.id,
+            'disciplina': self.disciplina.dicioUltraResumido() if self.disciplina else {'id':self.disciplinaId},
+            'horarios': [ h.dicioResumido() for h in self.horarios ],
+            'professor': self.professor,
+            'turma': self.turma,
+        }
+
+    async def get_horarios(self):
+        horarios = []
+        busca = await self.prismaHorario.find_many(where={"ofertaId": self.id})
+        for h in busca:
+            horario = Horario(prisma=self.prismaHorario)
+            await horario.preenche_dados(h)
+            horarios.append(horario)
+        return horarios
 
 
     # ------------------------------ Métodos ------------------------------ #
@@ -99,11 +147,16 @@ class Oferta(Db):
     @property
     def cod(self): return self.geraCodHor() if (self.horarios != []) else None
 
-
-
     # Verifica se uma oferta choca os horários de outra
     def choca(self, oferta):
         for h in self.horarios:
             for h2 in oferta.horarios:
                 if h == h2: return True
         return False
+    
+    def textoHor(self):
+        t = ''
+        for h in self.cod:
+            t += f"{h} "
+        t = t.strip()
+        return t

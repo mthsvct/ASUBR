@@ -29,8 +29,8 @@ class Horario(Uteis, Db):
 
     # ------------------------------ DB ------------------------------ #
 
-    def save(self):
-        return self.create(
+    async def save(self):
+        return await self.create(
             {
                 "dia": self.dia,
                 "hora": self.hora,

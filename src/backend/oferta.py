@@ -1,3 +1,4 @@
+from interesse import Interesse
 from disciplina import Disciplina
 from horario import Horario
 from utilitarios import DIAS
@@ -14,7 +15,8 @@ class Oferta(Db):
         vagas:int=40,
         disciplinaId:int=None,
         disciplina:Disciplina=None,
-        horarios:[Horario]=None,
+        horarios:[Horario]=[],
+        interesses:[Interesse]=[],
         prisma=None,
         iraMin:float=0.0,
         periodoId:int=None,
@@ -32,6 +34,7 @@ class Oferta(Db):
         self.iraMin = iraMin
         self.periodoId = periodoId
         self.prismaHorario = prismaHorario
+        self.interesses = interesses
         super().__init__(prisma)
 
     # ------------------------------ Métodos Especiais ------------------------------ #
@@ -89,7 +92,8 @@ class Oferta(Db):
             "disciplinaId": self.disciplina.id if self.disciplina else self.disciplinaId,
             "periodoId": self.periodoId,
             "iraMin": self.iraMin,
-            'disciplina': self.disciplina.dicioUltraResumido() if self.disciplina else None,
+            'qntInteressados': len(self.interesses),
+            'disciplina': self.disciplina.dicioResumido() if self.disciplina else None,
         }
     
     def dicioResumido(self):
@@ -99,6 +103,7 @@ class Oferta(Db):
             'horarios': [ h.dicioResumido() for h in self.horarios ],
             'professor': self.professor,
             'turma': self.turma,
+            'qntInteressados': len(self.interesses)
         }
 
     async def get_horarios(self):

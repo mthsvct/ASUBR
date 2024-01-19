@@ -1,5 +1,6 @@
 from datetime import datetime
 from random import choice
+from interesse import Interesse
 
 from oferta import Oferta
 from db import Db
@@ -23,6 +24,7 @@ class Periodo(Db):
         cursoId:int=None,
         prismaOferta=None,
         prismaHorario=None,
+        interesses:[Interesse]=[],
     ):
         self.id = id
         self.ano = ano
@@ -35,6 +37,7 @@ class Periodo(Db):
         self.cursoId = cursoId
         self.prismaOferta = prismaOferta
         self.prismaHorario = prismaHorario
+        self.interesses = interesses
         super().__init__(prisma)
 
     # ------------------------------ Métodos Especiais ------------------------------ #
@@ -53,6 +56,14 @@ class Periodo(Db):
             "fimMatriculas": self.fimMatriculas,
             "processamento": self.processamento,
             "cursoId": self.cursoId,
+        }
+    
+    def dicioResumido(self):
+        return {
+            "id": self.id,
+            "ano": self.ano,
+            "semestre": self.semestre,
+            "atual": self.atual
         }
 
     # ------------------------------ DB ------------------------------ #
@@ -146,13 +157,19 @@ class Periodo(Db):
     # ------------------------------ OFERTAS ------------------------------ #
 
     # Função que retorna todas as ofertas de uma disciplina, buscando pelo o id da disciplina
-    def busca(self, dsId:int): 
+    def busca(self, dsId:int) -> [Oferta]: 
         ofs = []
         for i in self.ofertas:
             if i.disciplina.id == dsId:
                 ofs.append(i)
         return ofs
-    
+
+    def buscaId(self, id:int) -> Oferta: 
+        # Função que busca a oferta pelo o id da oferta
+        for i in self.ofertas:
+            if i.id == id:
+                return i
+        return None
 
     def disponiveis(self, aluno:Aluno):
         # Função que retorna todas as ofertas disponíveis para o aluno
@@ -162,3 +179,11 @@ class Periodo(Db):
 
 
 
+    # ------------------------------ Métodos de Interesses ------------------------------ # 
+
+    # Função que retorna todas as ofertas que o aluno tem interesse
+    def interessesAluno(self, aluno:Aluno): 
+        return [ o for o in self.ofertas if aluno.temInteresse(o) ]
+
+
+    # ------------------------------ Métodos de Classe ------------------------------ #

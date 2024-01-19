@@ -10,6 +10,7 @@ from selecao import Selecao
 from combinacao import Combinacao
 from db import Db
 from utilitarios import Uteis
+from interesse import Interesse
 
 
 class Curso(Db, Uteis):
@@ -45,7 +46,8 @@ class Curso(Db, Uteis):
         return {
             "id": self.id,
             "name": self.name,
-            "qntPeriodos": self.qntPeriodos
+            "qntPeriodos": self.qntPeriodos,
+            'atual': self.atual.dicioResumido() if self.atual else None 
         }
 
     # ------------------------------ DB ------------------------------ #
@@ -53,7 +55,6 @@ class Curso(Db, Uteis):
     async def run(self):
         aux = await self.prisma.find_first()
         await self.preenche_dados(aux)
-
 
     async def preenche_dados(self, objeto=None):
         await super().preenche_dados(objeto)
@@ -63,6 +64,8 @@ class Curso(Db, Uteis):
         await self.runs() # Roda as funções de pré-requisitos e proximos
         self.atual = await self.buscaAtual()
         self.atribuiDisciplinasOfertas()
+        self.atribuiOfertasDisciplinas()
+        self.atual.interesses = await self.atribuiInteresses()
         self.periodos = await self.preenchePeriodos()
         self.alunos = await self.pegaAlunos()
     
@@ -202,6 +205,21 @@ class Curso(Db, Uteis):
         for o in self.atual.ofertas:
             o.disciplina = self.buscaId(o.disciplinaId)
 
+    def atribuiOfertasDisciplinas(self):
+        for d in self.disciplinas:
+            d.ofertas = [ o for o in self.atual.ofertas if o.disciplinaId == d.id ]
+
+    async def atribuiInteresses(self):
+        inters = await self.db.interesse.find_many(where={"periodoId": self.atual.id})
+        interesses = []
+        for i in inters:
+            inte = Interesse(prisma=self.db.interesse)
+            await inte.preenche_dados(i)
+            oferta = self.atual.buscaId(inte.ofertaId)
+            inte.oferta = oferta
+            interesses.append(inte)
+        return interesses
+
     # Função que retorna todos os períodos do curso.
     async def preenchePeriodos(self):
         periodos = []
@@ -235,6 +253,7 @@ class Curso(Db, Uteis):
             aluno = Aluno(prisma=self.db.aluno, prisma_matricula=self.db.matricula)
             await aluno.preenche_dados(a)
             aluno.matriculas = await self.get_matriculas(aluno)
+            aluno.interesses = await self.get_interesses(aluno)
             alunos.append(aluno)
         return alunos
 
@@ -248,6 +267,19 @@ class Curso(Db, Uteis):
             mat.disciplina = disc
             matriculas.append(mat)
         return matriculas
+
+    async def get_interesses(self, aluno:Aluno):
+        # ints = await self.db.interesse.find_many(where={'alunoId': aluno.id})
+        interesses = []
+        for i in self.atual.interesses:
+            # inte = Interesse(prisma=self.db.interesse)
+            # await inte.preenche_dados(i)
+            if aluno.id == i.alunoId:
+                oferta = self.atual.buscaId(i.ofertaId)
+                i.oferta = oferta
+                i.aluno = aluno
+                interesses.append(i)
+        return interesses
 
     def buscaAluno(self, email: str) -> Aluno:
         retorno = None
@@ -300,6 +332,7 @@ class Curso(Db, Uteis):
             if oferta.disciplina.opcional: r -= 1
 
         return r
+
 
     # ------------------------------ MATRICULAS ------------------------------ # 
 
@@ -393,3 +426,5 @@ class Curso(Db, Uteis):
         while len(combinacao) < 5 and i < len(lista):
             combinacao.add(lista[i])
             i += 1
+
+    # ------------------------------ OFERTAS ------------------------------ #

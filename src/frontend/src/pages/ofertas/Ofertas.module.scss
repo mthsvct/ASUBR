@@ -4,13 +4,18 @@
     align-items: center;
     margin-bottom: 50px;
     flex-direction: column;
+    margin-top: 30px;
+    
     .ofertas {
+        
+        
         width: 85%;
+
         .cabecalho {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 50px;
+            margin-bottom: 75px;
             margin-top: 25px;
             h1 {
                 font-size: 2.5rem;
@@ -18,15 +23,35 @@
         }
 
         .periodos {
-            margin-bottom: 25px;
+            margin-bottom: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
 
             .periodo {
-                margin-bottom: 30px;
+                margin-bottom: 100px;
                 display: flex;
                 flex-direction: column;
+                justify-content: center;
+                width: 90%;
+
+                .tituloPer {
+                    margin-bottom: 25px;
+                }
 
                 .ofertasPer {
                     display: flex;
+                    flex-wrap: wrap;
+                    // justify-content: center;
+                    // width: 100%;
+                    // justify-content: center;
+                
+                    & > div {
+                        margin-right: 15px;
+                        margin-bottom: 25px;
+                    }
+
                 }
             }
 

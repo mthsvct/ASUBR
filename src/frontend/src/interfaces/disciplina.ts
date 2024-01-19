@@ -10,6 +10,7 @@ export interface DisciplinaProps {
     descricao: string;
     pre: any;
     prox: Array<any>;
+    ofertas: Array<any>;
     pagou?: boolean;
     podePagar?: boolean;
 }
@@ -20,4 +21,5 @@ export interface DisciplinaPropsResumida {
     nivel: number;
     horas: number;
     opcional: boolean;
+    pre?: boolean;
 }

@@ -292,6 +292,14 @@ async def ofertas():
     ]
 
 
+@app.get('/oferta/{id}/aluno/{alunoId}')
+async def oferta(id:int, alunoId:int):
+    aluno = curso.buscaAlunoId(alunoId)
+    oferta = curso.atual.buscaId(id)
+    aux = oferta.dicio()
+    aux['pagou'] = aluno.pagou(oferta.disciplina)
+    aux['podePagar'] = aluno.podePagar(oferta.disciplina) 
+    return aux
 
 
 

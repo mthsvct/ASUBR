@@ -11,6 +11,7 @@ import { Infos } from "./infos";
 import { Pre } from "./pre";
 import { Prox } from "./prox";
 import { AuthContext } from "@/contexts/AuthContext";
+import { OfertasDisc } from "./ofertasDisc";
 
 
 function DisciplinaInfos({ id, user }) {
@@ -49,6 +50,7 @@ function DisciplinaInfos({ id, user }) {
                         />
                     <Pre disciplina={disciplina} />
                     <Prox disciplina={disciplina} />
+                    <OfertasDisc disciplina={disciplina} />
                 </div>
             </div>
         )

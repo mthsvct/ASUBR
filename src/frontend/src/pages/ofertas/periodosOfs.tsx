@@ -32,11 +32,9 @@ export function PeriodosOfs(
             {
                 ofertas.map(
                     (oferta, index) => {
-                        if (selecionado === -1 || oferta.periodo === selecionado) {
+                        if ( selecionado === -1 || index+1 === selecionado ) {
                             // return <OfertaOf key={index} oferta={oferta} />
                             return <PeriodoOf key={index} ofertas={oferta} periodo={index+1} />
-                        } else {
-                            return <></>;
                         }
                     }
                 )

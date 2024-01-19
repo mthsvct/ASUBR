@@ -65,7 +65,7 @@ model Disciplina {
     // ------------ FILHOS ------------ //
     ofertas Oferta[]
     matriculas Matricula[]
-    interesses Interesse[]
+    
 
     @@map("disciplinas")
 }
@@ -131,7 +131,7 @@ model Oferta {
     // ------------ FILHOS ------------ //
     horarios Horario[]
     selecoes Selecao[]
-
+    interesses Interesse[]
 
     @@map("ofertas")
 }
@@ -189,8 +189,11 @@ model Interesse {
     aluno Aluno @relation(fields: [alunoId], references: [id])
     alunoId Int
 
-    disciplina Disciplina @relation(fields: [disciplinaId], references: [id])
-    disciplinaId Int
+    // disciplina Disciplina @relation(fields: [disciplinaId], references: [id])
+    // disciplinaId Int
+
+    oferta Oferta @relation(fields: [ofertaId], references: [id])
+    ofertaId Int
 
     periodo Periodo @relation(fields: [periodoId], references: [id])
     periodoId Int

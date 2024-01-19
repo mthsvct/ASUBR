@@ -20,6 +20,7 @@ function Cabecalho(
     return (
         <div className={styles.cabecalho}>
             <h1>Ofertas</h1>
+
             <FiltroPeriodos 
                 qnt={8}
                 selecionado={selecionado}

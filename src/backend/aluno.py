@@ -1,10 +1,9 @@
 from db import Db
 from matricula import Matricula
 from disciplina import Disciplina
-
+from interesse import Interesse
 from cryptography.fernet import Fernet
 from hashlib import sha256
-
 from autenticacao import verificar_access_token, gerar_hash, criar_acess_token, verificar_hash
 
 class Aluno(Db):
@@ -18,9 +17,9 @@ class Aluno(Db):
         matricula:str=None,
         nivel:int=None,
         ira:float=None,
-        matriculas:list=[],
+        matriculas:[Matricula]=[],
         combinacoes:list=[],
-        interesses:list=[],
+        interesses:[Interesse]=[],
         cursoId:int=None,
         prisma=None,
         prisma_matricula=None
@@ -71,6 +70,7 @@ class Aluno(Db):
         self.ira = self.data.ira
         self.cursoId = self.data.cursoId
         # self.matriculas = await self.get_matriculas()
+        # self.interesses = await self.get_interesses()
 
     async def save(self):
         # Função que salva o aluno no banco de dados
@@ -305,3 +305,20 @@ class Aluno(Db):
             return {"message": "Matricula deletada com sucesso!"}         
         else:
             raise Exception("Matricula não encontrada")
+        
+
+    # ------------------------------ INTERESSES ------------------------------ #
+        
+    # Função que retorna todos os interesses do aluno
+    def temInteresse(self, oferta): return oferta in self.interesses
+
+    # Função que adiciona um interesse ao aluno
+    def addInteresse(self, interesse):
+        if len(self.interesses) == 5:
+            return {"add": False, "message": "Limite de interesses atingido!"}
+        else:
+            if not self.temInteresse(interesse):
+                self.interesses.append(interesse)
+                return {"add": True, "message": "Interesse adicionado com sucesso!"}
+            else:
+                return {"add": False, "message": "Interesse já adicionado!"}

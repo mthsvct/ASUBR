@@ -131,18 +131,7 @@ export function Infos(
 
                     
 
-                    {
-                        auxPagou == false ? (
-                            <div className={styles.interesses}>
-                                <Button2>
-                                    <CiHeart />
-                                    <p>Registrar Interesse</p>
-                                </Button2>
-                            </div>
-                        ) : (
-                            <></>
-                        )
-                    }
+                    
                     
                     
                 </div>
@@ -156,3 +145,17 @@ export function Infos(
         </div>
     )
 }
+
+
+// {
+//     auxPagou == false ? (
+//         <div className={styles.interesses}>
+//             <Button2>
+//                 <CiHeart />
+//                 <p>Registrar Interesse</p>
+//             </Button2>
+//         </div>
+//     ) : (
+//         <></>
+//     )
+// }

@@ -38,7 +38,8 @@ function HorariosOf({horarios}:{horarios: any}) {
 export function OfertaOf({oferta}:{oferta: any}) {
     return (
         <div className={styles.oferta}>
-            <a href={`/oferta/${oferta.id}`}>
+            <a href={`/oferta/${oferta.id}`} className={styles.linkagem}>
+
                 <div className={styles.name}>
                     <p>{oferta.disciplina.name}</p>
                 </div>
@@ -52,6 +53,7 @@ export function OfertaOf({oferta}:{oferta: any}) {
                 <div className={styles.turma}>
                     <p>Turma {oferta.turma}</p>
                 </div>
+                
             </a>
         </div>
     )

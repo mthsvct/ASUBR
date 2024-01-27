@@ -21,7 +21,7 @@ export default function NotFound() {
             <h1>404</h1>
             <h2>Page not found.</h2>
             <h3>:(</h3>
-            <Button linkagem='/' style={{marginTop: '50px'}}>Voltar</Button>
+            <Button linkagem='/disciplinas' style={{marginTop: '50px'}}>Voltar</Button>
         </div>
         <Footer />
         </>

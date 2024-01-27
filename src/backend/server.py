@@ -283,9 +283,11 @@ async def delete_matricula(alunoId:int, disciplinaId:int):
 
 # -------------- OFERTAS -------------- #
 
-@app.get('/ofertas')
-async def ofertas():
-    aux = [ oferta.dicioResumido() for oferta in curso.atual.ofertas ]
+@app.get('/ofertas/{alunoId}')
+async def ofertas(alunoId:int):
+    aluno = curso.buscaAlunoId(alunoId)
+    aux = curso.atual.getOfertas(aluno)
+    # aux = [ oferta.dicioResumido() for oferta in curso.atual.ofertas ]
     return [
         [ oferta for oferta in aux if oferta['disciplina']['nivel'] == nivel
         ] for nivel in range(1, curso.qntPeriodos+1) 
@@ -299,9 +301,33 @@ async def oferta(id:int, alunoId:int):
     aux = oferta.dicio()
     aux['pagou'] = aluno.pagou(oferta.disciplina)
     aux['podePagar'] = aluno.podePagar(oferta.disciplina) 
+    aux['temInteresse'] = curso.atual.temInteresse(aluno, oferta)
+    aux['qntInteressados'] = len(curso.atual.interessesOfertas(oferta))
     return aux
 
 
+# -------------- INTERESSES -------------- #
+
+class InteresseModel(BaseModel):
+    alunoId: int
+    ofertaId: int
+
+@app.get('/interesses/aluno/{alunoId}')
+async def interessesAluno(alunoId:int):
+    aluno = curso.buscaAlunoId(alunoId)
+    return [ i.dicioResumido() for i in curso.atual.interessesAluno(aluno) ]
+
+@app.post('/interesse')
+async def interesse(interesse: InteresseModel):
+    aluno = curso.buscaAlunoId(interesse.alunoId)
+    oferta = curso.atual.buscaId(interesse.ofertaId)
+    return await curso.addInteresse(aluno, oferta)
+
+@app.delete('/interesse/{alunoId}/{ofertaId}')
+async def interesseDelete(alunoId:int, ofertaId:int):
+    aluno = curso.buscaAlunoId(alunoId)
+    oferta = curso.atual.buscaId(ofertaId)
+    return await curso.deleteInteresse(aluno, oferta)
 
 # ------------------------------ Main ---------------------------------- #
 

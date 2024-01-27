@@ -1,4 +1,4 @@
-export interface Aluno {
+export interface AlunoProps {
     id?: number;
     name: string;
     email: string;

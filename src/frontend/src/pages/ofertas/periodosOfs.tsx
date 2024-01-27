@@ -3,13 +3,43 @@ import styles from './Ofertas.module.scss'
 import { useEffect, useState } from 'react';
 
 
-function PeriodoOf({ofertas, periodo}:{ofertas: any, periodo: number}) {
+function PeriodoOf({ofertas, periodo, disponiveis}:{ofertas: any, periodo: number, disponiveis: boolean}) {
+
+    if (disponiveis) {
+        ofertas = ofertas.filter(
+            (oferta: any) => {
+                return oferta.disponivel
+            }
+        )
+    }
+
+    // if(ofertas.length === 0) {
+    //     return <h2>Não há ofertas disponíveis neste periodo.</h2>
+    // }
+
     return (
         <div className={styles.periodo}>
             <div className={styles.tituloPer}>
                 <h2>{periodo}º periodo</h2>
             </div>
-            <div className={styles.ofertasPer}>
+
+            {
+                ofertas.length === 0 ? (
+                    <h2>Não há ofertas disponíveis neste periodo.</h2>
+                ) : (
+                    <div className={styles.ofertasPer}>
+                        {
+                            ofertas.map(
+                                (oferta: any, index: number) => {
+                                    return <OfertaOf key={index} oferta={oferta} />
+                                }
+                            )
+                        }
+                    </div>
+                )
+            }
+
+            {/* <div className={styles.ofertasPer}>
                 {
                     ofertas.map(
                         (oferta, index) => {
@@ -17,14 +47,16 @@ function PeriodoOf({ofertas, periodo}:{ofertas: any, periodo: number}) {
                         }
                     )
                 }
-            </div>
+            </div> */}
         </div>
     )
 }
 
 export function PeriodosOfs(
-    {selecionado, ofertas
-    }:{selecionado: number, ofertas: any,
+    {
+        selecionado, ofertas, disponiveis
+    }:{
+        selecionado: number, ofertas: any, disponiveis: boolean
     }){
     
     return (
@@ -32,9 +64,18 @@ export function PeriodosOfs(
             {
                 ofertas.map(
                     (oferta, index) => {
-                        if ( selecionado === -1 || index+1 === selecionado ) {
-                            // return <OfertaOf key={index} oferta={oferta} />
-                            return <PeriodoOf key={index} ofertas={oferta} periodo={index+1} />
+                        if ( 
+                            selecionado === -1 || 
+                            index+1 === selecionado
+                        ) {
+                            return (
+                                <PeriodoOf 
+                                    key={index} 
+                                    ofertas={oferta} 
+                                    periodo={index+1} 
+                                    disponiveis={disponiveis}
+                                    />
+                            )
                         }
                     }
                 )

@@ -9,5 +9,138 @@
 
     .oferta {
         width: 85%;
+        display: flex;
+        flex-direction: column;
+        // border: 1px solid red;
+        
+        .infos {
+            // border: 1px solid blue;
+            width: 100%;
+            display: flex;
+            margin-bottom: 100px;
+
+            .informacoes {
+                display: flex;
+                flex-direction: column;
+                // border: 1px solid orange;
+                width: 75%;
+
+
+                .codigos,
+                .professor,
+                .interessados,
+                .ira {
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                    p {
+                        font-size: 21pt;
+                    }
+                }
+
+                .codigos {
+                    display: flex;
+                    // border: 1px solid pink;
+                    width: 80%;
+                    margin-top: 35px;
+
+                    p {
+                        margin-right: 50px;
+                    }
+
+                }
+
+
+            }
+            
+            
+            .botoesOf {
+                width: 25%;
+                display: flex;
+                flex-direction: column;
+                // border: 1px solid green;
+                justify-content: flex-start;
+                align-items: center;
+
+                .botaoDiv {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-bottom: 10px;
+                
+                    button {
+                        width: 80%;
+                        
+                        margin-bottom: 10px;
+                        
+                        a {
+                            // border: 1px solid purple;
+                            width: 100%;
+                            display: flex;
+                            min-height: 50px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            
+                            svg {
+                                width: 30px;
+                                height: 30px;
+                                margin-right: 25px;
+                            }
+                        }
+                    }
+                
+                }
+
+
+                .interessado {
+                    button {
+                        background-color: var(--vermelho);
+                    }
+                }
+            }
+        }
+
+
+        .tabelaHorarioOf {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 150px;
+
+            .tituloTabela {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 25px;
+                h1 {
+                    font-size: 45pt;
+                    margin-bottom: 10px;
+                }
+                p {
+                    font-size: 21pt;
+                }
+            }
+
+            .tabela {
+                // border: 1px solid red;
+                width: 100%;
+                
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .centrou {
+                    display: flex;
+                    width: 100%;
+                    // border: 1px solid blue;
+
+                    & > div {
+                        width: 100%;
+                    }
+                }
+
+            }
+        }
+
+
     }
 }

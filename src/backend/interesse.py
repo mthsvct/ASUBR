@@ -29,13 +29,15 @@ class Interesse(Db):
     # ------------------------------ DB ------------------------------ #
 
     async def save(self):
-        return await self.create(
+        aux = await self.create(
             {
                 "alunoId": self.alunoId,
                 "periodoId": self.periodoId,
                 "ofertaId": self.ofertaId,
             }
         )
+        self.id = aux.id
+        return aux
     
     async def preenche_dados(self, objeto=None):
         await super().preenche_dados(objeto)

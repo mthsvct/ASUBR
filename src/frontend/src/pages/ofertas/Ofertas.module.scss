@@ -20,6 +20,35 @@
             h1 {
                 font-size: 2.5rem;
             }
+
+            form {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                // width: 100%;
+                width: 250px;
+                cursor: pointer;
+                // border: 1px solid red;
+
+                transition: var(--trans);
+
+                &:hover {
+                    scale: 1.05;
+                }
+
+                input[type="checkbox"] {
+                    margin-right: 10px;
+                    width: 50px;
+                    height: 25px;
+                }
+                
+                label {
+                    font-size: 18pt;
+
+                }
+
+            }
+
         }
 
         .periodos {

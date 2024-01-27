@@ -1,4 +1,5 @@
 from random import choice
+from fastapi import HTTPException
 from prisma import Prisma
 
 from aluno import Aluno
@@ -195,7 +196,8 @@ class Curso(Db, Uteis):
         periodo = Periodo(
             prisma=self.db.periodo, 
             prismaOferta=self.db.oferta,
-            prismaHorario=self.db.horario
+            prismaHorario=self.db.horario,
+            prismaInteresse=self.db.interesse
         )
         await periodo.preenche_dados(p)
         return periodo
@@ -269,11 +271,8 @@ class Curso(Db, Uteis):
         return matriculas
 
     async def get_interesses(self, aluno:Aluno):
-        # ints = await self.db.interesse.find_many(where={'alunoId': aluno.id})
         interesses = []
         for i in self.atual.interesses:
-            # inte = Interesse(prisma=self.db.interesse)
-            # await inte.preenche_dados(i)
             if aluno.id == i.alunoId:
                 oferta = self.atual.buscaId(i.ofertaId)
                 i.oferta = oferta
@@ -427,4 +426,48 @@ class Curso(Db, Uteis):
             combinacao.add(lista[i])
             i += 1
 
-    # ------------------------------ OFERTAS ------------------------------ #
+    # ------------------------------ INTERESSES ------------------------------ #
+    
+    async def addInteresse(self, aluno:Aluno, oferta:Oferta):
+        aux = self.atual.interessesAluno(aluno)
+        if len(aux) == 5:
+            return { 
+                "status": 400, 
+                "message": "Você já atingiu o máximo de interesses (5)." 
+            }
+        else:
+            inte = Interesse(
+                alunoId=aluno.id,
+                ofertaId=oferta.id,
+                periodoId=self.atual.id,
+                aluno=aluno,
+                oferta=oferta,
+                prisma=self.db.interesse
+            )
+            await inte.save()
+            self.atual.interesses.append(inte)
+            oferta.iraMin = self.atual.atualizarIraMin(oferta)
+            await oferta.update_this({"iraMin": oferta.iraMin})
+            return { "status": 200, "message": inte.dicio(), "iraMin": oferta.iraMin }
+        
+    async def deleteInteresse(self, aluno:Aluno, oferta:Oferta):
+        try:
+            inte = self.atual.buscaInteresse(aluno, oferta)
+            self.atual.interesses.remove(inte)
+            oferta.iraMin = self.atual.atualizarIraMin(oferta)
+            await oferta.update_this({"iraMin": oferta.iraMin})
+            qntNova = self.atual.interessesOfertas(oferta)
+            await self.db.interesse.delete(where={"id": inte.id})
+            return { 
+                "status": 200, 
+                "message": "Interesse deletado com sucesso." ,
+                'inter': inte.dicio(),
+                "iraMin": oferta.iraMin,
+                'qntNova': len(qntNova)
+            }
+        except Exception as e:
+            print(e)
+            raise HTTPException(
+                status_code=404, 
+                detail="Não foi possível deletar o interesse."
+            )

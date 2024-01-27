@@ -2,25 +2,17 @@
 import styles from './Filtro.module.scss'
 
 export function FiltroPeriodos(
-    {
-        qnt, 
-        selecionado, 
-        setSelecionado
-    }:{
-        qnt: number, 
-        selecionado: number, 
-        setSelecionado: Function
-    }){
-        
+    { qnt, selecionado, setSelecionado}:
+    { qnt: number, selecionado: number, setSelecionado: Function }
+    ){
+
     let blocos = []
     
     blocos.push(
         <div 
             key={-1} 
-            onClick={
-                () => setSelecionado(-1)
-            }
-            className={`${styles.todos} ${selecionado === -1 ? styles.selecionado : '' }`}
+            onClick={() => setSelecionado(-1)}
+            className={`${styles.todos} ${selecionado === -1 ? styles.selecionado : ''}`}
             >
             <h5>Todos</h5>
         </div>

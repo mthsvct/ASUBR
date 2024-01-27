@@ -19,7 +19,6 @@ class Aluno(Db):
         ira:float=None,
         matriculas:[Matricula]=[],
         combinacoes:list=[],
-        interesses:[Interesse]=[],
         cursoId:int=None,
         prisma=None,
         prisma_matricula=None
@@ -33,7 +32,7 @@ class Aluno(Db):
         self.ira = ira
         self.matriculas = matriculas
         self.combinacoes = combinacoes
-        self.interesses = interesses
+        # self.interesses = interesses
         self.cursoId = cursoId
         self.prisma = prisma
         self.prisma_matricula = prisma_matricula
@@ -287,8 +286,8 @@ class Aluno(Db):
             await nova.save()
         return nova
     
+    # Função que busca uma matricula do aluno
     def buscaMatricula(self, disciplina) -> Matricula:
-        # Função que busca uma matricula do aluno
         i, encontrado = 0, None
         while i < len(self.matriculas) and encontrado == None:
             if self.matriculas[i].disciplina.id == disciplina.id:
@@ -309,16 +308,9 @@ class Aluno(Db):
 
     # ------------------------------ INTERESSES ------------------------------ #
         
-    # Função que retorna todos os interesses do aluno
-    def temInteresse(self, oferta): return oferta in self.interesses
-
-    # Função que adiciona um interesse ao aluno
-    def addInteresse(self, interesse):
-        if len(self.interesses) == 5:
-            return {"add": False, "message": "Limite de interesses atingido!"}
-        else:
-            if not self.temInteresse(interesse):
-                self.interesses.append(interesse)
-                return {"add": True, "message": "Interesse adicionado com sucesso!"}
-            else:
-                return {"add": False, "message": "Interesse já adicionado!"}
+    # # Função que retorna todos os interesses do aluno
+    # def temInteresse(self, oferta): 
+    #     for interesse in self.interesses:
+    #         if interesse.oferta.id == oferta.id:
+    #             return True
+    #     return False

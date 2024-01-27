@@ -28,6 +28,7 @@
     padding: 5px 0px;
     display: flex;
 
+
     a {
         width: 100%;
         height: 100%;
@@ -37,4 +38,9 @@
     &:focus {
         outline: none;
     }
+}
+
+.vermelhado {
+    background-color: var(--vermelho);
+    
 }

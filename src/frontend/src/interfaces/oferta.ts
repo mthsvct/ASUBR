@@ -25,4 +25,6 @@ export interface OfertaCompleta {
     qntInteressados: number;
     pagou: boolean;
     podePagar: boolean;
+    horarios: Array<any>;
+    temInteresse: boolean;
 }

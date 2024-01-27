@@ -22,7 +22,6 @@ function Conteudo({ id, user }) {
                 response => {
                     setOferta(response.data);
                     setCarregando(false);
-                    console.log(response.data);
                 }
             ).catch(
                 error => {
@@ -35,12 +34,14 @@ function Conteudo({ id, user }) {
     return (
         <div className={styles.conteudo}>
             {
-                carregando ? 
-                    <h1>Carregando</h1> :
-                    <OfertaMain 
-                        oferta={oferta} 
-                        setOferta={setOferta} 
-                        user={user} /> 
+                carregando 
+                    ? 
+                        <h1>Carregando</h1> 
+                    :
+                        <OfertaMain 
+                            oferta={oferta} 
+                            setOferta={setOferta} 
+                            user={user} /> 
             }
         </div>
     )

@@ -1,4 +1,3 @@
-from interesse import Interesse
 from disciplina import Disciplina
 from horario import Horario
 from utilitarios import DIAS
@@ -16,7 +15,6 @@ class Oferta(Db):
         disciplinaId:int=None,
         disciplina:Disciplina=None,
         horarios:[Horario]=[],
-        interesses:[Interesse]=[],
         prisma=None,
         iraMin:float=0.0,
         periodoId:int=None,
@@ -34,7 +32,6 @@ class Oferta(Db):
         self.iraMin = iraMin
         self.periodoId = periodoId
         self.prismaHorario = prismaHorario
-        self.interesses = interesses
         super().__init__(prisma)
 
     # ------------------------------ Métodos Especiais ------------------------------ #
@@ -47,7 +44,6 @@ class Oferta(Db):
 
 
     # ------------------------------ DB ------------------------------ #
-
     async def preenche_dados(self, objeto=None):
         await super().preenche_dados(objeto)
         self.id = self.data.id
@@ -92,7 +88,7 @@ class Oferta(Db):
             "disciplinaId": self.disciplina.id if self.disciplina else self.disciplinaId,
             "periodoId": self.periodoId,
             "iraMin": self.iraMin,
-            'qntInteressados': len(self.interesses),
+            'horarios': [ h.dicioResumido() for h in self.horarios ],
             'disciplina': self.disciplina.dicioResumido() if self.disciplina else None,
         }
     
@@ -102,8 +98,7 @@ class Oferta(Db):
             'disciplina': self.disciplina.dicioUltraResumido() if self.disciplina else {'id':self.disciplinaId},
             'horarios': [ h.dicioResumido() for h in self.horarios ],
             'professor': self.professor,
-            'turma': self.turma,
-            'qntInteressados': len(self.interesses)
+            'turma': self.turma
         }
 
     async def get_horarios(self):
@@ -165,3 +160,18 @@ class Oferta(Db):
             t += f"{h} "
         t = t.strip()
         return t
+    
+    # ------------------------------- INTERESSES ------------------------------- #
+
+    # async def addInteresse(self, interesse):
+    #     if interesse.ofertaId != self.id: 
+    #         return None
+    #     else:
+    #         self.interesses.append(interesse)
+    #         self.interesses = sorted(self.interesses, key=lambda x: x.aluno.ira, reverse=True)
+    #         if len(self.interesses) > self.vagas:
+    #             self.iraMin = self.interesses[self.vagas-1].aluno.ira
+    #         else:
+    #             self.iraMin = self.interesses[-1].aluno.ira
+    #         await self.update_this({"iraMin": self.iraMin})
+    #         return interesse

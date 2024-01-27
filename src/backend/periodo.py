@@ -24,6 +24,7 @@ class Periodo(Db):
         cursoId:int=None,
         prismaOferta=None,
         prismaHorario=None,
+        prismaInteresse=None,
         interesses:[Interesse]=[],
     ):
         self.id = id
@@ -37,6 +38,7 @@ class Periodo(Db):
         self.cursoId = cursoId
         self.prismaOferta = prismaOferta
         self.prismaHorario = prismaHorario
+        self.prismaInteresse = prismaInteresse
         self.interesses = interesses
         super().__init__(prisma)
 
@@ -170,12 +172,23 @@ class Periodo(Db):
             if i.id == id:
                 return i
         return None
+    
+    def disponivel(self, aluno:Aluno, oferta:Oferta) -> bool:
+        return aluno.podePagar(oferta.disciplina) and oferta.vagas > 0
 
     def disponiveis(self, aluno:Aluno):
         # Função que retorna todas as ofertas disponíveis para o aluno
         #   - aluno: objeto Aluno
         #   - retorna: lista de objetos Oferta
-        return [ o for o in self.ofertas if aluno.podePagar(o.disciplina) and o.vagas > 0 ]
+        return [ oferta for oferta in self.ofertas if self.disponivel(aluno, oferta) ]
+
+    def getOfertas(self, aluno:Aluno):
+        ofs = []
+        for oferta in self.ofertas:
+            aux = oferta.dicioResumido()
+            aux['disponivel'] = self.disponivel(aluno, oferta)
+            ofs.append(aux)
+        return ofs
 
 
 
@@ -183,7 +196,29 @@ class Periodo(Db):
 
     # Função que retorna todas as ofertas que o aluno tem interesse
     def interessesAluno(self, aluno:Aluno): 
-        return [ o for o in self.ofertas if aluno.temInteresse(o) ]
+        return [ i for i in self.interesses if i.alunoId == aluno.id ]
+
+    def buscaInteresse(self, aluno:Aluno, oferta:Oferta):
+        for i in self.interesses:
+            if i.alunoId == aluno.id and i.ofertaId == oferta.id:
+                return i
+        return None
+    
+    def interessesOfertas(self, oferta:Oferta):
+        return [ i for i in self.interesses if i.ofertaId == oferta.id ]
+    
+    def temInteresse(self, aluno:Aluno, oferta:Oferta): 
+        return self.buscaInteresse(aluno, oferta) != None
+    
+    def atualizarIraMin(self, oferta:Oferta) -> float:
+        aux = self.interessesOfertas(oferta)
+        aux = sorted(aux, key=lambda i: i.aluno.ira)
+        if len(aux) > 0:
+            if len(aux) > oferta.vagas:
+                return aux[oferta.vagas-1].aluno.ira
+            else:
+                return aux[-1].aluno.ira
+        return 0.0
 
 
     # ------------------------------ Métodos de Classe ------------------------------ #

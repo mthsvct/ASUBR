@@ -1,0 +1,36 @@
+.conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    // height: 100%;
+    width: 100%;
+    padding: 100px 0;
+
+
+    .interesses {
+        width: 85%;
+        // border: 1px solid red;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .cabecalho {
+            width: 100%;
+            // border: 1px solid blue;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-bottom: 50px;
+        }
+
+        .listagem {
+            display: flex;
+            width: 80%;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+    }
+
+}

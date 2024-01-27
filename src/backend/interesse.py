@@ -62,5 +62,11 @@ class Interesse(Db):
             "ofertaId": self.ofertaId,
         }
     
+    def dicioDetalhada(self):
+        aux = self.dicioResumido()
+        if self.oferta:
+            aux['oferta'] = self.oferta.dicioResumido()
+        return aux
+    
     # ------------------------------ Métodos de Classe ------------------------------ #
 

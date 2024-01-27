@@ -220,5 +220,11 @@ class Periodo(Db):
                 return aux[-1].aluno.ira
         return 0.0
 
+    def buscaInteresseAlunoDisciplina(self, aluno:Aluno, disciplinaId:int):
+        for i in self.interesses:
+            if i.alunoId == aluno.id and i.oferta.disciplina.id == disciplinaId:
+                return i
+        return None
+
 
     # ------------------------------ Métodos de Classe ------------------------------ #

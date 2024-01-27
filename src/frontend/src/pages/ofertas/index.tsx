@@ -132,8 +132,6 @@ export default function Ofertas() {
     const { user, loading } = useContext(AuthContext);
     const [ carregando, setCarregando ] = useState(true);
 
-    console.log(loading)
-
     useEffect(
         () => {
             if (loading == false) {

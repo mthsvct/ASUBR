@@ -85,7 +85,7 @@ class Disciplina(Db, Uteis):
         return aux
     
     def dicioUltraResumido(self, aluno=None):
-        aux = {'id': self.id, 'name': self.name.title(), 'nivel': self.nivel}
+        aux = {'id': self.id, 'name': self.name, 'nivel': self.nivel}
         if aluno: aux['pagou'] = aluno.pagou(self)
         return aux
 

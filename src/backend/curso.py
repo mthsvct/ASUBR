@@ -255,7 +255,6 @@ class Curso(Db, Uteis):
             aluno = Aluno(prisma=self.db.aluno, prisma_matricula=self.db.matricula)
             await aluno.preenche_dados(a)
             aluno.matriculas = await self.get_matriculas(aluno)
-            aluno.interesses = await self.get_interesses(aluno)
             alunos.append(aluno)
         return alunos
 
@@ -345,6 +344,16 @@ class Curso(Db, Uteis):
         elif aluno.pagou(disciplina):
             retorno = {"status": 400, "message": "Aluno já pagou essa disciplina"}
         else:
+            interesse = self.atual.buscaInteresseAlunoDisciplina(aluno, disciplina.id)
+
+            if interesse != None:
+                await self.db.interesse.delete(where={"id": interesse.id})
+                oferta = self.atual.buscaId(interesse.ofertaId)
+                oferta.iraMin = self.atual.atualizarIraMin(oferta)
+                self.atual.interesses.remove(interesse)
+                await oferta.update_this({"iraMin": oferta.iraMin})
+                await interesse.delete_this()
+
             resultado = await aluno.matricular(disciplina, prisma=self.db.matricula, salvando=True)
             retorno = {"status": 200, "message": resultado.dicio()}
             self.alunos = await self.pegaAlunos() # Atualiza a lista de alunos

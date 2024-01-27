@@ -249,7 +249,7 @@ class MatriculaModelo(BaseModel):
     ano: int = 2021
     semestre: int = 1
 
-@app.post('/matricular', )
+@app.post('/matricular')
 async def matricular(matricula: MatriculaModelo):
     retorno = await curso.matricular(matricula.alunoId, matricula.disciplinaId, matricula.ano, matricula.semestre)
     if retorno['status'] == 200:
@@ -316,6 +316,14 @@ class InteresseModel(BaseModel):
 async def interessesAluno(alunoId:int):
     aluno = curso.buscaAlunoId(alunoId)
     return [ i.dicioResumido() for i in curso.atual.interessesAluno(aluno) ]
+
+@app.get('/interesses/aluno/{alunoId}/detalhada')
+async def interessesAlunoDetalhada(alunoId:int):
+    aluno = curso.buscaAlunoId(alunoId)
+    # lista = curso.atual.interessesAluno(aluno)
+    # return [ i.dicioDetalhada() for i in lista ]
+    return [ i.dicioDetalhada() for i in curso.atual.interessesAluno(aluno) ]
+
 
 @app.post('/interesse')
 async def interesse(interesse: InteresseModel):

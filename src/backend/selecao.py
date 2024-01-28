@@ -18,9 +18,19 @@ class Selecao(Db):
 
 
     # ------------------------------ Métodos Especiais ------------------------------ #
+    
     def info(self) -> str: return f"(Selecao: {self.aptidao} - t{self.oferta.turma} - {self.oferta.disciplina.name})"
     def __str__(self) -> str: return self.info()
     def __repr__(self) -> str: return self.info()
+
+    # ------------------------------ INFOS ------------------------------ #
+
+    def dicio(self):
+        return {
+            'id': self.id, 
+            'aptidao': self.aptidao,
+            'oferta': self.oferta.dicioResumido(),
+        }
 
     # ------------------------------ DB ------------------------------ #
 

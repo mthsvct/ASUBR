@@ -35,12 +35,22 @@ function HorariosOf({horarios}:{horarios: any}) {
 
 
 
-export function OfertaOf({oferta}:{oferta: any}) {
+export function OfertaOf({oferta, cor}:{oferta: any, cor?: string}) {
+    
+    if(cor === undefined) {
+        cor = "";
+    } 
+
+    console.log(cor)
+    
     return (
         <div className={styles.oferta}>
             <a href={`/oferta/${oferta.id}`} className={styles.linkagem}>
 
-                <div className={styles.name}>
+                <div 
+                    className={styles.name}
+                    style={{backgroundColor: cor}}
+                    >
                     <p>{oferta.disciplina.name}</p>
                 </div>
 

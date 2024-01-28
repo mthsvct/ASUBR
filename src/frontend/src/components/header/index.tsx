@@ -28,7 +28,7 @@ function Cabecalho({user}) {
             </div>
             <nav>
                 <div>
-                    <a href="#"><p>Combinações</p></a>
+                    <a href="/combinacoes"><p>Combinações</p></a>
                     <a href="/disciplinas"><p>Disciplinas</p></a>
                     <a href="/ofertas"><p>Ofertas</p></a>
                     <a href="/interesses"><p>Interesses</p></a>

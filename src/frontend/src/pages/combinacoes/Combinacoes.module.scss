@@ -1,0 +1,94 @@
+.conteudo {
+    width: 100%;
+    display: flex;
+    padding-top: 50px;
+    padding-bottom: 100px;
+    justify-content: center;
+    align-items: center;
+
+    .combinacoes {
+        display: flex;
+        flex-direction: column;
+        // border: 1px solid red;
+        width: 85%;
+
+        .cabecalho {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 75px;
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            button {
+                padding: 15px 50px;
+            }
+        }
+
+
+        .listagem {
+            // border: 1px solid red;
+
+            .combinacao {
+                
+                border-top: 1px solid black;
+
+                &:last-child {
+                    border-bottom: 1px solid black;
+                }
+
+                summary {
+                    font-size: 21pt;
+                    font-weight: bold;
+                    padding: 50px 25px;
+                    cursor: pointer;
+                    transition: var(--trans);
+                
+                    &:hover {
+                        background-color: black;
+                        color: var(--claro);
+                    }
+                
+                }
+
+                .infos {
+                    margin-top: 10px;
+                    margin-bottom: 50px;
+                    padding-left: 25px;
+                    padding-right: 25px;
+
+                    .horarios, .selecionadas {
+                        margin-bottom: 50px;
+
+                        h1 {
+                            font-size: 2rem;
+                            margin-bottom: 25px;
+                        }
+                    }
+
+
+                    .selecionadas {
+                        .lista {
+                            display: flex;
+                            flex-wrap: wrap;
+                            justify-content: center;
+
+                            & > div {
+                                margin-left: 15px;
+                                margin-right: 15px;
+                            }
+
+                        }
+                    }
+                }
+
+
+            }
+
+        }
+    }
+
+}

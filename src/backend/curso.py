@@ -356,6 +356,8 @@ class Curso(Db, Uteis):
 
             resultado = await aluno.matricular(disciplina, prisma=self.db.matricula, salvando=True)
             retorno = {"status": 200, "message": resultado.dicio()}
+            await self.ajustaNivel(aluno)
+            aluno.update_this({"nivel": aluno.nivel})
             self.alunos = await self.pegaAlunos() # Atualiza a lista de alunos
         return retorno
 
@@ -399,13 +401,15 @@ class Curso(Db, Uteis):
 
     
     async def runCombinacoes(self, aluno:Aluno):
-        listaDisponiveis = self.atual.disponiveis(aluno) # Gera lista de ofertas disponíveis ao aluno
-        await self.ajustaNivel(aluno) # Antes de gerar as combinações, ajusta o nível do aluno
-        listaSelecoes = self.calculaSelecoes(aluno, listaDisponiveis) # Calcula as seleções
-        return self.geraCombinacoes(aluno, lista=listaSelecoes) # Gera as combinações
+        if len(aluno.combinacoes) == 0:
+            listaDisponiveis = self.atual.disponiveis(aluno) # Gera lista de ofertas disponíveis ao aluno
+            await self.ajustaNivel(aluno) # Antes de gerar as combinações, ajusta o nível do aluno
+            listaSelecoes = self.calculaSelecoes(aluno, listaDisponiveis) # Calcula as seleções
+            return self.geraCombinacoes(aluno, lista=listaSelecoes) # Gera as combinações
+        else:
+            return aluno.combinacoes
 
-
-    def geraCombinacoes(self, aluno:Aluno, qnt:int=5, lista:[Selecao]=[]):
+    def geraCombinacoes(self, aluno:Aluno, qnt:int=3, lista:[Selecao]=[]):
         # Função que gera combinações de horários para o aluno.
         #   - aluno: aluno que terá as combinações geradas.
         #   - qnt: quantidade de combinações que serão geradas.

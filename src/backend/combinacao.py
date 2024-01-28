@@ -12,6 +12,13 @@ class Combinacao(Db):
     ):
         self.id = id
         self.aptidao = aptidao
+        self.cores = [
+            '#FFDBA2',
+            '#B7E1DE',
+            '#FF9494',
+            '#CBC2F7',
+            '#D4FF8D'
+        ]
         self.selecoes = selecoes
         super().__init__(prisma)
 
@@ -27,6 +34,24 @@ class Combinacao(Db):
     def __len__(self): return len(self.selecoes)
     def __getitem__(self, i): return self.selecoes[i]
     def __iter__(self): return iter(self.selecoes)
+
+
+    # ------------------------------ INFOS ------------------------------ #
+
+    def dicio(self, aluno=None):
+        selecoes = []
+        for index, s in enumerate(self.selecoes):
+            aux = s.dicio()
+            aux['cor'] = self.cores[index]
+            selecoes.append(aux)
+
+        return {
+            'id': self.id, 
+            'aptidao': self.aptidao,
+            'selecoes': selecoes
+        }
+
+
 
     # ------------------------------ DB ------------------------------ #
 
@@ -64,7 +89,6 @@ class Combinacao(Db):
     def calculaAptidao(self): 
         # Calcula a aptidão da combinação
         return sum([s.aptidao for s in self.selecoes])
-
 
     def chocaGeral(self, selecao:Selecao):
         # Verifica se a seleção choca com alguma outra da combinação

@@ -287,12 +287,16 @@ async def delete_matricula(alunoId:int, disciplinaId:int):
 async def ofertas(alunoId:int):
     aluno = curso.buscaAlunoId(alunoId)
     aux = curso.atual.getOfertas(aluno)
-    # aux = [ oferta.dicioResumido() for oferta in curso.atual.ofertas ]
     return [
         [ oferta for oferta in aux if oferta['disciplina']['nivel'] == nivel
         ] for nivel in range(1, curso.qntPeriodos+1) 
     ]
 
+@app.get('/ofertas/disponiveis/{alunoId}')
+async def ofertasDisponiveis(alunoId:int):
+    aluno = curso.buscaAlunoId(alunoId)
+    disponiveis = curso.atual.disponiveis(aluno)
+    return [ oferta.dicioResumido() for oferta in disponiveis ]
 
 @app.get('/oferta/{id}/aluno/{alunoId}')
 async def oferta(id:int, alunoId:int):
@@ -304,6 +308,12 @@ async def oferta(id:int, alunoId:int):
     aux['temInteresse'] = curso.atual.temInteresse(aluno, oferta)
     aux['qntInteressados'] = len(curso.atual.interessesOfertas(oferta))
     return aux
+
+
+
+
+
+
 
 
 # -------------- INTERESSES -------------- #
@@ -320,10 +330,7 @@ async def interessesAluno(alunoId:int):
 @app.get('/interesses/aluno/{alunoId}/detalhada')
 async def interessesAlunoDetalhada(alunoId:int):
     aluno = curso.buscaAlunoId(alunoId)
-    # lista = curso.atual.interessesAluno(aluno)
-    # return [ i.dicioDetalhada() for i in lista ]
     return [ i.dicioDetalhada() for i in curso.atual.interessesAluno(aluno) ]
-
 
 @app.post('/interesse')
 async def interesse(interesse: InteresseModel):
@@ -336,6 +343,28 @@ async def interesseDelete(alunoId:int, ofertaId:int):
     aluno = curso.buscaAlunoId(alunoId)
     oferta = curso.atual.buscaId(ofertaId)
     return await curso.deleteInteresse(aluno, oferta)
+
+
+
+
+
+
+
+
+# ------------------- COMBINAÇÕES ------------------- #
+
+@app.get('/combinacoes/aluno/{alunoId}')
+async def combinacoesAluno(alunoId:int):
+    aluno = curso.buscaAlunoId(alunoId)
+    aux = await curso.runCombinacoes(aluno)
+    return [ combinacao.dicio() for combinacao in aux ]
+
+
+
+
+
+
+
 
 # ------------------------------ Main ---------------------------------- #
 

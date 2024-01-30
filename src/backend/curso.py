@@ -256,6 +256,7 @@ class Curso(Db, Uteis):
             await aluno.preenche_dados(a)
             aluno.matriculas = await self.get_matriculas(aluno)
             alunos.append(aluno)
+            await self.get_interesses(aluno)
         return alunos
 
     async def get_matriculas(self, aluno:Aluno):
@@ -270,14 +271,10 @@ class Curso(Db, Uteis):
         return matriculas
 
     async def get_interesses(self, aluno:Aluno):
-        interesses = []
         for i in self.atual.interesses:
-            if aluno.id == i.alunoId:
-                oferta = self.atual.buscaId(i.ofertaId)
-                i.oferta = oferta
+            if i.alunoId == aluno.id:
                 i.aluno = aluno
-                interesses.append(i)
-        return interesses
+
 
     def buscaAluno(self, email: str) -> Aluno:
         retorno = None
@@ -460,6 +457,7 @@ class Curso(Db, Uteis):
             await inte.save()
             self.atual.interesses.append(inte)
             oferta.iraMin = self.atual.atualizarIraMin(oferta)
+            
             await oferta.update_this({"iraMin": oferta.iraMin})
             return { "status": 200, "message": inte.dicio(), "iraMin": oferta.iraMin }
         

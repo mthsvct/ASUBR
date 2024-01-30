@@ -195,29 +195,29 @@ class Periodo(Db):
     # ------------------------------ Métodos de Interesses ------------------------------ # 
 
     # Função que retorna todas as ofertas que o aluno tem interesse
-    def interessesAluno(self, aluno:Aluno): 
+    def interessesAluno(self, aluno:Aluno) -> [Interesse]: 
         return [ i for i in self.interesses if i.alunoId == aluno.id ]
 
-    def buscaInteresse(self, aluno:Aluno, oferta:Oferta):
+    def buscaInteresse(self, aluno:Aluno, oferta:Oferta) -> Interesse:
         for i in self.interesses:
             if i.alunoId == aluno.id and i.ofertaId == oferta.id:
                 return i
         return None
     
-    def interessesOfertas(self, oferta:Oferta):
+    def interessesOfertas(self, oferta:Oferta) -> [Interesse]:
         return [ i for i in self.interesses if i.ofertaId == oferta.id ]
     
-    def temInteresse(self, aluno:Aluno, oferta:Oferta): 
+    def temInteresse(self, aluno:Aluno, oferta:Oferta) -> bool: 
         return self.buscaInteresse(aluno, oferta) != None
     
     def atualizarIraMin(self, oferta:Oferta) -> float:
         aux = self.interessesOfertas(oferta)
-        aux = sorted(aux, key=lambda i: i.aluno.ira)
-        if len(aux) > 0:
-            if len(aux) > oferta.vagas:
-                return aux[oferta.vagas-1].aluno.ira
+        aux2 = sorted(aux, key=lambda i: i.aluno.ira, reverse=True)
+        if len(aux2) > 0:
+            if len(aux2) > oferta.vagas:
+                return aux2[oferta.vagas-1].aluno.ira
             else:
-                return aux[-1].aluno.ira
+                return aux2[-1].aluno.ira
         return 0.0
 
     def buscaInteresseAlunoDisciplina(self, aluno:Aluno, disciplinaId:int):

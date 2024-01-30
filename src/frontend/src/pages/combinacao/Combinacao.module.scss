@@ -1,0 +1,92 @@
+.conteudo {
+    width: 100%;
+    display: flex;
+    padding-top: 50px;
+    padding-bottom: 150px;
+    margin-bottom: 50px;
+    justify-content: center;
+    align-items: center;
+
+    .combinacao {
+        display: flex;
+        flex-direction: column;
+        width: 85%;
+
+        .cabecalho {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 75px;
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            button {
+                padding: 15px 50px;
+            }
+        }
+
+        .montador {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: flex-start;
+
+
+            .selecionadores {
+
+                // border: 1px solid red;
+                width: 20%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                // padding-top: 25px;
+
+                .selecionador {
+
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    
+    
+                    select {
+                        width: 100%;
+                        border: none;
+                        background:none;
+                        border: var(--borda);
+                        border-radius: 15px;
+                        margin-bottom: 25px;
+                        padding: 25px 10px;
+                        font-size: 16pt;
+                        cursor: pointer;
+    
+                        transition: var(--trans);
+    
+                        &:hover {
+                            scale: 1.05;
+                        }
+    
+                        option {
+                            font-size: 16pt;
+                            background-color: var(--claro);
+                        }
+    
+                    }
+    
+                }
+            }
+
+
+            .tabela {
+                // border: 1px solid blue;
+                width: 75%;
+            }
+            
+
+        }
+    }
+}

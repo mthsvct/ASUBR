@@ -3,27 +3,31 @@ import { Header } from "@/components/header";
 import { AuthContext } from "@/contexts/AuthContext";
 import Head from "next/head";
 import { useContext, useEffect, useState } from "react";
-import styles from './Combinacoes.module.scss';
-import { Button } from "@/components/button";
+import styles from './Combinacao.module.scss';
 import { api } from "@/services/apiClient";
-import { CombinacoesLists } from "./combinacao";
+import { Montador } from "./montador";
+import { Button } from "@/components/button";
+
+
+
+
 
 
 
 function Conteudo({user}){
 
-    const [ combinacoes, setCombinacoes ] = useState([]);
+    const [ ofertas, setOfertas ] = useState([]);
     const [ carregando, setCarregando ] = useState(true);
 
     useEffect(
         () => {
-            
             api.get(
-                `/combinacoes/aluno/${user.id}`
+                `/ofertas/disponiveis/${user.id}`
             ).then(
                 response => {
-                    setCombinacoes(response.data);
+                    setOfertas(response.data);
                     setCarregando(false);
+                    // console.log(response.data);
                 }
             ).catch(
                 error => {
@@ -31,26 +35,26 @@ function Conteudo({user}){
                 }
             )
         }, [user]
-    );
+    )
 
 
-    return carregando ? <h1>Carregando...</h1> : (
-
+    return (
         <div className={styles.conteudo}>
-            <div className={styles.combinacoes}>
+            <div className={styles.combinacao}>
                 <div className={styles.cabecalho}>
-                    <h1>Combinações</h1>
-                    <Button linkagem="/combinacao">Criar nova seleção manual</Button>
+                    <h1>Monte sua combinação:</h1>
+                    <Button>Salvar</Button>
                 </div>
-                <CombinacoesLists combinacoes={combinacoes} user={user}/>
+                <Montador ofertas={ofertas} user={user} setOfertas={setOfertas} />
             </div>
         </div>
-        
     )
 }
 
 
-export default function Combinacoes() {
+
+
+export default function Combinacao() {
 
     const { user, loading } = useContext(AuthContext);
     const [ carregando, setCarregando ] = useState(true);

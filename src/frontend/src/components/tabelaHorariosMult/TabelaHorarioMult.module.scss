@@ -1,6 +1,15 @@
 .tabela {
 
     font-size: 20pt;
+    display: flex;
+    flex-direction: column;
+    // justify-content: flex-end;
+    align-items: flex-end;
+
+    // p {
+    //     font-size: 17pt;
+    //     margin-top: 15px;
+    // }
     
     table {
         border-collapse: collapse;
@@ -14,24 +23,82 @@
             font-weight: 800;
 
             word-break: break-all;
-            word-wrap: break-word;
+
+            // word-wrap: break-word;
 
         }
 
         td {
             width: 100px;
+            height: 50px;
             text-align: center;
             border: var(--borda);
-            padding: 2px 5px;
 
-            p {
-                font-weight: 600;
-                font-size: 12pt;
+            a {
+                display: flex;
+                // border: 1px solid red;
+                width: 100%;
+                height: 100%;
+                // margin: 0;
+                justify-content: center;
+                align-items: center;
+
+                p {
+                    font-weight: 600;
+                    font-size: 11.5pt;
+                }
+
+                
             }
+
         }
 
         .temAula {
-            padding: 15px;
+            transition: var(--trans);
+
+            .conteudoP {
+                display: block;
+            }
+
+            .inteiro {
+                display: none;
+            }
+
+            &:hover {
+                scale: 1.5;
+                margin: 10px;
+                
+                width: 350px;
+
+                a {
+                    border: 2px solid black;
+                }
+
+                p {
+                    font-size: 9pt;
+                }
+
+                .conteudoP {
+                    display: none;
+                }
+    
+                .inteiro {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    svg {
+                        width: 25px;
+                        height: 25px;
+                        margin-left: 10px;
+                        margin-right: 10px;
+                    }
+
+                    span {
+                        margin-right: 10px;
+                    }
+                }
+            }
         }
     }
 }

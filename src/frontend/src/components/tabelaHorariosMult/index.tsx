@@ -1,5 +1,6 @@
 import { OfertaCompleta } from "@/interfaces/oferta";
 import styles from './TabelaHorarioMult.module.scss';
+import { GoLinkExternal } from "react-icons/go";
 
 export function TabelaHorarioMult({selecoes}) {
     let i = 0;
@@ -23,11 +24,13 @@ export function TabelaHorarioMult({selecoes}) {
                 horario => {
                     const dia = horario.dia - 1;
                     const hora = horarios.indexOf(horario.hora);
-                    matriz[hora+1][dia] = `${selecao.oferta.disciplina.name};${selecao.cor}`;
+                    matriz[hora+1][dia] = `${selecao.oferta.disciplina.name};${selecao.cor};${selecao.oferta.id}`;
                 }
             )
         }
     );
+
+    // console.log(selecoes);
 
     return (
         <div className={styles.tabela}>
@@ -59,14 +62,36 @@ export function TabelaHorarioMult({selecoes}) {
                                     
                                     let disciplina = item.split(';')[0];
                                     let cor = item.split(';')[1];
-                                    
+                                    let id = item.split(';')[2];
+
                                     return (
                                         <td 
                                             key={index} 
                                             className={styles.temAula}
-                                            style={{backgroundColor: cor}}
+                                            style={ {backgroundColor: cor} }
+                                            title={`${disciplina}`} // Adicione esta linha
                                             >
-                                            <p>{disciplina}</p>
+                                            <a 
+                                                href={`/oferta/${id}`} 
+                                                target="_blank" 
+                                                rel="noopener noreferrer"
+                                            >
+
+                                                <p className={styles.conteudoP}>
+                                                    {
+                                                        disciplina.length > 16 ? 
+                                                            `${disciplina.substring(0, 16)}...` : 
+                                                            disciplina  
+                                                    }
+                                                </p>
+
+                                                <p className={styles.inteiro}>
+                                                    <GoLinkExternal />
+                                                    <span>
+                                                        {disciplina}
+                                                    </span>
+                                                </p>
+                                            </a>
                                         </td>
                                     )
 
@@ -77,6 +102,9 @@ export function TabelaHorarioMult({selecoes}) {
                     })}
                 </tbody>
             </table>
+            {
+                selecoes.length == 0 ? <p>*Nenhuma seleção feita!</p> : <p></p>
+            }
         </div>
     )
 

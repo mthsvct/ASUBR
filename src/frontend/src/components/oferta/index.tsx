@@ -40,8 +40,6 @@ export function OfertaOf({oferta, cor}:{oferta: any, cor?: string}) {
     if(cor === undefined) {
         cor = "";
     } 
-
-    console.log(cor)
     
     return (
         <div className={styles.oferta}>

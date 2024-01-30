@@ -26,9 +26,14 @@
 
         .listagem {
             display: flex;
-            width: 80%;
+            width: 100%;
             flex-direction: row;
-            justify-content: space-between;
+            justify-content: center;
+
+            & > div {
+                margin: 0 10px;
+            }
+
         }
 
     }

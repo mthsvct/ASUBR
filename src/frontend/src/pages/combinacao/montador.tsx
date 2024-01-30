@@ -60,6 +60,48 @@ function vazio(selecionadas) {
     return true;
 }
 
+function tamanho(selecionadas) {
+    let i;
+    let n = 0;
+    for(i=1; i<=5; i++) {
+        if(selecionadas[i] != null) {
+            n++;
+        }
+    }
+    return n;
+}
+
+
+function choca(oferta1, oferta2) {
+    // self.dia == horario.dia and self.hora == horario.hora
+    for(let i=0; i<oferta1.horarios.length; i++) {
+        for(let j=0; j<oferta2.horarios.length; j++) {
+            if(oferta1.horarios[i].dia == oferta2.horarios[j].dia && oferta1.horarios[i].hora == oferta2.horarios[j].hora) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
+function chocaAlgum(selecionadas, oferta) {
+    let i;
+    let tam = tamanho(selecionadas);
+
+    for(i=0; i<=tam; i++) { //  Estou percorrendo o selecionadas
+        if(selecionadas[i] != null) {
+            if(choca(selecionadas[i], oferta)) {
+                return true;
+            } 
+        }
+    }
+    return false;
+}
+
+
+
+
 
 function Selecionador({ofertas, selecionadas, setSelecionadas, i, cor}) {
 
@@ -67,6 +109,7 @@ function Selecionador({ofertas, selecionadas, setSelecionadas, i, cor}) {
 
     useEffect(() => {
         setSelecionadas({...selecionadas, [i]: selecionada});
+        
     }, [selecionada])
 
     return (
@@ -92,6 +135,16 @@ function Selecionador({ofertas, selecionadas, setSelecionadas, i, cor}) {
                                         disabled
                                     >
                                         {oferta.disciplina.name} - Turma {oferta.turma}
+                                    </option>
+                                )
+                            } else if(chocaAlgum(selecionadas, oferta)) {
+                                return (
+                                    <option 
+                                        key={index} 
+                                        value={oferta.id} 
+                                        disabled
+                                    >
+                                        (Choque de Horário) - {oferta.disciplina.name} - Turma {oferta.turma}
                                     </option>
                                 )
                             } else {

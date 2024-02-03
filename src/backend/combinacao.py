@@ -7,11 +7,15 @@ class Combinacao(Db):
         self,
         id:int=None,
         aptidao:float=0.0,
+        alunoId:int=None,
         selecoes:[Selecao] = [],
+        manual:bool=False,
         prisma=None
     ):
         self.id = id
         self.aptidao = aptidao
+        self.alunoId = alunoId
+        self.selecoes = selecoes
         self.cores = [
             '#FFDBA2',
             '#B7E1DE',
@@ -19,15 +23,12 @@ class Combinacao(Db):
             '#CBC2F7',
             '#D4FF8D'
         ]
-        self.selecoes = selecoes
+        self.manual = manual
         super().__init__(prisma)
 
     # ------------------------------ Métodos Especiais ------------------------------ #
     def info(self):
-        r = ''
-        for s in self.selecoes:
-            r += f'{s.info()}\n'
-        return r
+        return f"(Combinacao: {self.id} - {self.manual})"
     
     def __str__(self): return self.info()
     def __repr__(self): return self.info()
@@ -48,6 +49,7 @@ class Combinacao(Db):
         return {
             'id': self.id, 
             'aptidao': self.aptidao,
+            'manual': self.manual,
             'selecoes': selecoes
         }
 
@@ -58,8 +60,25 @@ class Combinacao(Db):
     async def preenche_dados(self, objeto=None):
         await super().preenche_dados(objeto)
         self.id = self.data.id
+        self.alunoId = self.data.alunoId
         self.aptidao = self.data.aptidao
-        self.selecoes = self.data.selecoes
+    
+
+    async def save(self):
+
+        aux = await self.create(
+            {
+                "alunoId": self.alunoId,
+                "aptidao": self.aptidao,
+            }
+        )
+        self.id = aux.id
+        
+        for i in self.selecoes:
+            i.combinacaoId = self.id
+            await i.save()
+        
+        return aux
 
     # ------------------------------ Métodos ------------------------------ #
 

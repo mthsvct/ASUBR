@@ -10,7 +10,8 @@ class Interesse(Db):
         ofertaId:int=None,
         aluno=None,
         oferta=None,
-        prisma=None
+        prisma=None,
+        manual:bool=False
     ):
         self.id = id
         self.alunoId = alunoId

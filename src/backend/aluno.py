@@ -36,6 +36,7 @@ class Aluno(Db):
         self.cursoId = cursoId
         self.prisma = prisma
         self.prisma_matricula = prisma_matricula
+        self.gerado = False
         super().__init__(prisma)
 
     # ------------------------------ Métodos Especiais ------------------------------ #
@@ -306,7 +307,7 @@ class Aluno(Db):
             raise Exception("Matricula não encontrada")
         
 
-    # ------------------------------ INTERESSES ------------------------------ #
+    # ------------------------------ INTERESSES ------------------------------ # 
         
     # # Função que retorna todos os interesses do aluno
     # def temInteresse(self, oferta): 
@@ -314,3 +315,8 @@ class Aluno(Db):
     #         if interesse.oferta.id == oferta.id:
     #             return True
     #     return False
+    # ------------------------------ INTERESSES ------------------------------ #
+        
+    def temNaoManuais(self):
+        # Função que verifica se o aluno tem disciplinas não manuais
+        return any([not c.manual for c in self.combinacoes])

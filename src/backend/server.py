@@ -356,14 +356,19 @@ async def interesseDelete(alunoId:int, ofertaId:int):
 @app.get('/combinacoes/aluno/{alunoId}')
 async def combinacoesAluno(alunoId:int):
     aluno = curso.buscaAlunoId(alunoId)
-    aux = await curso.runCombinacoes(aluno)
-    return [ combinacao.dicio() for combinacao in aux ]
+    if not aluno.gerado:
+        await curso.runCombinacoes(aluno)
+    return [ combinacao.dicio() for combinacao in aluno.combinacoes ]
 
+class CombinacaoModel(BaseModel):
+    alunoId: int
+    selecoes: List[int] # Lista de ids das ofertas
 
-
-
-
-
+@app.post('/combinacoes/add')
+async def addCombinacao(combinacoes: CombinacaoModel):
+    aluno = curso.buscaAlunoId(combinacoes.alunoId)
+    ofs = [ curso.atual.buscaId(ofertaId) for ofertaId in combinacoes.selecoes ]
+    return await curso.addCombinacao(aluno, ofs)
 
 
 # ------------------------------ Main ---------------------------------- #

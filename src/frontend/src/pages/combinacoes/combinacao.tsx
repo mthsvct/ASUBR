@@ -48,7 +48,9 @@ function Selecionadas({combinacao}) {
 function Combinacao({combinacao, user, index}){
     return (
         <details className={styles.combinacao}>
-            <summary>Combinação {index}</summary>
+            <summary>Combinação {index} {
+                combinacao.manual ? "- *Manual" : ""
+            } </summary>
             
             <div className={styles.infos}>
                 <Horarios combinacao={combinacao} />

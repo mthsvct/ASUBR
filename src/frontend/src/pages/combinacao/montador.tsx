@@ -4,14 +4,6 @@ import { OfertaOf } from '@/components/oferta';
 import { TabelaHorarioMult } from '@/components/tabelaHorariosMult';
 
 
-function objetoVazio(n) {
-    let i;
-    const obj = {};
-    for(i=1; i<=n; i++) {
-        obj[i] = null;
-    }
-    return obj;
-}
 
 
 function buscaOferta(id, ofertas) {
@@ -50,15 +42,6 @@ function transformaSelecoes(selecionadas, cores) {
     return selecoes;
 }
 
-function vazio(selecionadas) {
-    let i;
-    for(i=1; i<=5; i++) {
-        if(selecionadas[i] != null) {
-            return false;
-        }
-    }
-    return true;
-}
 
 function tamanho(selecionadas) {
     let i;
@@ -123,7 +106,7 @@ function Selecionador({ofertas, selecionadas, setSelecionadas, i, cor}) {
                     selecionada != null ? {backgroundColor: cor} : {}
                 }
             >
-                <option value={null}>Selecione uma oferta {i}</option>
+                <option value={null}>Selecione uma oferta {i}:</option>
                 {
                     ofertas.map(
                         (oferta, index) => {
@@ -169,9 +152,9 @@ function Selecionador({ofertas, selecionadas, setSelecionadas, i, cor}) {
 
 }
 
-export function Montador({ofertas, user, setOfertas}) {
+export function Montador({ofertas, user, setOfertas, selecionadas, setSelecionadas}) {
 
-    const [ selecionadas, setSelecionadas ] = useState(objetoVazio(5));
+    
     const [ carregando, setCarregando ] = useState(true);
     const [ selecoes, setSelecoes ] = useState([]);
 
@@ -212,7 +195,7 @@ export function Montador({ofertas, user, setOfertas}) {
             </div>
             
             <div className={styles.tabela}>
-                    <TabelaHorarioMult selecoes={selecoes}/>
+                <TabelaHorarioMult selecoes={selecoes}/>
             </div>
         </form>
     )

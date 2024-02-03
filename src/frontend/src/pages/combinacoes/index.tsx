@@ -24,6 +24,7 @@ function Conteudo({user}){
                 response => {
                     setCombinacoes(response.data);
                     setCarregando(false);
+                    console.log(response.data);
                 }
             ).catch(
                 error => {

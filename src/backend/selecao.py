@@ -8,12 +8,16 @@ class Selecao(Db):
         self,
         id:int=None,
         aptidao:float=None,
+        ofertaId:int=None,
         oferta:Oferta=None,
-        prisma=None
+        prisma=None,
+        combinacaoId:int=None
     ) -> None:
         self.id = id
         self.aptidao = aptidao
+        self.ofertaId = ofertaId
         self.oferta = oferta
+        self.combinacaoId = combinacaoId
         super().__init__(prisma)
 
 
@@ -38,13 +42,14 @@ class Selecao(Db):
         await super().preenche_dados(objeto)
         self.id = self.data.id
         self.aptidao = self.data.aptidao
-        self.oferta = self.data.oferta
+        self.ofertaId = self.data.ofertaId
 
     async def save(self):
         return await self.create(
             {
                 'aptidao': self.aptidao,
-                'ofertaId': self.oferta.id
+                'combinacaoId': self.combinacaoId,
+                'ofertaId': self.ofertaId
             }
         )
     

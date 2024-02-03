@@ -101,7 +101,6 @@ class Curso(Db, Uteis):
     async def salvarDisciplinas(self):
         for d in self.disciplinas: 
             await d.save()
-            print(f"Disciplina {d.name.title()} salva com sucesso!")
 
     async def getDisciplinaDb(self):
         discs = await self.db.disciplina.find_many()
@@ -257,6 +256,8 @@ class Curso(Db, Uteis):
             aluno.matriculas = await self.get_matriculas(aluno)
             alunos.append(aluno)
             await self.get_interesses(aluno)
+            await self.get_combinacoes(aluno)
+            # print(aluno.combinacoes)
         return alunos
 
     async def get_matriculas(self, aluno:Aluno):
@@ -274,6 +275,33 @@ class Curso(Db, Uteis):
         for i in self.atual.interesses:
             if i.alunoId == aluno.id:
                 i.aluno = aluno
+
+    async def get_selecoes_combinacao(self, combinacao:Combinacao) -> [Selecao]:
+        selAux = await self.db.selecao.find_many(where={"combinacaoId": combinacao.id})
+        selecoes = []
+        for s in selAux:
+            selecao = Selecao(prisma=self.db.selecao)
+            await selecao.preenche_dados(s)
+            oferta = self.atual.buscaId(selecao.ofertaId)
+            selecao.oferta = oferta
+            selecoes.append(selecao)
+        return selecoes
+
+    async def get_combinacoes(self, aluno:Aluno):
+        aux = await self.db.combinacao.find_many(where={"alunoId": aluno.id})
+        for i in aux:
+
+            comb = Combinacao(
+                prisma=self.db.combinacao, 
+                manual=True, 
+                alunoId=aluno.id,
+                selecoes=[]
+            )
+
+            await comb.preenche_dados(i)
+            selecoes = await self.get_selecoes_combinacao(combinacao=comb)
+            comb.selecoes = selecoes
+            aluno.combinacoes.append(comb)
 
 
     def buscaAluno(self, email: str) -> Aluno:
@@ -393,25 +421,27 @@ class Curso(Db, Uteis):
 
     def calculaSelecoes(self, aluno:Aluno, lista:[Oferta]):
         # Esta função retorna uma lista de Selecoes. Selecao com cada aptidão calculada para o aluno.
-        aux = [ Selecao(oferta=x, aptidao=self.aptidao(x, aluno), prisma=self.db.selecao) for x in lista ]
+        aux = [ Selecao(oferta=x, ofertaId=x.id, aptidao=self.aptidao(x, aluno), prisma=self.db.selecao) for x in lista ]
         return sorted(aux, key=lambda x: x.aptidao, reverse=True)
 
-    
+    async def criaCombinacoes(self, aluno:Aluno):
+        listaDisponiveis = self.atual.disponiveis(aluno) # Gera lista de ofertas disponíveis ao aluno
+        await self.ajustaNivel(aluno) # Antes de gerar as combinações, ajusta o nível do aluno
+        listaSelecoes = self.calculaSelecoes(aluno, listaDisponiveis) # Calcula as seleções
+        return self.geraCombinacoes(aluno, lista=listaSelecoes) # Gera as combinações
+
     async def runCombinacoes(self, aluno:Aluno):
-        if len(aluno.combinacoes) == 0:
-            listaDisponiveis = self.atual.disponiveis(aluno) # Gera lista de ofertas disponíveis ao aluno
-            await self.ajustaNivel(aluno) # Antes de gerar as combinações, ajusta o nível do aluno
-            listaSelecoes = self.calculaSelecoes(aluno, listaDisponiveis) # Calcula as seleções
-            return self.geraCombinacoes(aluno, lista=listaSelecoes) # Gera as combinações
-        else:
-            return aluno.combinacoes
+        if aluno.gerado == False:
+            novo = await self.criaCombinacoes(aluno)
+            aluno.gerado = True
 
     def geraCombinacoes(self, aluno:Aluno, qnt:int=3, lista:[Selecao]=[]):
         # Função que gera combinações de horários para o aluno.
         #   - aluno: aluno que terá as combinações geradas.
         #   - qnt: quantidade de combinações que serão geradas.
         #   - retorna uma lista de combinações.
-        aluno.combinacoes = [ Combinacao(selecoes=[]) for i in range(qnt)  ]
+        novo = [ Combinacao(selecoes=[], alunoId=aluno.id) for i in range(qnt)  ]
+        aluno.combinacoes += novo
         for index, combinacao in enumerate(aluno.combinacoes):
             if index > 0: 
                 self.combina(combinacao, lista)  
@@ -437,6 +467,7 @@ class Curso(Db, Uteis):
             i += 1
 
     # ------------------------------ INTERESSES ------------------------------ #
+    
     
     async def addInteresse(self, aluno:Aluno, oferta:Oferta):
         aux = self.atual.interessesAluno(aluno)
@@ -477,8 +508,34 @@ class Curso(Db, Uteis):
                 'qntNova': len(qntNova)
             }
         except Exception as e:
-            print(e)
             raise HTTPException(
                 status_code=404, 
                 detail="Não foi possível deletar o interesse."
             )
+        
+
+    # ------------------------------ COMBINAÇÕES ------------------------------ #
+        
+    async def addCombinacao(self, aluno:Aluno, ofertas:[Oferta]):
+        # Transforma as ofertas em seleções
+        lista = self.calculaSelecoes(aluno, ofertas)
+
+        # Gera as combinações
+        combinacao = Combinacao(
+                alunoId=aluno.id,
+                selecoes=lista, 
+                prisma=self.db.combinacao, 
+                manual=True
+            )
+        
+        combinacao.aptidao = combinacao.calculaAptidao()
+        combinacao.manual = True
+        aluno.combinacoes.append(combinacao)
+        await combinacao.save()
+        return combinacao.dicio()
+
+
+
+
+
+

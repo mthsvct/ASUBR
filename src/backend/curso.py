@@ -441,14 +441,14 @@ class Curso(Db, Uteis):
         #   - qnt: quantidade de combinações que serão geradas.
         #   - retorna uma lista de combinações.
         novo = [ Combinacao(selecoes=[], alunoId=aluno.id) for i in range(qnt)  ]
-        aluno.combinacoes += novo
-        for index, combinacao in enumerate(aluno.combinacoes):
+        aluno.combinacoesGeradas = novo
+        for index, combinacao in enumerate(aluno.combinacoesGeradas):
             if index > 0: 
                 self.combina(combinacao, lista)  
             else: 
                 self.combinaMaior(combinacao, lista)
-        aluno.combinacoes = sorted(aluno.combinacoes, key=lambda x: x.aptidao, reverse=True)
-        return aluno.combinacoes    
+        aluno.combinacoesGeradas = sorted(aluno.combinacoesGeradas, key=lambda x: x.aptidao, reverse=True)
+        return aluno.combinacoesGeradas    
             
 
     def combina(self, combinacao:Combinacao, lista:[Selecao]):

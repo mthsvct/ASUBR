@@ -358,7 +358,11 @@ async def combinacoesAluno(alunoId:int):
     aluno = curso.buscaAlunoId(alunoId)
     if not aluno.gerado:
         await curso.runCombinacoes(aluno)
-    return [ combinacao.dicio() for combinacao in aluno.combinacoes ]
+    return {
+        'manuais': [ combinacao.dicio() for combinacao in aluno.combinacoes ],
+        'automaticas': [ combinacao.dicio() for combinacao in aluno.combinacoesGeradas ]
+    }
+    # return [ combinacao.dicio() for combinacao in aluno.combinacoes ]
 
 class CombinacaoModel(BaseModel):
     alunoId: int

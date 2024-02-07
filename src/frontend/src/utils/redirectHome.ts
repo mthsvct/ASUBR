@@ -9,7 +9,7 @@ export function redirectHome<P>(fn: GetServerSideProps<P>) {
 		if(cookies['@nextauth.token']){
 			return {
 				redirect:{
-					destination: '/dashboard',
+					destination: '/disciplinas',
 					permanent: false,
 				}
 			}

@@ -6,7 +6,9 @@ import { AuthContext } from "@/contexts/AuthContext";
 import { Button } from "../button";
 import { MdClose } from 'react-icons/md';
 
-function Cabecalho({user}) {
+function Cabecalho({user, signOut}) {
+
+    
 
     function aparecerMenuPerfil(e) {
         const menuPerfil = document.getElementById('menuPerfil') as HTMLDivElement;
@@ -17,12 +19,10 @@ function Cabecalho({user}) {
         }
     }
 
-
-
     return (
         <header className={styles.cabecalho}>
             <div className={styles.logo}>
-                <a href="/dashboard">
+                <a href="/disciplinas">
                     <Logo justName={true} />
                 </a>
             </div>
@@ -55,11 +55,11 @@ function Cabecalho({user}) {
                 </div>
                 
                 <div className={styles.botoes}>
-                    <Button linkagem='/check' >Check</Button>
+                    {/* <Button linkagem='/check' >Check</Button>
                     <Button linkagem='/dashboard' >Dashboard</Button>
-                    <Button linkagem='/perfil' >Perfil</Button>
+                    <Button linkagem='/perfil' >Perfil</Button> */}
                     <Button linkagem='/sobre' >Sobre</Button>
-                    <Button linkagem='/sair' >Sair</Button>
+                    <Button onClick={signOut} linkagem="">Sair</Button>
                 </div>
 
             </div>
@@ -71,7 +71,7 @@ function Cabecalho({user}) {
 
 
 export function Header() {
-    const { user, loading } = useContext(AuthContext);
+    const { user, loading, signOut } = useContext(AuthContext);
     const [ carregando, setCarregando ] = useState(true);
 
     useEffect(
@@ -83,7 +83,7 @@ export function Header() {
     if (carregando) {
         return <p>Carregando...</p>
     } else {
-        return (<Cabecalho user={user} />)
+        return (<Cabecalho user={user} signOut={signOut} />)
     }
 
 }

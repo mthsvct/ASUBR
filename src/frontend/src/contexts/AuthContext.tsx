@@ -134,7 +134,7 @@ export function AuthProvider({children}:AuthProviderProps){
             toast.success("Logado com Sucesso! :D");
 
             // Redirecionar o usuário para o dashboard (página de ultimos pedidos).
-            Router.push('/dashboard');
+            Router.push('/disciplinas');
 
         } catch(err) {
             // Caso de erro, não fazer nada.

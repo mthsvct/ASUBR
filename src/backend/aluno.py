@@ -37,6 +37,7 @@ class Aluno(Db):
         self.prisma = prisma
         self.prisma_matricula = prisma_matricula
         self.gerado = False
+        self.combinacoesGeradas = []
         super().__init__(prisma)
 
     # ------------------------------ Métodos Especiais ------------------------------ #

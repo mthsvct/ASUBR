@@ -63,25 +63,46 @@ function Combinacao({combinacao, user, index}){
 }
 
 
-
-export function CombinacoesLists({combinacoes, user}){
-    
+function ListCombs({combinacoes, user, inicio}){
     return (
-        <div className={styles.listagem}>
+        <>
             {
                 combinacoes.map(
                     (combinacao, index) => {
+                        inicio = inicio + 1;
                         return ( 
                             <Combinacao 
                                 key={index}
                                 combinacao={combinacao} 
                                 user={user} 
-                                index={index+1} 
+                                index={inicio} 
                                 /> 
                         )
                     }
                 )
             }
+        </>
+    )
+}
+
+
+
+
+export function CombinacoesLists({combinacoes, user}){
+    
+    return (
+        <div className={styles.listagem}>
+            <ListCombs 
+                combinacoes={combinacoes.manuais} 
+                user={user} 
+                inicio={0}
+                />
+                
+            <ListCombs 
+                combinacoes={combinacoes.automaticas} 
+                user={user} 
+                inicio={combinacoes.manuais.length}
+                />
         </div>
     )
 }

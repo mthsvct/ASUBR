@@ -3,5 +3,6 @@ __pycache__/
 src/backend/curso.json
 *.ipynb
 prox.py
+antigos/
 
 

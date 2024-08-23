@@ -8,7 +8,6 @@ import src.repositories as rp
 
 async def login(ld: sc.AlunoLogin, db:Prisma) -> sc.Logado:
     aluno = await rp.Alunos(db).findByEmail(ld.email) # Buscar o aluno pelo o email;
-    print(f'\n\n{aluno} - {verificar_hash(ld.password, aluno.password)} - Não: {not verificar_hash(ld.password, aluno.password)}\n\n')
     if not verificar_hash(ld.password, aluno.password): # Verificar se a senha está correta;
         raise HTTPException(status_code=401, detail="Credenciais incorretos.") # Se não, retornar um erro 401;
     token = criar_access_token({"sub": aluno.email}) # Se sim, criar um token de acesso;

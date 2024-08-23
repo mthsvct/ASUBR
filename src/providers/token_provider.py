@@ -3,13 +3,17 @@ from datetime import datetime, timedelta
 from dotenv import load_dotenv
 import os
 
+
 load_dotenv()
+
 
 SECRET_KEY = os.getenv("SECRET_KEY_HASH")
 ALGORITHM = os.getenv("ALGORITHM")
 
+
 # Deixar uns 3 dias para expirar
 EXPIRES_IN_MINUTE = 60 * 24 * 3
+
 
 def criar_access_token(data:dict):
     dados = data.copy()

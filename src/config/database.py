@@ -2,7 +2,6 @@ from dotenv import load_dotenv
 from prisma import Prisma
 from fastapi import HTTPException
 
-
 load_dotenv()
 
 prisma = Prisma()

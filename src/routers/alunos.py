@@ -2,6 +2,7 @@ from typing import List
 from fastapi import APIRouter, HTTPException, status, Depends
 from prisma import Prisma
 
+from src.providers.autenticado import autenticado
 from src.config.database import getDb
 import src.repositories as rp
 import src.schemas as sc
@@ -22,7 +23,12 @@ async def aluno(id: int, db: Prisma = Depends(getDb)):
 async def alunos(db: Prisma = Depends(getDb)):
     return await rp.Alunos(db).getAll()
 
+
 @router.post('/login', response_model=sc.Logado)
 async def login(loginData: sc.AlunoLogin, db:Prisma=Depends(getDb)):
-    print(f'\n\n{loginData}\n\n')
     return await ss.login(loginData, db)
+
+
+@router.get('/me', response_model=sc.AlunoSemSenha)
+async def me(aluno : sc.Aluno=Depends(autenticado), db:Prisma=Depends(getDb)):
+    return aluno

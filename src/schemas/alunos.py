@@ -7,13 +7,12 @@ from typing import ForwardRef, Optional, List
 class AlunoLogin(BaseModel):
     email : str
     password : str
-    
+
     class Config:
         orm_mode = True
 
 
 class AlunoSimples(BaseModel):
-
     id : Optional[int]
     email : str
     name : str
@@ -21,9 +20,7 @@ class AlunoSimples(BaseModel):
 
     class Config:
         orm_mode = True
-
-
-
+        
 
 class AlunoSemSenha(BaseModel):
     id : Optional[int]
@@ -40,13 +37,12 @@ class AlunoSemSenha(BaseModel):
 
 
 class Aluno(BaseModel):
-
     id : Optional[int]
     email : str
     password : str
     name : str
     matricula : str
-    nivel : Optional[int]
+    nivel : Optional[int] = 1
     ira : Optional[float]
     cursoId : Optional[int] = 1
 
